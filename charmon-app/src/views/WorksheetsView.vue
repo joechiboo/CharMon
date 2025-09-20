@@ -23,20 +23,11 @@
         <div class="options-grid">
           <div class="form-group">
             <label>格式樣式</label>
-            <div class="radio-group">
-              <label class="radio-item">
-                <input type="radio" v-model="gridType" value="tian" />
-                <span>田字格</span>
-              </label>
-              <label class="radio-item">
-                <input type="radio" v-model="gridType" value="mi" />
-                <span>米字格</span>
-              </label>
-              <label class="radio-item">
-                <input type="radio" v-model="gridType" value="simple" />
-                <span>簡單格</span>
-              </label>
-            </div>
+            <select v-model="gridType">
+              <option value="tian">田字格</option>
+              <option value="mi">米字格</option>
+              <option value="simple">簡單格</option>
+            </select>
           </div>
 
           <div v-if="!isGameMode" class="form-group">
@@ -44,6 +35,15 @@
               <input type="checkbox" v-model="showZhuyin" />
               <span>顯示注音</span>
             </label>
+          </div>
+
+          <div v-if="!isGameMode" class="form-group">
+            <label>字型</label>
+            <select v-model="selectedFont">
+              <option value="DFKai-SB">標楷體</option>
+              <option value="Microsoft YaHei">微軟正黑體</option>
+              <option value="SimSun">宋體</option>
+            </select>
           </div>
         </div>
 
@@ -125,6 +125,7 @@ const getDefaultRepeatCount = () => {
 const charsPerLine = ref(getDefaultCharsPerLine())
 const repeatCount = ref(getDefaultRepeatCount())
 const showZhuyin = ref(true) // 預設顯示注音
+const selectedFont = ref('DFKai-SB') // 預設標楷體
 const hasPreview = ref(false)
 const previewCanvas = ref<HTMLCanvasElement>()
 
@@ -615,7 +616,7 @@ const generatePreview = async () => {
 
           // 在字符格中繪製浮水印
           ctx.fillStyle = 'rgba(150, 150, 150, 0.6)'
-          ctx.font = `${cellSize * 0.6}px 'Microsoft YaHei', Arial, sans-serif`
+          ctx.font = `${cellSize * 0.6}px '${selectedFont.value}', 'Microsoft YaHei', Arial, sans-serif`
           ctx.textAlign = 'center'
           ctx.textBaseline = 'middle'
           ctx.fillText(char, charX + cellSize/2, rowY + cellSize/2)
@@ -1241,7 +1242,7 @@ const downloadImage = () => {
 
           // 在字符格中繪製浮水印
           ctx.fillStyle = 'rgba(150, 150, 150, 0.6)'
-          ctx.font = `${cellSize * 0.6}px 'Microsoft YaHei', Arial, sans-serif`
+          ctx.font = `${cellSize * 0.6}px '${selectedFont.value}', 'Microsoft YaHei', Arial, sans-serif`
           ctx.textAlign = 'center'
           ctx.textBaseline = 'middle'
           ctx.fillText(char, charX + cellSize/2, rowY + cellSize/2)
