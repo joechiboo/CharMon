@@ -57,8 +57,8 @@ const showParentLogin = ref(false)
 
 const grades = [
   { value: 'kindergarten', label: '幼稚園' },
-  { value: 'elementary-low', label: '小學低年級' },
-  { value: 'elementary-high', label: '小學高年級' }
+  { value: 'elementary-low', label: '小學\n低年級' },
+  { value: 'elementary-high', label: '小學\n高年級' }
 ]
 
 const canLogin = computed(() => {
@@ -171,6 +171,8 @@ const handleLogin = () => {
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s;
+  white-space: pre-line;
+  line-height: 1.3;
 }
 
 .grade-btn:hover {
