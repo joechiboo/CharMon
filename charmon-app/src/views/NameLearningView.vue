@@ -14,14 +14,22 @@
             <div class="character-with-zhuyin">
               <div class="character">{{ char }}</div>
               <div class="zhuyin-right">
-                <div
-                  v-for="(part, partIndex) in getZhuyinParts(char)"
-                  :key="partIndex"
-                  class="zhuyin-part"
-                  :class="part.type"
-                >
-                  {{ part.text }}
-                </div>
+                <template v-for="(part, partIndex) in getZhuyinParts(char)" :key="partIndex">
+                  <div
+                    v-if="part.type !== 'tone-mark'"
+                    class="zhuyin-part"
+                    :class="part.type"
+                  >
+                    {{ part.text }}
+                    <!-- 檢查下一個是否為聲調 -->
+                    <span
+                      v-if="partIndex + 1 < getZhuyinParts(char).length && getZhuyinParts(char)[partIndex + 1].type === 'tone-mark'"
+                      class="tone-mark"
+                    >
+                      {{ getZhuyinParts(char)[partIndex + 1].text }}
+                    </span>
+                  </div>
+                </template>
               </div>
             </div>
           </div>
@@ -179,8 +187,9 @@ const getZhuyinParts = (char: string) => {
   // 添加聲母和韻母
   parts.forEach((part, index) => {
     if (index === parts.length - 1 && toneChar && vowels.includes(part)) {
-      // 最後一個韻母，並且有聲調，放在一起
-      result.push({ text: part + toneChar, type: 'vowel-with-tone' })
+      // 最後一個韻母，有聲調時分開顯示
+      result.push({ text: part, type: 'vowel-main' })
+      result.push({ text: toneChar, type: 'tone-mark' })
     } else {
       result.push({ text: part, type: consonants.includes(part) ? 'consonant' : 'vowel' })
     }
@@ -662,6 +671,11 @@ onMounted(() => {
   gap: 2px;
 }
 
+/* 只有兩個注音部分時，往下偏移 */
+.zhuyin-right:has(.zhuyin-part:nth-child(2):last-child) {
+  padding-top: 8px;
+}
+
 .zhuyin-part {
   font-size: 0.9rem;
   opacity: 0.9;
@@ -676,8 +690,16 @@ onMounted(() => {
   order: -1;
 }
 
-.zhuyin-part.vowel-with-tone {
-  letter-spacing: -1px;
+.zhuyin-part .tone-mark {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8em;
+}
+
+.zhuyin-part {
+  position: relative;
 }
 
 .character-box.active .zhuyin-part {

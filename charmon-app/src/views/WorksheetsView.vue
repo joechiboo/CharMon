@@ -319,6 +319,7 @@ const zhuyinMap: Record<string, string> = {
   '王': 'ㄨㄤˊ',
   '李': 'ㄌㄧˇ',
   '張': 'ㄓㄤ',
+  '禾': 'ㄏㄜˊ',
   '劉': 'ㄌㄧㄡˊ',
   '楊': 'ㄧㄤˊ',
   '趙': 'ㄓㄠˋ',
@@ -403,7 +404,7 @@ const getZhuyin = (char: string): string => {
   return zhuyinMap[char] || '?'
 }
 
-// 拆分注音符號為垂直顯示（從 NameLearningView 改編）
+// 拆分注音符號為垂直顯示（根據正確的注音排列規則）
 const getZhuyinParts = (char: string): string[] => {
   const zhuyin = getZhuyin(char)
   if (zhuyin === '?') {
@@ -411,46 +412,78 @@ const getZhuyinParts = (char: string): string[] => {
   }
 
   const consonants = ['ㄅ', 'ㄆ', 'ㄇ', 'ㄈ', 'ㄉ', 'ㄊ', 'ㄋ', 'ㄌ', 'ㄍ', 'ㄎ', 'ㄏ', 'ㄐ', 'ㄑ', 'ㄒ', 'ㄓ', 'ㄔ', 'ㄕ', 'ㄖ', 'ㄗ', 'ㄘ', 'ㄙ']
-  const vowels = ['ㄧ', 'ㄨ', 'ㄩ', 'ㄚ', 'ㄛ', 'ㄜ', 'ㄝ', 'ㄞ', 'ㄟ', 'ㄠ', 'ㄡ', 'ㄢ', 'ㄣ', 'ㄤ', 'ㄥ', 'ㄦ']
+  const medials = ['ㄧ', 'ㄨ', 'ㄩ'] // 介音
+  const vowels = ['ㄚ', 'ㄛ', 'ㄜ', 'ㄝ', 'ㄞ', 'ㄟ', 'ㄠ', 'ㄡ', 'ㄢ', 'ㄣ', 'ㄤ', 'ㄥ', 'ㄦ']
   const tones = ['ˊ', 'ˇ', 'ˋ']
   const lightTone = '˙'
 
-  let parts = []
-  let toneChar = ''
+  let consonant = ''
+  let medial = ''
+  let vowel = ''
+  let tone = ''
   let hasLightTone = false
 
-  // 拆分注音符號
-  for (let i = 0; i < zhuyin.length; i++) {
-    const char = zhuyin[i]
-    if (char === lightTone) {
-      hasLightTone = true
-    } else if (tones.includes(char)) {
-      toneChar = char
-    } else if (consonants.includes(char) || vowels.includes(char)) {
-      parts.push(char)
+  // 解析注音字串
+  let remaining = zhuyin
+
+  // 1. 檢查輕聲（在開頭）
+  if (remaining.includes(lightTone)) {
+    hasLightTone = true
+    remaining = remaining.replace(lightTone, '')
+  }
+
+  // 2. 檢查聲調（在結尾）
+  for (const t of tones) {
+    if (remaining.includes(t)) {
+      tone = t
+      remaining = remaining.replace(t, '')
+      break
     }
   }
 
+  // 3. 檢查聲母（第一個字符）
+  if (remaining.length > 0 && consonants.includes(remaining[0])) {
+    consonant = remaining[0]
+    remaining = remaining.slice(1)
+  }
+
+  // 4. 檢查介音
+  if (remaining.length > 0 && medials.includes(remaining[0])) {
+    medial = remaining[0]
+    remaining = remaining.slice(1)
+  }
+
+  // 5. 剩餘的是韻母
+  vowel = remaining
+
   // 組合結果
   let result = []
+
+  // 輕聲在最上面
   if (hasLightTone) {
     result.push(lightTone)
   }
 
-  // 聲母（第一個）
-  if (parts.length > 0 && consonants.includes(parts[0])) {
-    result.push(parts[0])
-    parts = parts.slice(1)
+  // 聲母
+  if (consonant) {
+    result.push(consonant)
   }
 
-  // 韻母（剩餘的）
-  if (parts.length > 0) {
-    result.push(parts.join(''))
-  }
-
-  // 聲調
-  if (toneChar) {
-    result.push(toneChar)
+  // 介音和韻母的組合處理
+  if (medial && vowel) {
+    // 如果有介音和韻母，分開顯示
+    result.push(medial)
+    // 韻母和聲調結合
+    result.push(vowel + tone)
+  } else if (medial) {
+    // 只有介音，介音和聲調結合
+    result.push(medial + tone)
+  } else if (vowel) {
+    // 只有韻母，韻母和聲調結合
+    result.push(vowel + tone)
+  } else if (tone) {
+    // 只有聲調（特殊情況）
+    result.push(tone)
   }
 
   return result
@@ -538,17 +571,39 @@ const generatePreview = async () => {
           drawZhuyinGrid(ctx, zhuyinX, rowY, zhuyinCellWidth, cellSize)
 
           // 如果啟用注音，在注音格中垂直繪製注音
-          if (showZhuyin.value && repeatIndex === 0) {
+          if (showZhuyin.value) {
             const zhuyinParts = getZhuyinParts(char)
             const partHeight = cellSize / (zhuyinParts.length + 1)
+
+            // 如果只有兩個部分，往下偏移
+            const verticalOffset = zhuyinParts.length === 2 ? partHeight * 0.3 : 0
 
             zhuyinParts.forEach((part, index) => {
               ctx.fillStyle = '#000'
               ctx.font = `${Math.min(zhuyinCellWidth * 0.6, partHeight * 0.8)}px Arial`
-              ctx.textAlign = 'center'
               ctx.textBaseline = 'middle'
-              const y = rowY + partHeight * (index + 1)
-              ctx.fillText(part, zhuyinX + zhuyinCellWidth/2, y)
+              const y = rowY + partHeight * (index + 1) + verticalOffset
+
+              // 判斷是否包含聲調符號
+              const hasTone = part.includes('ˊ') || part.includes('ˇ') || part.includes('ˋ')
+
+              if (hasTone) {
+                // 有聲調的情況，分開繪製主符號和聲調
+                const mainChar = part.slice(0, -1)  // 主符號
+                const toneChar = part.slice(-1)     // 聲調符號
+
+                // 主符號置中
+                ctx.textAlign = 'center'
+                ctx.fillText(mainChar, zhuyinX + zhuyinCellWidth/2, y)
+
+                // 聲調在右邊
+                ctx.textAlign = 'left'
+                ctx.fillText(toneChar, zhuyinX + zhuyinCellWidth * 0.7, y)
+              } else {
+                // 無聲調的情況，正常置中
+                ctx.textAlign = 'center'
+                ctx.fillText(part, zhuyinX + zhuyinCellWidth/2, y)
+              }
             })
           }
         } else {
@@ -674,17 +729,39 @@ const downloadImage = () => {
           drawZhuyinGridDownload(ctx, zhuyinX, rowY, zhuyinCellWidth, cellSize)
 
           // 如果啟用注音，在注音格中垂直繪製注音
-          if (showZhuyin.value && repeatIndex === 0) {
+          if (showZhuyin.value) {
             const zhuyinParts = getZhuyinParts(char)
             const partHeight = cellSize / (zhuyinParts.length + 1)
+
+            // 如果只有兩個部分，往下偏移
+            const verticalOffset = zhuyinParts.length === 2 ? partHeight * 0.3 : 0
 
             zhuyinParts.forEach((part, index) => {
               ctx.fillStyle = '#000'
               ctx.font = `${Math.min(zhuyinCellWidth * 0.6, partHeight * 0.8)}px Arial`
-              ctx.textAlign = 'center'
               ctx.textBaseline = 'middle'
-              const y = rowY + partHeight * (index + 1)
-              ctx.fillText(part, zhuyinX + zhuyinCellWidth/2, y)
+              const y = rowY + partHeight * (index + 1) + verticalOffset
+
+              // 判斷是否包含聲調符號
+              const hasTone = part.includes('ˊ') || part.includes('ˇ') || part.includes('ˋ')
+
+              if (hasTone) {
+                // 有聲調的情況，分開繪製主符號和聲調
+                const mainChar = part.slice(0, -1)  // 主符號
+                const toneChar = part.slice(-1)     // 聲調符號
+
+                // 主符號置中
+                ctx.textAlign = 'center'
+                ctx.fillText(mainChar, zhuyinX + zhuyinCellWidth/2, y)
+
+                // 聲調在右邊
+                ctx.textAlign = 'left'
+                ctx.fillText(toneChar, zhuyinX + zhuyinCellWidth * 0.7, y)
+              } else {
+                // 無聲調的情況，正常置中
+                ctx.textAlign = 'center'
+                ctx.fillText(part, zhuyinX + zhuyinCellWidth/2, y)
+              }
             })
           }
         } else {
