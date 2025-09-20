@@ -16,24 +16,6 @@
           />
         </div>
 
-        <div class="form-group">
-          <label>你是...</label>
-          <div class="grade-buttons">
-            <button
-              v-for="grade in grades"
-              :key="grade.value"
-              :class="['grade-btn', {
-                active: gradeLevel === grade.value,
-                disabled: grade.disabled
-              }]"
-              :disabled="grade.disabled"
-              @click="!grade.disabled && (gradeLevel = grade.value as typeof gradeLevel)"
-            >
-              {{ grade.label }}
-              <span v-if="grade.disabled" class="coming-soon-badge">即將推出</span>
-            </button>
-          </div>
-        </div>
 
         <button class="login-btn" :disabled="!canLogin" @click="handleLogin">
           開始學習！
@@ -57,37 +39,21 @@ const router = useRouter()
 const userStore = useUserStore()
 
 const userName = ref('')
-const gradeLevel = ref<'kindergarten' | 'elementary-low' | 'elementary-high' | ''>('')
+const gradeLevel = ref<'kindergarten'>('kindergarten') // 固定為幼稚園
 const showParentLogin = ref(false)
 
-const grades = [
-  { value: 'kindergarten', label: '幼稚園', disabled: false },
-  { value: 'elementary-low', label: '小學\n低年級', disabled: false },
-  { value: 'elementary-high', label: '小學\n高年級', disabled: true }
-]
-
 const canLogin = computed(() => {
-  return userName.value && gradeLevel.value
+  return userName.value.trim() !== ''
 })
 
 const handleLogin = () => {
   if (!canLogin.value) return
 
-  // 根據學習階段設定預設年齡
-  const getAgeByGrade = (grade: string) => {
-    switch(grade) {
-      case 'kindergarten': return 5
-      case 'elementary-low': return 8
-      case 'elementary-high': return 11
-      default: return 6
-    }
-  }
-
   const user: User = {
     id: Date.now().toString(),
     name: userName.value,
-    age: getAgeByGrade(gradeLevel.value),
-    gradeLevel: gradeLevel.value as User['gradeLevel'],
+    age: 5, // 固定為幼稚園年齡
+    gradeLevel: 'kindergarten', // 固定為幼稚園
     createdAt: new Date(),
     updatedAt: new Date()
   }
