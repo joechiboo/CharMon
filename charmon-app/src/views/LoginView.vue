@@ -98,17 +98,18 @@ const handleLogin = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #4CAF50 0%, #2196F3 100%);
+  background: linear-gradient(135deg, #f5f2e8 0%, #ede5d3 100%);
   padding: 20px;
+  width: 100vw;
 }
 
 .login-card {
   background: white;
   border-radius: 20px;
   padding: 40px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  max-width: 600px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
   width: 90%;
+  max-width: 800px;
 }
 
 .title {
@@ -153,7 +154,7 @@ const handleLogin = () => {
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #27ae60;
 }
 
 .grade-buttons {
@@ -180,15 +181,15 @@ const handleLogin = () => {
 }
 
 .grade-btn.active {
-  background: #667eea;
+  background: #27ae60;
   color: white;
-  border-color: #667eea;
+  border-color: #27ae60;
 }
 
 .login-btn {
   width: 100%;
   padding: 15px;
-  background: linear-gradient(135deg, #4CAF50 0%, #2196F3 100%);
+  background: #27ae60;
   color: white;
   border: none;
   border-radius: 10px;
@@ -212,7 +213,7 @@ const handleLogin = () => {
 }
 
 .parent-link a {
-  color: #667eea;
+  color: #27ae60;
   text-decoration: none;
   font-size: 0.9rem;
 }

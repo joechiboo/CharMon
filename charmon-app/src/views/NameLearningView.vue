@@ -39,6 +39,7 @@
           <div class="stroke-canvas-container">
             <div class="watermark-char" :class="{ hidden: !shouldShowWatermark }">{{ nameCharacters[selectedCharIndex] }}</div>
             <canvas ref="canvasRef" width="300" height="300"></canvas>
+            <!-- <div class="canvas-zhuyin">{{ getZhuyin(nameCharacters[selectedCharIndex]) }}</div> -->
           </div>
           <div class="stroke-controls">
             <button @click="clearCanvas">{{ needsWatermarkAssist ? '下一次' : '清除' }}</button>
@@ -615,6 +616,9 @@ onMounted(() => {
 .stroke-canvas-container {
   position: relative;
   margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .watermark-char {
@@ -623,10 +627,10 @@ onMounted(() => {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 200px;
-  color: rgba(0, 0, 0, 0.1);
-  font-weight: bold;
+  color: rgba(0, 0, 0, 0.05);
+  font-weight: normal;
   pointer-events: none;
-  z-index: 1;
+  z-index: 3;
   font-family: 'Microsoft YaHei', '微軟正黑體', sans-serif;
   user-select: none;
   transition: opacity 0.3s ease;
@@ -641,7 +645,24 @@ canvas {
   border: 2px solid #e0e0e0;
   border-radius: 10px;
   position: relative;
-  z-index: 2;
+  z-index: 1;
+  display: block;
+}
+
+.canvas-zhuyin {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 16px;
+  color: #27ae60;
+  font-weight: bold;
+  background: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #27ae60;
+  z-index: 10;
+  pointer-events: none;
 }
 
 .practice-mode-info {

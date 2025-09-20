@@ -74,15 +74,14 @@
 .start-btn {
   display: inline-block;
   padding: 18px 45px;
-  background: white;
-  color: #2c3e50;
+  background: #27ae60;
+  color: white;
   text-decoration: none;
   border-radius: 8px;
   font-size: 1.3rem;
   font-weight: bold;
   transition: transform 0.3s;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border: 3px solid #d63031;
 }
 
 .start-btn:hover {
@@ -104,7 +103,6 @@
   border-radius: 15px;
   text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border: 2px solid #d63031;
   transition: all 0.3s ease;
 }
 
