@@ -38,8 +38,8 @@
 <style scoped>
 .home {
   min-height: 100vh;
-  background: linear-gradient(135deg, #4CAF50 0%, #2196F3 100%);
-  color: white;
+  background: linear-gradient(135deg, #f5f2e8 0%, #ede5d3 100%);
+  color: #2c3e50;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,14 +74,15 @@
 .start-btn {
   display: inline-block;
   padding: 20px 50px;
-  background: white;
-  color: #4CAF50;
+  background: #2c3e50;
+  color: #f5f2e8;
   text-decoration: none;
-  border-radius: 50px;
+  border-radius: 8px;
   font-size: 1.5rem;
   font-weight: bold;
   transition: transform 0.3s;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
+  border: 2px solid #d63031;
 }
 
 .start-btn:hover {
@@ -98,17 +99,19 @@
 }
 
 .feature {
-  background: rgba(255, 255, 255, 0.1);
+  background: white;
   padding: 35px 25px;
-  border-radius: 20px;
+  border-radius: 15px;
   text-align: center;
-  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid #d63031;
   transition: all 0.3s ease;
 }
 
 .feature:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: #fefcf7;
   transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .feature-icon {
