@@ -39,7 +39,7 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <div v-if="!isGameMode" class="form-group">
             <label class="checkbox-item">
               <input type="checkbox" v-model="showZhuyin" />
               <span>顯示注音</span>
@@ -80,7 +80,7 @@
         </div>
 
         <div class="action-buttons">
-          <button class="preview-btn" @click="generatePreview" :disabled="!inputText.trim()">
+          <button v-if="!isGameMode" class="preview-btn" @click="generatePreview" :disabled="!inputText.trim()">
             預覽練習表
           </button>
           <button class="download-btn" @click="downloadImage" :disabled="!hasPreview">
