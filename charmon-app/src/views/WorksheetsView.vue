@@ -63,6 +63,7 @@
             <option value="3">3 行</option>
             <option value="6">6 行</option>
             <option value="9">9 行</option>
+            <option value="12">12 行</option>
           </select>
         </div>
 
@@ -97,9 +98,20 @@ import { useUserStore } from '@/stores/user'
 const userStore = useUserStore()
 const inputText = ref('')
 const gridType = ref('tian')
-const charsPerLine = ref(6)
-const repeatCount = ref(3)
-const showZhuyin = ref(false)
+// 根據使用者年級設定預設值
+const getDefaultCharsPerLine = () => {
+  const user = userStore.currentUser
+  if (user?.gradeLevel === 'elementary-low') return 12
+  return 6 // 幼稚園預設
+}
+const getDefaultRepeatCount = () => {
+  const user = userStore.currentUser
+  if (user?.gradeLevel === 'elementary-low') return 12
+  return 6 // 幼稚園預設
+}
+const charsPerLine = ref(getDefaultCharsPerLine())
+const repeatCount = ref(getDefaultRepeatCount())
+const showZhuyin = ref(true) // 預設顯示注音
 const hasPreview = ref(false)
 const previewCanvas = ref<HTMLCanvasElement>()
 
