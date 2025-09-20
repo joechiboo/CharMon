@@ -133,7 +133,14 @@ const practiceModeText = computed(() => {
 const selectCharacter = (index: number) => {
   selectedCharIndex.value = index
   currentRound.value = 1 // 重置練習回合
-  clearCanvas()
+  // 直接清空並重繪，不調用 clearCanvas 避免增加回合數
+  if (canvasRef.value) {
+    const ctx = canvasRef.value.getContext('2d')
+    if (ctx) {
+      ctx.clearRect(0, 0, 300, 300)
+      drawGrid()
+    }
+  }
 }
 
 const getZhuyinParts = (char: string) => {

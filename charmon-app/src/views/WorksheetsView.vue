@@ -403,6 +403,59 @@ const getZhuyin = (char: string): string => {
   return zhuyinMap[char] || '?'
 }
 
+// 拆分注音符號為垂直顯示（從 NameLearningView 改編）
+const getZhuyinParts = (char: string): string[] => {
+  const zhuyin = getZhuyin(char)
+  if (zhuyin === '?') {
+    return ['?']
+  }
+
+  const consonants = ['ㄅ', 'ㄆ', 'ㄇ', 'ㄈ', 'ㄉ', 'ㄊ', 'ㄋ', 'ㄌ', 'ㄍ', 'ㄎ', 'ㄏ', 'ㄐ', 'ㄑ', 'ㄒ', 'ㄓ', 'ㄔ', 'ㄕ', 'ㄖ', 'ㄗ', 'ㄘ', 'ㄙ']
+  const vowels = ['ㄧ', 'ㄨ', 'ㄩ', 'ㄚ', 'ㄛ', 'ㄜ', 'ㄝ', 'ㄞ', 'ㄟ', 'ㄠ', 'ㄡ', 'ㄢ', 'ㄣ', 'ㄤ', 'ㄥ', 'ㄦ']
+  const tones = ['ˊ', 'ˇ', 'ˋ']
+  const lightTone = '˙'
+
+  let parts = []
+  let toneChar = ''
+  let hasLightTone = false
+
+  // 拆分注音符號
+  for (let i = 0; i < zhuyin.length; i++) {
+    const char = zhuyin[i]
+    if (char === lightTone) {
+      hasLightTone = true
+    } else if (tones.includes(char)) {
+      toneChar = char
+    } else if (consonants.includes(char) || vowels.includes(char)) {
+      parts.push(char)
+    }
+  }
+
+  // 組合結果
+  let result = []
+  if (hasLightTone) {
+    result.push(lightTone)
+  }
+
+  // 聲母（第一個）
+  if (parts.length > 0 && consonants.includes(parts[0])) {
+    result.push(parts[0])
+    parts = parts.slice(1)
+  }
+
+  // 韻母（剩餘的）
+  if (parts.length > 0) {
+    result.push(parts.join(''))
+  }
+
+  // 聲調
+  if (toneChar) {
+    result.push(toneChar)
+  }
+
+  return result
+}
+
 
 onMounted(() => {
   // 檢查 URL 參數，如果有 name 參數就自動填入
@@ -436,12 +489,14 @@ const generatePreview = async () => {
 
   // 計算所需畫布尺寸
   const cellSize = 68  // 增加70% (40 * 1.7 = 68)
+  const zhuyinCellWidth = cellSize * 0.5  // 注音格寬度為字符格的一半
   const margin = 34    // 相應增加邊距
-  const totalColsPerRow = charsPerLine.value  // 每行固定格子數
+  const totalColsPerRow = charsPerLine.value * 2  // 每個字符需要2個格子（字符格+注音格）
   const totalRows = charLines.length * repeatCount.value
 
-  const width = margin * 2 + totalColsPerRow * cellSize
-  const height = margin * 2 + totalRows * cellSize + (showZhuyin.value ? 34 : 0)  // 相應調整注音空間
+  // 計算總寬度：每個字符佔用(字符格+注音格)的寬度
+  const width = margin * 2 + charsPerLine.value * (cellSize + zhuyinCellWidth)
+  const height = margin * 2 + totalRows * cellSize
 
   canvas.width = width
   canvas.height = height
@@ -452,7 +507,7 @@ const generatePreview = async () => {
 
   // 設定基本參數
   const startX = margin
-  const startY = margin + (showZhuyin.value ? 34 : 0) // 如果有注音，預留空間
+  const startY = margin
 
   let currentRow = 0
 
@@ -462,39 +517,58 @@ const generatePreview = async () => {
     for (let repeatIndex = 0; repeatIndex < repeatCount.value; repeatIndex++) {
       const rowY = startY + currentRow * cellSize
 
-      // 繪製注音（如果啟用，且是該字符行的第一次重複）
-      if (showZhuyin.value && repeatIndex === 0) {
-        lineChars.forEach((char, charIndex) => {
-          ctx.fillStyle = '#000'  // 改為黑色
-          ctx.font = 'bold 17px Arial'  // 相應增加注音字體大小
-          ctx.textAlign = 'center'
-          const zhuyin = getZhuyin(char)
-          const charX = startX + charIndex * cellSize + cellSize / 2
-          ctx.fillText(zhuyin, charX, rowY - 14)  // 相應調整注音位置
-        })
-      }
-
-      // 在當前行中，繪製每個格子
+      // 在當前行中，為每個字符繪製字符格和注音格
       for (let col = 0; col < charsPerLine.value; col++) {
-        const x = startX + col * cellSize
-
-        // 繪製格子
-        drawGrid(ctx, x, rowY, cellSize, gridType.value)
-
-        // 如果這個位置有字符，繪製浮水印
         if (col < lineChars.length) {
           const char = lineChars[col]
-          ctx.fillStyle = 'rgba(150, 150, 150, 0.6)'  // 增加透明度和對比度
+          const charX = startX + col * (cellSize + zhuyinCellWidth)
+
+          // 繪製字符格（左邊）
+          drawGrid(ctx, charX, rowY, cellSize, gridType.value)
+
+          // 在字符格中繪製浮水印
+          ctx.fillStyle = 'rgba(150, 150, 150, 0.6)'
           ctx.font = `${cellSize * 0.6}px 'Microsoft YaHei', Arial, sans-serif`
           ctx.textAlign = 'center'
           ctx.textBaseline = 'middle'
-          ctx.fillText(char, x + cellSize/2, rowY + cellSize/2)
+          ctx.fillText(char, charX + cellSize/2, rowY + cellSize/2)
+
+          // 繪製注音格（右邊）
+          const zhuyinX = charX + cellSize
+          drawZhuyinGrid(ctx, zhuyinX, rowY, zhuyinCellWidth, cellSize)
+
+          // 如果啟用注音，在注音格中垂直繪製注音
+          if (showZhuyin.value && repeatIndex === 0) {
+            const zhuyinParts = getZhuyinParts(char)
+            const partHeight = cellSize / (zhuyinParts.length + 1)
+
+            zhuyinParts.forEach((part, index) => {
+              ctx.fillStyle = '#000'
+              ctx.font = `${Math.min(zhuyinCellWidth * 0.6, partHeight * 0.8)}px Arial`
+              ctx.textAlign = 'center'
+              ctx.textBaseline = 'middle'
+              const y = rowY + partHeight * (index + 1)
+              ctx.fillText(part, zhuyinX + zhuyinCellWidth/2, y)
+            })
+          }
+        } else {
+          // 空白格子
+          const charX = startX + col * (cellSize + zhuyinCellWidth)
+          drawGrid(ctx, charX, rowY, cellSize, gridType.value)
+          drawZhuyinGrid(ctx, charX + cellSize, rowY, zhuyinCellWidth, cellSize)
         }
       }
 
       currentRow++
     }
   })
+}
+
+// 繪製注音格（只有簡單的外框）
+const drawZhuyinGrid = (ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number) => {
+  ctx.strokeStyle = '#000'
+  ctx.lineWidth = 2
+  ctx.strokeRect(x, y, width, height)
 }
 
 const drawGrid = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, type: string) => {
@@ -552,12 +626,13 @@ const downloadImage = () => {
 
   // 計算所需畫布尺寸 - 使用更大的格子用於下載
   const cellSize = 136  // 增加70% (80 * 1.7 = 136)
+  const zhuyinCellWidth = cellSize * 0.5  // 注音格寬度為字符格的一半
   const margin = 68     // 相應增加邊距
-  const totalColsPerRow = charsPerLine.value
   const totalRows = charLines.length * repeatCount.value
 
-  const width = margin * 2 + totalColsPerRow * cellSize
-  const height = margin * 2 + totalRows * cellSize + (showZhuyin.value ? 68 : 0)  // 相應調整注音空間
+  // 計算總寬度：每個字符佔用(字符格+注音格)的寬度
+  const width = margin * 2 + charsPerLine.value * (cellSize + zhuyinCellWidth)
+  const height = margin * 2 + totalRows * cellSize
 
   downloadCanvas.width = width
   downloadCanvas.height = height
@@ -568,7 +643,7 @@ const downloadImage = () => {
 
   // 設定基本參數
   const startX = margin
-  const startY = margin + (showZhuyin.value ? 68 : 0)  // 相應調整注音空間
+  const startY = margin
 
   let currentRow = 0
 
@@ -578,33 +653,45 @@ const downloadImage = () => {
     for (let repeatIndex = 0; repeatIndex < repeatCount.value; repeatIndex++) {
       const rowY = startY + currentRow * cellSize
 
-      // 繪製注音（如果啟用，且是該字符行的第一次重複）
-      if (showZhuyin.value && repeatIndex === 0) {
-        lineChars.forEach((char, charIndex) => {
-          ctx.fillStyle = '#000'
-          ctx.font = 'bold 34px Arial'  // 相應增大注音字體 (20 * 1.7 = 34)
-          ctx.textAlign = 'center'
-          const zhuyin = getZhuyin(char)
-          const charX = startX + charIndex * cellSize + cellSize / 2
-          ctx.fillText(zhuyin, charX, rowY - 27)  // 相應調整注音位置
-        })
-      }
-
-      // 在當前行中，繪製每個格子
+      // 在當前行中，為每個字符繪製字符格和注音格
       for (let col = 0; col < charsPerLine.value; col++) {
-        const x = startX + col * cellSize
-
-        // 繪製格子
-        drawGridDownload(ctx, x, rowY, cellSize, gridType.value)
-
-        // 如果這個位置有字符，繪製浮水印
         if (col < lineChars.length) {
           const char = lineChars[col]
+          const charX = startX + col * (cellSize + zhuyinCellWidth)
+
+          // 繪製字符格（左邊）
+          drawGridDownload(ctx, charX, rowY, cellSize, gridType.value)
+
+          // 在字符格中繪製浮水印
           ctx.fillStyle = 'rgba(150, 150, 150, 0.6)'
           ctx.font = `${cellSize * 0.6}px 'Microsoft YaHei', Arial, sans-serif`
           ctx.textAlign = 'center'
           ctx.textBaseline = 'middle'
-          ctx.fillText(char, x + cellSize/2, rowY + cellSize/2)
+          ctx.fillText(char, charX + cellSize/2, rowY + cellSize/2)
+
+          // 繪製注音格（右邊）
+          const zhuyinX = charX + cellSize
+          drawZhuyinGridDownload(ctx, zhuyinX, rowY, zhuyinCellWidth, cellSize)
+
+          // 如果啟用注音，在注音格中垂直繪製注音
+          if (showZhuyin.value && repeatIndex === 0) {
+            const zhuyinParts = getZhuyinParts(char)
+            const partHeight = cellSize / (zhuyinParts.length + 1)
+
+            zhuyinParts.forEach((part, index) => {
+              ctx.fillStyle = '#000'
+              ctx.font = `${Math.min(zhuyinCellWidth * 0.6, partHeight * 0.8)}px Arial`
+              ctx.textAlign = 'center'
+              ctx.textBaseline = 'middle'
+              const y = rowY + partHeight * (index + 1)
+              ctx.fillText(part, zhuyinX + zhuyinCellWidth/2, y)
+            })
+          }
+        } else {
+          // 空白格子
+          const charX = startX + col * (cellSize + zhuyinCellWidth)
+          drawGridDownload(ctx, charX, rowY, cellSize, gridType.value)
+          drawZhuyinGridDownload(ctx, charX + cellSize, rowY, zhuyinCellWidth, cellSize)
         }
       }
 
@@ -617,6 +704,13 @@ const downloadImage = () => {
   link.download = `練習表_${new Date().toLocaleDateString()}.png`
   link.href = downloadCanvas.toDataURL()
   link.click()
+}
+
+// 為下載功能創建專用的注音格繪製函數
+const drawZhuyinGridDownload = (ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number) => {
+  ctx.strokeStyle = '#000'
+  ctx.lineWidth = 5
+  ctx.strokeRect(x, y, width, height)
 }
 
 // 為下載功能創建專用的格子繪製函數
