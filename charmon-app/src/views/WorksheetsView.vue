@@ -434,12 +434,6 @@ const generatePreview = async () => {
 
   // 準備要練習的字符
   const chars = inputText.value.trim().split('')
-  let allChars: string[] = []
-
-  // 根據重複次數生成字符列表
-  for (let i = 0; i < repeatCount.value; i++) {
-    allChars = allChars.concat(chars)
-  }
 
   // 計算佈局 - 每個字符佔6格（3格浮水印 + 3格空白）
   const totalCols = 6
@@ -448,39 +442,42 @@ const generatePreview = async () => {
 
   let row = 0
 
-  // 繪製每個字符（每個字符佔一行，6格）
-  allChars.forEach((char, charIndex) => {
-    const y = startY + row * cellSize
+  // 繪製每個字符，每個字符重複指定次數
+  chars.forEach((char) => {
+    // 每個字符重複 repeatCount 次
+    for (let repeat = 0; repeat < repeatCount.value; repeat++) {
+      const y = startY + row * cellSize
 
-    // 繪製注音 (如果啟用)
-    if (showZhuyin.value) {
-      ctx.fillStyle = '#27ae60'
-      ctx.font = '8px Arial'
-      ctx.textAlign = 'center'
-      const zhuyin = getZhuyin(char)
-      // 在整行的中央顯示注音
-      ctx.fillText(zhuyin, startX + (totalCols * cellSize) / 2, y - 8)
-    }
-
-    // 繪製6個格子
-    for (let col = 0; col < totalCols; col++) {
-      const x = startX + col * cellSize
-
-      // 繪製格子
-      drawGrid(ctx, x, y, cellSize, gridType.value)
-
-      // 前3格加浮水印，後3格空白
-      if (col < 3) {
-        // 繪製浮水印字符
-        ctx.fillStyle = 'rgba(200, 200, 200, 0.3)'
-        ctx.font = `${cellSize * 0.6}px 'Microsoft YaHei', Arial, sans-serif`
+      // 繪製注音 (如果啟用，且是該字符的第一行)
+      if (showZhuyin.value && repeat === 0) {
+        ctx.fillStyle = '#27ae60'
+        ctx.font = '8px Arial'
         ctx.textAlign = 'center'
-        ctx.textBaseline = 'middle'
-        ctx.fillText(char, x + cellSize/2, y + cellSize/2)
+        const zhuyin = getZhuyin(char)
+        // 在整行的中央顯示注音
+        ctx.fillText(zhuyin, startX + (totalCols * cellSize) / 2, y - 8)
       }
-    }
 
-    row++
+      // 繪製6個格子
+      for (let col = 0; col < totalCols; col++) {
+        const x = startX + col * cellSize
+
+        // 繪製格子
+        drawGrid(ctx, x, y, cellSize, gridType.value)
+
+        // 前3格加浮水印，後3格空白
+        if (col < 3) {
+          // 繪製浮水印字符
+          ctx.fillStyle = 'rgba(200, 200, 200, 0.3)'
+          ctx.font = `${cellSize * 0.6}px 'Microsoft YaHei', Arial, sans-serif`
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'middle'
+          ctx.fillText(char, x + cellSize/2, y + cellSize/2)
+        }
+      }
+
+      row++
+    }
   })
 }
 
