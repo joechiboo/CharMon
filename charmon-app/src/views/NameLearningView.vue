@@ -25,12 +25,26 @@
       <div v-if="selectedCharIndex !== null" class="character-details">
         <div class="stroke-practice">
           <h3>筆劃練習</h3>
-          <div class="stroke-canvas">
+          <div class="practice-mode-info" v-if="needsWatermarkAssist">
+            <span class="mode-text">{{ practiceModeText }}</span>
+            <div class="progress-dots">
+              <span
+                v-for="n in totalPracticeRounds"
+                :key="n"
+                class="dot"
+                :class="{ active: n <= currentRound }"
+              ></span>
+            </div>
+          </div>
+          <div class="stroke-canvas-container">
+            <div class="watermark-char" :class="{ hidden: !shouldShowWatermark }">{{ nameCharacters[selectedCharIndex] }}</div>
             <canvas ref="canvasRef" width="300" height="300"></canvas>
           </div>
           <div class="stroke-controls">
-            <button @click="clearCanvas">清除</button>
+            <button @click="clearCanvas">{{ needsWatermarkAssist ? '下一次' : '清除' }}</button>
             <button @click="showStrokeOrder">查看筆順</button>
+            <button @click="toggleWatermark" v-if="!needsWatermarkAssist">{{ showWatermark ? '隱藏' : '顯示' }}浮水印</button>
+            <button @click="resetPractice" v-if="needsWatermarkAssist && currentRound > 1">重新開始</button>
           </div>
         </div>
 
@@ -72,13 +86,41 @@ const userStore = useUserStore()
 
 const selectedCharIndex = ref<number | null>(0)
 const canvasRef = ref<HTMLCanvasElement>()
+const showWatermark = ref(true)
+const unknownCharacters = ref<string[]>([])
+const currentRound = ref(1)
+const totalPracticeRounds = 5 // 2次浮水印 + 3次空白
 
 const nameCharacters = computed(() => {
   return userStore.currentUser?.name.split('') || []
 })
 
+// 根據學習階段判斷是否需要浮水印輔助
+const needsWatermarkAssist = computed(() => {
+  const gradeLevel = userStore.currentUser?.gradeLevel
+  return gradeLevel === 'kindergarten' || gradeLevel === 'elementary-low'
+})
+
+// 當前是否應該顯示浮水印
+const shouldShowWatermark = computed(() => {
+  if (needsWatermarkAssist.value) {
+    return currentRound.value <= 2 // 前2次顯示浮水印
+  }
+  return showWatermark.value
+})
+
+// 練習模式文字
+const practiceModeText = computed(() => {
+  if (currentRound.value <= 2) {
+    return `描字練習 ${currentRound.value}/2`
+  } else {
+    return `獨立書寫 ${currentRound.value - 2}/3`
+  }
+})
+
 const selectCharacter = (index: number) => {
   selectedCharIndex.value = index
+  currentRound.value = 1 // 重置練習回合
   clearCanvas()
 }
 
@@ -332,7 +374,15 @@ const getZhuyin = (char: string) => {
     '億': 'ㄧˋ'
   }
 
-  return zhuyinMap[char] || 'ㄓㄨ ㄧㄣ'
+  if (!zhuyinMap[char]) {
+    // 記錄未知字符以便後續添加
+    if (!unknownCharacters.value.includes(char)) {
+      unknownCharacters.value.push(char)
+      console.log('未知字符:', char, '需要添加注音')
+    }
+    return 'ㄓㄨ ㄧㄣ'
+  }
+  return zhuyinMap[char]
 }
 
 const getStrokeCount = (char: string) => {
@@ -355,6 +405,16 @@ const clearCanvas = () => {
       drawGrid()
     }
   }
+
+  // 如果是輔助模式，進入下一回合
+  if (needsWatermarkAssist.value && currentRound.value < totalPracticeRounds) {
+    currentRound.value++
+  }
+}
+
+const resetPractice = () => {
+  currentRound.value = 1
+  clearCanvas()
 }
 
 const drawGrid = () => {
@@ -386,6 +446,10 @@ const drawGrid = () => {
       ctx.setLineDash([])
     }
   }
+}
+
+const toggleWatermark = () => {
+  showWatermark.value = !showWatermark.value
 }
 
 const showStrokeOrder = () => {
@@ -548,11 +612,69 @@ onMounted(() => {
   margin-bottom: 20px;
 }
 
-.stroke-canvas {
+.stroke-canvas-container {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.watermark-char {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 200px;
+  color: rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  pointer-events: none;
+  z-index: 1;
+  font-family: 'Microsoft YaHei', '微軟正黑體', sans-serif;
+  user-select: none;
+  transition: opacity 0.3s ease;
+}
+
+.watermark-char.hidden {
+  opacity: 0;
+}
+
+canvas {
   background: white;
   border: 2px solid #e0e0e0;
   border-radius: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.practice-mode-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f0f8ff;
+  padding: 10px 15px;
+  border-radius: 8px;
   margin-bottom: 15px;
+  border-left: 4px solid #4CAF50;
+}
+
+.mode-text {
+  font-weight: bold;
+  color: #2c5282;
+}
+
+.progress-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  transition: background 0.3s ease;
+}
+
+.dot.active {
+  background: #4CAF50;
 }
 
 .stroke-controls {
