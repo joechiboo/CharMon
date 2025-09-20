@@ -30,6 +30,11 @@ const router = createRouter({
           path: 'name',
           name: 'name-learning',
           component: () => import('@/views/NameLearningView.vue')
+        },
+        {
+          path: 'zhuyin',
+          name: 'zhuyin-learning',
+          component: () => import('@/views/ZhuyinLearningView.vue')
         }
       ]
     },

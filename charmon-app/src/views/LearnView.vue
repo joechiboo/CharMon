@@ -27,12 +27,11 @@
           <span class="coming-soon">即將推出</span>
         </div>
 
-        <div class="learn-option-card disabled">
+        <router-link to="/learn/zhuyin" class="learn-option-card">
           <div class="card-icon">ㄅㄆㄇ</div>
           <h3>注音符號</h3>
-          <p>學習注音符號發音</p>
-          <span class="coming-soon">即將推出</span>
-        </div>
+          <p>學習注音符號發音與書寫</p>
+        </router-link>
       </div>
     </div>
   </div>
