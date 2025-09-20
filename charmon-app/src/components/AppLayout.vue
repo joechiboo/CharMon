@@ -100,6 +100,7 @@ const handleLogout = () => {
 .app-layout {
   display: flex;
   min-height: 100vh;
+  width: 100vw;
 }
 
 .sidebar {
