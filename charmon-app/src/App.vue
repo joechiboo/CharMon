@@ -22,6 +22,8 @@ const userStore = useUserStore()
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 100vw;
+  overflow-x: hidden;
 }
 
 #app {
