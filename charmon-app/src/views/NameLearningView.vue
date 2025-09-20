@@ -3,12 +3,7 @@
     <header class="page-header">
       <button class="back-btn" @click="$router.back()">← 返回</button>
       <h1>學習我的名字</h1>
-    </header>
-
-    <div class="learning-content">
-      <div class="name-display">
-        <h2>{{ userStore.currentUser?.name }}</h2>
-        <div class="name-characters">
+      <div class="name-characters">
           <div
             v-for="(char, index) in nameCharacters"
             :key="index"
@@ -16,24 +11,38 @@
             :class="{ active: selectedCharIndex === index }"
             @click="selectCharacter(index)"
           >
-            <div class="character">{{ char }}</div>
-            <div class="zhuyin">{{ getZhuyin(char) }}</div>
+            <div class="character-with-zhuyin">
+              <div class="character">{{ char }}</div>
+              <div class="zhuyin-right">
+                <div
+                  v-for="(part, partIndex) in getZhuyinParts(char)"
+                  :key="partIndex"
+                  class="zhuyin-part"
+                  :class="part.type"
+                >
+                  {{ part.text }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+    </header>
 
+    <div class="learning-content">
       <div v-if="selectedCharIndex !== null" class="character-details">
         <div class="stroke-practice">
-          <h3>筆劃練習</h3>
-          <div class="practice-mode-info" v-if="needsWatermarkAssist">
-            <span class="mode-text">{{ practiceModeText }}</span>
-            <div class="progress-dots">
-              <span
-                v-for="n in totalPracticeRounds"
-                :key="n"
-                class="dot"
-                :class="{ active: n <= currentRound }"
-              ></span>
+          <div class="practice-header">
+            <h3>筆劃練習</h3>
+            <div class="practice-mode-info" v-if="needsWatermarkAssist">
+              <span class="mode-text">{{ practiceModeText }}</span>
+              <div class="progress-dots">
+                <span
+                  v-for="n in totalPracticeRounds"
+                  :key="n"
+                  class="dot"
+                  :class="{ active: n <= currentRound }"
+                ></span>
+              </div>
             </div>
           </div>
           <div class="stroke-canvas-container">
@@ -49,29 +58,31 @@
           </div>
         </div>
 
-        <div class="character-info">
-          <h3>字的資訊</h3>
-          <div class="info-item">
-            <span class="label">筆劃數：</span>
-            <span class="value">{{ getStrokeCount(nameCharacters[selectedCharIndex]) }} 劃</span>
+        <div class="info-section">
+          <div class="character-info">
+            <h3>字的資訊</h3>
+            <div class="info-item">
+              <span class="label">筆劃數：</span>
+              <span class="value">{{ getStrokeCount(nameCharacters[selectedCharIndex]) }} 劃</span>
+            </div>
+            <div class="info-item">
+              <span class="label">注音：</span>
+              <span class="value">{{ getZhuyin(nameCharacters[selectedCharIndex]) }}</span>
+            </div>
           </div>
-          <div class="info-item">
-            <span class="label">注音：</span>
-            <span class="value">{{ getZhuyin(nameCharacters[selectedCharIndex]) }}</span>
+
+          <div class="practice-actions">
+            <button class="btn primary" @click="playAudio">
+              🔊 聽發音
+            </button>
+            <button class="btn secondary" @click="generateWorksheet">
+              📝 生成練習表
+            </button>
+            <button class="btn success" @click="completeLesson">
+              ✓ 完成學習
+            </button>
           </div>
         </div>
-      </div>
-
-      <div class="practice-actions">
-        <button class="btn primary" @click="playAudio">
-          🔊 聽發音
-        </button>
-        <button class="btn secondary" @click="generateWorksheet">
-          📝 生成練習表
-        </button>
-        <button class="btn success" @click="completeLesson">
-          ✓ 完成學習
-        </button>
       </div>
     </div>
   </div>
@@ -123,6 +134,52 @@ const selectCharacter = (index: number) => {
   selectedCharIndex.value = index
   currentRound.value = 1 // 重置練習回合
   clearCanvas()
+}
+
+const getZhuyinParts = (char: string) => {
+  const zhuyin = getZhuyin(char)
+  if (zhuyin === '?') {
+    return [{ text: '?', type: 'normal' }]
+  }
+
+  const result = []
+  const consonants = ['ㄅ', 'ㄆ', 'ㄇ', 'ㄈ', 'ㄉ', 'ㄊ', 'ㄋ', 'ㄌ', 'ㄍ', 'ㄎ', 'ㄏ', 'ㄐ', 'ㄑ', 'ㄒ', 'ㄓ', 'ㄔ', 'ㄕ', 'ㄖ', 'ㄗ', 'ㄘ', 'ㄙ']
+  const vowels = ['ㄧ', 'ㄨ', 'ㄩ', 'ㄚ', 'ㄛ', 'ㄜ', 'ㄝ', 'ㄞ', 'ㄟ', 'ㄠ', 'ㄡ', 'ㄢ', 'ㄣ', 'ㄤ', 'ㄥ', 'ㄦ']
+  const tones = ['ˊ', 'ˇ', 'ˋ']
+  const lightTone = '˙'
+
+  let parts = []
+  let toneChar = ''
+  let hasLightTone = false
+
+  // 拆分注音符號
+  for (let i = 0; i < zhuyin.length; i++) {
+    const char = zhuyin[i]
+    if (char === lightTone) {
+      hasLightTone = true
+    } else if (tones.includes(char)) {
+      toneChar = char
+    } else if (consonants.includes(char) || vowels.includes(char)) {
+      parts.push(char)
+    }
+  }
+
+  // 如果有輕聲，放在最上面
+  if (hasLightTone) {
+    result.push({ text: lightTone, type: 'light-tone' })
+  }
+
+  // 添加聲母和韻母
+  parts.forEach((part, index) => {
+    if (index === parts.length - 1 && toneChar && vowels.includes(part)) {
+      // 最後一個韻母，並且有聲調，放在一起
+      result.push({ text: part + toneChar, type: 'vowel-with-tone' })
+    } else {
+      result.push({ text: part, type: consonants.includes(part) ? 'consonant' : 'vowel' })
+    }
+  })
+
+  return result
 }
 
 const getZhuyin = (char: string) => {
@@ -372,7 +429,9 @@ const getZhuyin = (char: string) => {
     '百': 'ㄅㄞˇ',
     '千': 'ㄑㄧㄢ',
     '萬': 'ㄨㄢˋ',
-    '億': 'ㄧˋ'
+    '億': 'ㄧˋ',
+    '家': 'ㄐㄧㄚ',
+    '禾': 'ㄏㄜˊ'
   }
 
   if (!zhuyinMap[char]) {
@@ -464,8 +523,17 @@ const playAudio = () => {
   speechSynthesis.speak(utterance)
 }
 
+
 const generateWorksheet = () => {
-  router.push('/worksheets')
+  const userName = userStore.currentUser?.name
+  if (userName) {
+    router.push({
+      path: '/worksheets',
+      query: { name: userName }
+    })
+  } else {
+    router.push('/worksheets')
+  }
 }
 
 const completeLesson = () => {
@@ -518,8 +586,9 @@ onMounted(() => {
 .page-header {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 30px;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .back-btn {
@@ -535,6 +604,7 @@ onMounted(() => {
 .page-header h1 {
   color: #333;
   font-size: 2rem;
+  margin: 0;
 }
 
 .learning-content {
@@ -542,20 +612,6 @@ onMounted(() => {
   padding: 0 40px;
 }
 
-.name-display {
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  margin-bottom: 20px;
-  text-align: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.name-display h2 {
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 15px;
-}
 
 .name-characters {
   display: flex;
@@ -565,30 +621,66 @@ onMounted(() => {
 }
 
 .character-box {
-  background: #f5f7fa;
+  background: #ffffff;
   padding: 20px;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s;
-  border: 2px solid transparent;
+  border: 2px solid #e0e6ed;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .character-box:hover {
-  background: #e8ebef;
+  background: #f8fafb;
+  border-color: #c0c9d1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .character-box.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: #f0f8f4;
+  color: #333;
+  border: 2px solid #27ae60;
+}
+
+.character-with-zhuyin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
 }
 
 .character-box .character {
   font-size: 3rem;
-  margin-bottom: 8px;
+  margin: 0;
 }
 
-.character-box .zhuyin {
-  font-size: 1rem;
+.zhuyin-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.zhuyin-part {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  line-height: 1.2;
+  min-height: 1.2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.zhuyin-part.light-tone {
+  font-size: 0.7rem;
+  order: -1;
+}
+
+.zhuyin-part.vowel-with-tone {
+  letter-spacing: -1px;
+}
+
+.character-box.active .zhuyin-part {
   opacity: 0.8;
 }
 
@@ -602,16 +694,26 @@ onMounted(() => {
 .stroke-practice,
 .character-info {
   background: white;
-  padding: 25px;
+  padding: 15px;
   border-radius: 15px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stroke-practice {
+  height: 70vh;
+}
+
+.character-info {
+  height: 60vh;
 }
 
 .stroke-practice h3,
 .character-info h3 {
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
 }
+
 
 .stroke-canvas-container {
   position: relative;
@@ -665,15 +767,27 @@ canvas {
   pointer-events: none;
 }
 
+.practice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.practice-header h3 {
+  margin: 0;
+}
+
 .practice-mode-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: #f0f8ff;
-  padding: 10px 15px;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  border-left: 4px solid #4CAF50;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border-left: 3px solid #4CAF50;
+  min-width: 200px;
+  gap: 15px;
 }
 
 .mode-text {
@@ -718,7 +832,7 @@ canvas {
 }
 
 .info-item {
-  margin-bottom: 15px;
+  margin-bottom: 8px;
 }
 
 .info-item .label {
@@ -734,8 +848,8 @@ canvas {
 .practice-actions {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
+  gap: 15px;
+  margin-top: 8px;
 }
 
 .btn {

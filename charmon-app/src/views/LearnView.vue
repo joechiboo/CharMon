@@ -14,11 +14,12 @@
           <p>學習認識和書寫你的名字</p>
         </router-link>
 
-        <router-link to="/learn/practice" class="learn-option-card">
+        <div class="learn-option-card disabled">
           <div class="card-icon">📖</div>
           <h3>基礎認字</h3>
           <p>學習常用的中文字</p>
-        </router-link>
+          <span class="coming-soon">即將推出</span>
+        </div>
 
         <div class="learn-option-card disabled">
           <div class="card-icon">🎯</div>
@@ -28,9 +29,9 @@
         </div>
 
         <div class="learn-option-card disabled">
-          <div class="card-icon">🔤</div>
+          <div class="card-icon">ㄅㄆㄇ</div>
           <h3>注音符號</h3>
-          <p>學習注音符號和拼音</p>
+          <p>學習注音符號發音</p>
           <span class="coming-soon">即將推出</span>
         </div>
       </div>

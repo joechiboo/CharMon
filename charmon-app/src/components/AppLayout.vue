@@ -27,22 +27,25 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/games" :class="{ active: $route.path === '/games' }">
+          <div class="nav-item disabled">
             <el-icon><Trophy /></el-icon>
             <span>遊戲</span>
-          </router-link>
+            <span class="coming-soon-badge">即將推出</span>
+          </div>
         </li>
         <li>
-          <router-link to="/achievements" :class="{ active: $route.path === '/achievements' }">
+          <div class="nav-item disabled">
             <el-icon><Medal /></el-icon>
             <span>成就</span>
-          </router-link>
+            <span class="coming-soon-badge">即將推出</span>
+          </div>
         </li>
         <li>
-          <router-link to="/rewards" :class="{ active: $route.path === '/rewards' }">
+          <div class="nav-item disabled">
             <el-icon><Present /></el-icon>
             <span>獎勵</span>
-          </router-link>
+            <span class="coming-soon-badge">即將推出</span>
+          </div>
         </li>
         <li>
           <router-link to="/worksheets" :class="{ active: $route.path === '/worksheets' }">
@@ -51,10 +54,11 @@
           </router-link>
         </li>
         <li v-if="!userStore.currentUser?.parentId">
-          <router-link to="/parents" :class="{ active: $route.path === '/parents' }">
+          <div class="nav-item disabled">
             <el-icon><User /></el-icon>
             <span>家長專區</span>
-          </router-link>
+            <span class="coming-soon-badge">即將推出</span>
+          </div>
         </li>
       </ul>
 
@@ -187,6 +191,26 @@ const handleLogout = () => {
 .nav-menu .el-icon {
   margin-right: 10px;
   font-size: 1.2rem;
+}
+
+.nav-item.disabled {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  position: relative;
+}
+
+.coming-soon-badge {
+  position: absolute;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: bold;
 }
 
 .sidebar-footer {
