@@ -47,27 +47,31 @@
             </select>
           </div>
 
-          <div class="form-group">
-            <label>重複次數</label>
-            <div class="repeat-row">
-              <select v-model="repeatCount">
-                <option value="3">3 次</option>
-                <option value="5">5 次</option>
-                <option value="10">10 次</option>
-              </select>
-              <div class="zhuyin-display" v-if="inputText.trim()">
-                <span v-for="char in inputText.trim().split('')" :key="char" class="char-zhuyin">
-                  {{ char }}<small>{{ getZhuyin(char) }}</small>
-                </span>
-              </div>
-            </div>
-          </div>
+        </div>
 
-          <div class="form-group">
-            <label class="checkbox-item">
-              <input type="checkbox" v-model="showZhuyin" />
-              <span>顯示注音</span>
-            </label>
+      </div>
+
+      <div class="character-info">
+        <div class="form-group">
+          <label>重複次數</label>
+          <select v-model="repeatCount">
+            <option value="3">3 次</option>
+            <option value="5">5 次</option>
+            <option value="10">10 次</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-item">
+            <input type="checkbox" v-model="showZhuyin" />
+            <span>顯示注音</span>
+          </label>
+        </div>
+
+        <div class="preview-area" v-if="hasPreview">
+          <h4>預覽</h4>
+          <div class="preview-container">
+            <canvas ref="previewCanvas" class="worksheet-preview"></canvas>
           </div>
         </div>
 
@@ -78,13 +82,6 @@
           <button class="download-btn" @click="downloadPDF" :disabled="!hasPreview">
             下載 PDF
           </button>
-        </div>
-      </div>
-
-      <div class="preview-section" v-if="hasPreview">
-        <h3>預覽</h3>
-        <div class="preview-container">
-          <canvas ref="previewCanvas" class="worksheet-preview"></canvas>
         </div>
       </div>
     </div>
@@ -438,9 +435,9 @@ const generatePreview = async () => {
   const ctx = canvas.getContext('2d')
   if (!ctx) return
 
-  // 設定畫布尺寸 (A4 比例)
-  const width = 600
-  const height = 800
+  // 設定畫布尺寸 (適合預覽區域)
+  const width = 300
+  const height = 400
   canvas.width = width
   canvas.height = height
 
@@ -449,8 +446,8 @@ const generatePreview = async () => {
   ctx.fillRect(0, 0, width, height)
 
   // 設定基本參數
-  const cellSize = 80
-  const margin = 40
+  const cellSize = 40
+  const margin = 20
   const lineWidth = 1
 
   // 準備要練習的字符
@@ -481,10 +478,10 @@ const generatePreview = async () => {
     // 繪製注音 (如果啟用)
     if (showZhuyin.value) {
       ctx.fillStyle = '#27ae60'
-      ctx.font = '12px Arial'
+      ctx.font = '8px Arial'
       ctx.textAlign = 'center'
       const zhuyin = getZhuyin(char)
-      ctx.fillText(zhuyin, x + cellSize/2, y - 10)
+      ctx.fillText(zhuyin, x + cellSize/2, y - 5)
     }
 
     // 移到下一個位置
@@ -571,8 +568,8 @@ const downloadPDF = () => {
 .worksheets-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: start;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 .input-section {
@@ -580,6 +577,15 @@ const downloadPDF = () => {
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  height: 70vh;
+}
+
+.character-info {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  height: 70vh;
 }
 
 .form-group {
@@ -733,17 +739,21 @@ const downloadPDF = () => {
   transform: none;
 }
 
-.preview-section {
-  background: white;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+.preview-area {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.preview-section h3 {
+.preview-area h4 {
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: center;
+  font-size: 1rem;
 }
 
 .preview-container {
@@ -752,6 +762,7 @@ const downloadPDF = () => {
 
 .worksheet-preview {
   max-width: 100%;
+  max-height: 200px;
   border: 1px solid #ddd;
   border-radius: 8px;
 }
