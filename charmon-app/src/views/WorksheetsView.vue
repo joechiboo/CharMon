@@ -68,10 +68,13 @@
           </label>
         </div>
 
-        <div class="preview-area" v-if="hasPreview">
+        <div class="preview-area">
           <h4>預覽</h4>
-          <div class="preview-container">
+          <div class="preview-container" v-if="hasPreview">
             <canvas ref="previewCanvas" class="worksheet-preview"></canvas>
+          </div>
+          <div v-else class="no-preview">
+            點擊「預覽練習表」查看效果
           </div>
         </div>
 
@@ -426,22 +429,26 @@ onMounted(() => {
 })
 
 const generatePreview = async () => {
-  console.log('generatePreview called', { inputText: inputText.value, canvas: previewCanvas.value })
+  console.log('generatePreview called', { inputText: inputText.value })
 
   if (!inputText.value.trim()) {
     console.log('No input text')
     return
   }
 
-  if (!previewCanvas.value) {
-    console.log('No canvas ref')
-    return
-  }
-
+  // 先設置 hasPreview 為 true 讓 canvas 渲染
   hasPreview.value = true
   await nextTick()
 
-  console.log('Preview state set, hasPreview:', hasPreview.value)
+  // 現在 canvas 應該已經存在了
+  console.log('After nextTick, canvas:', previewCanvas.value)
+
+  if (!previewCanvas.value) {
+    console.log('Still no canvas ref after nextTick')
+    return
+  }
+
+  console.log('Starting to draw preview')
 
   const canvas = previewCanvas.value
   const ctx = canvas.getContext('2d')
@@ -738,6 +745,16 @@ const downloadPDF = () => {
   max-width: 100%;
   max-height: 200px;
   border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.no-preview {
+  text-align: center;
+  color: #666;
+  padding: 40px 20px;
+  font-style: italic;
+  background: #f8f9fa;
+  border: 1px dashed #ddd;
   border-radius: 8px;
 }
 
