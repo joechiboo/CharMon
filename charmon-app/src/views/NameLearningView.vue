@@ -518,7 +518,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   gap: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .back-btn {
@@ -543,9 +543,9 @@ onMounted(() => {
 
 .name-display {
   background: white;
-  padding: 30px;
+  padding: 25px;
   border-radius: 15px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   text-align: center;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -553,13 +553,13 @@ onMounted(() => {
 .name-display h2 {
   font-size: 2.5rem;
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .name-characters {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
   flex-wrap: wrap;
 }
 
@@ -583,7 +583,7 @@ onMounted(() => {
 
 .character-box .character {
   font-size: 3rem;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .character-box .zhuyin {
@@ -595,7 +595,7 @@ onMounted(() => {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .stroke-practice,
@@ -714,7 +714,7 @@ canvas {
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .btn {
