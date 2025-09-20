@@ -93,6 +93,14 @@
         </div>
       </div>
     </div>
+
+    <!-- 笔顺查看器 -->
+    <StrokeOrderViewer
+      v-if="showStrokeViewer"
+      :character="currentCharacter"
+      :visible="showStrokeViewer"
+      @close="closeStrokeViewer"
+    />
   </div>
 </template>
 
@@ -100,6 +108,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import StrokeOrderViewer from '@/components/StrokeOrderViewer.vue'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -110,6 +119,15 @@ const showWatermark = ref(true)
 const unknownCharacters = ref<string[]>([])
 const currentRound = ref(1)
 const totalPracticeRounds = 5 // 2次浮水印 + 3次空白
+
+// 笔顺查看器相关状态
+const showStrokeViewer = ref(false)
+const currentCharacter = computed(() => {
+  if (selectedCharIndex.value !== null && nameCharacters.value[selectedCharIndex.value]) {
+    return nameCharacters.value[selectedCharIndex.value]
+  }
+  return ''
+})
 
 const nameCharacters = computed(() => {
   return userStore.currentUser?.name.split('') || []
@@ -522,7 +540,13 @@ const toggleWatermark = () => {
 }
 
 const showStrokeOrder = () => {
-  console.log('顯示筆順動畫')
+  if (currentCharacter.value) {
+    showStrokeViewer.value = true
+  }
+}
+
+const closeStrokeViewer = () => {
+  showStrokeViewer.value = false
 }
 
 const playAudio = () => {
