@@ -28,9 +28,9 @@ body {
 
 #app {
   min-height: 100vh;
-  margin: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100vw;
 }
 </style>
