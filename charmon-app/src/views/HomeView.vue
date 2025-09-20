@@ -51,36 +51,37 @@
 
 .hero {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   flex-shrink: 0;
 }
 
 .hero h1 {
-  font-size: 4rem;
-  margin-bottom: 10px;
+  font-size: 5rem;
+  margin-bottom: 15px;
 }
 
 .hero h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-size: 2.8rem;
+  margin-bottom: 25px;
 }
 
 .hero p {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
+  font-size: 1.6rem;
+  margin-bottom: 40px;
   opacity: 0.9;
 }
 
 .start-btn {
   display: inline-block;
-  padding: 15px 40px;
+  padding: 20px 50px;
   background: white;
-  color: #667eea;
+  color: #4CAF50;
   text-decoration: none;
   border-radius: 50px;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   transition: transform 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .start-btn:hover {
@@ -98,25 +99,33 @@
 
 .feature {
   background: rgba(255, 255, 255, 0.1);
-  padding: 25px 15px;
-  border-radius: 15px;
+  padding: 35px 25px;
+  border-radius: 20px;
   text-align: center;
   backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.feature:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
 }
 
 .feature-icon {
-  font-size: 2.5rem;
-  margin-bottom: 12px;
+  font-size: 3.5rem;
+  margin-bottom: 20px;
 }
 
 .feature h3 {
-  font-size: 1.3rem;
-  margin-bottom: 8px;
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  font-weight: bold;
 }
 
 .feature p {
   opacity: 0.9;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
+  line-height: 1.4;
 }
 
 /* 響應式設計 */
