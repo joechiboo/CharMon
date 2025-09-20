@@ -33,7 +33,7 @@
               v-for="grade in grades"
               :key="grade.value"
               :class="['grade-btn', { active: gradeLevel === grade.value }]"
-              @click="gradeLevel = grade.value"
+              @click="gradeLevel = grade.value as typeof gradeLevel"
             >
               {{ grade.label }}
             </button>
