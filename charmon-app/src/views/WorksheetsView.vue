@@ -435,13 +435,13 @@ const generatePreview = async () => {
   }
 
   // 計算所需畫布尺寸
-  const cellSize = 40
-  const margin = 20
+  const cellSize = 68  // 增加70% (40 * 1.7 = 68)
+  const margin = 34    // 相應增加邊距
   const totalColsPerRow = charsPerLine.value  // 每行固定格子數
   const totalRows = charLines.length * repeatCount.value
 
   const width = margin * 2 + totalColsPerRow * cellSize
-  const height = margin * 2 + totalRows * cellSize + (showZhuyin.value ? 20 : 0)
+  const height = margin * 2 + totalRows * cellSize + (showZhuyin.value ? 34 : 0)  // 相應調整注音空間
 
   canvas.width = width
   canvas.height = height
@@ -452,7 +452,7 @@ const generatePreview = async () => {
 
   // 設定基本參數
   const startX = margin
-  const startY = margin + (showZhuyin.value ? 20 : 0) // 如果有注音，預留空間
+  const startY = margin + (showZhuyin.value ? 34 : 0) // 如果有注音，預留空間
 
   let currentRow = 0
 
@@ -466,11 +466,11 @@ const generatePreview = async () => {
       if (showZhuyin.value && repeatIndex === 0) {
         lineChars.forEach((char, charIndex) => {
           ctx.fillStyle = '#000'  // 改為黑色
-          ctx.font = 'bold 10px Arial'  // 增加字體大小和粗體
+          ctx.font = 'bold 17px Arial'  // 相應增加注音字體大小
           ctx.textAlign = 'center'
           const zhuyin = getZhuyin(char)
           const charX = startX + charIndex * cellSize + cellSize / 2
-          ctx.fillText(zhuyin, charX, rowY - 8)
+          ctx.fillText(zhuyin, charX, rowY - 14)  // 相應調整注音位置
         })
       }
 
@@ -551,13 +551,13 @@ const downloadImage = () => {
   }
 
   // 計算所需畫布尺寸 - 使用更大的格子用於下載
-  const cellSize = 80  // 加大一倍
-  const margin = 40    // 相應增加邊距
+  const cellSize = 136  // 增加70% (80 * 1.7 = 136)
+  const margin = 68     // 相應增加邊距
   const totalColsPerRow = charsPerLine.value
   const totalRows = charLines.length * repeatCount.value
 
   const width = margin * 2 + totalColsPerRow * cellSize
-  const height = margin * 2 + totalRows * cellSize + (showZhuyin.value ? 40 : 0)
+  const height = margin * 2 + totalRows * cellSize + (showZhuyin.value ? 68 : 0)  // 相應調整注音空間
 
   downloadCanvas.width = width
   downloadCanvas.height = height
@@ -568,7 +568,7 @@ const downloadImage = () => {
 
   // 設定基本參數
   const startX = margin
-  const startY = margin + (showZhuyin.value ? 40 : 0)
+  const startY = margin + (showZhuyin.value ? 68 : 0)  // 相應調整注音空間
 
   let currentRow = 0
 
@@ -582,11 +582,11 @@ const downloadImage = () => {
       if (showZhuyin.value && repeatIndex === 0) {
         lineChars.forEach((char, charIndex) => {
           ctx.fillStyle = '#000'
-          ctx.font = 'bold 20px Arial'  // 相應增大注音字體
+          ctx.font = 'bold 34px Arial'  // 相應增大注音字體 (20 * 1.7 = 34)
           ctx.textAlign = 'center'
           const zhuyin = getZhuyin(char)
           const charX = startX + charIndex * cellSize + cellSize / 2
-          ctx.fillText(zhuyin, charX, rowY - 16)
+          ctx.fillText(zhuyin, charX, rowY - 27)  // 相應調整注音位置
         })
       }
 
@@ -622,7 +622,7 @@ const downloadImage = () => {
 // 為下載功能創建專用的格子繪製函數
 const drawGridDownload = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, type: string) => {
   ctx.strokeStyle = '#000'
-  ctx.lineWidth = 3  // 更粗的線條用於下載
+  ctx.lineWidth = 5  // 相應增加線條粗細 (3 * 1.7 = 5)
 
   // 繪製外框
   ctx.strokeRect(x, y, size, size)

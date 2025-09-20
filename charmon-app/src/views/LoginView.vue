@@ -22,10 +22,15 @@
             <button
               v-for="grade in grades"
               :key="grade.value"
-              :class="['grade-btn', { active: gradeLevel === grade.value }]"
-              @click="gradeLevel = grade.value as typeof gradeLevel"
+              :class="['grade-btn', {
+                active: gradeLevel === grade.value,
+                disabled: grade.disabled
+              }]"
+              :disabled="grade.disabled"
+              @click="!grade.disabled && (gradeLevel = grade.value as typeof gradeLevel)"
             >
               {{ grade.label }}
+              <span v-if="grade.disabled" class="coming-soon-badge">即將推出</span>
             </button>
           </div>
         </div>
@@ -56,9 +61,9 @@ const gradeLevel = ref<'kindergarten' | 'elementary-low' | 'elementary-high' | '
 const showParentLogin = ref(false)
 
 const grades = [
-  { value: 'kindergarten', label: '幼稚園' },
-  { value: 'elementary-low', label: '小學\n低年級' },
-  { value: 'elementary-high', label: '小學\n高年級' }
+  { value: 'kindergarten', label: '幼稚園', disabled: false },
+  { value: 'elementary-low', label: '小學\n低年級', disabled: false },
+  { value: 'elementary-high', label: '小學\n高年級', disabled: true }
 ]
 
 const canLogin = computed(() => {
@@ -184,6 +189,28 @@ const handleLogin = () => {
   background: #27ae60;
   color: white;
   border-color: #27ae60;
+}
+
+.grade-btn.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.grade-btn.disabled:hover {
+  background: white;
+}
+
+.coming-soon-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ff6b6b;
+  color: white;
+  padding: 3px 6px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  font-weight: bold;
 }
 
 .login-btn {
