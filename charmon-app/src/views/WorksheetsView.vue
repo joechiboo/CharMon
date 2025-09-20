@@ -40,10 +40,9 @@
           <div class="form-group">
             <label>每行字數</label>
             <select v-model="charsPerRow">
-              <option value="5">5 字</option>
+              <option value="3">3 字</option>
               <option value="6">6 字</option>
-              <option value="8">8 字</option>
-              <option value="10">10 字</option>
+              <option value="12">12 字</option>
             </select>
           </div>
 
