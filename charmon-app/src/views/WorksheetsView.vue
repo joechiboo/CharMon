@@ -82,8 +82,8 @@
           <button class="preview-btn" @click="generatePreview" :disabled="!inputText.trim()">
             預覽練習表
           </button>
-          <button class="download-btn" @click="downloadPDF" :disabled="!hasPreview">
-            下載 PDF
+          <button class="download-btn" @click="downloadImage" :disabled="!hasPreview">
+            下載圖片
           </button>
         </div>
       </div>
@@ -548,7 +548,7 @@ const drawGrid = (ctx: CanvasRenderingContext2D, x: number, y: number, size: num
   // simple 格式只有外框，不需要額外線條
 }
 
-const downloadPDF = () => {
+const downloadImage = () => {
   if (!hasPreview.value || !previewCanvas.value) return
 
   // 將 canvas 轉換為圖片並下載
