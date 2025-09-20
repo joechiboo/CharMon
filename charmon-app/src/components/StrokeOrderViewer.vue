@@ -1,7 +1,7 @@
 <template>
   <div class="stroke-order-viewer">
     <div class="viewer-header">
-      <h3>{{ character }} 的笔顺</h3>
+      <h3>{{ character }} 的筆順</h3>
       <button @click="closeViewer" class="close-btn">✕</button>
     </div>
 
@@ -10,13 +10,13 @@
 
       <div class="controls">
         <button @click="animateStroke" class="control-btn primary">
-          🎬 播放笔顺
+          🎬 播放筆順
         </button>
         <button @click="startQuiz" class="control-btn secondary">
-          ✍️ 练习模式
+          ✍️ 練習模式
         </button>
         <button @click="loopAnimation" class="control-btn secondary">
-          🔄 循环播放
+          🔄 循環播放
         </button>
         <button @click="resetWriter" class="control-btn secondary">
           🔄 重置
@@ -25,12 +25,12 @@
 
       <div class="character-info">
         <div class="info-item">
-          <span class="label">笔画数：</span>
-          <span class="value">{{ strokeCount }} 画</span>
+          <span class="label">筆畫數：</span>
+          <span class="value">{{ strokeCount }} 畫</span>
         </div>
         <div class="info-item">
           <span class="label">部首：</span>
-          <span class="value">{{ radical || '加载中...' }}</span>
+          <span class="value">{{ radical || '載入中...' }}</span>
         </div>
       </div>
     </div>
@@ -59,17 +59,17 @@ const radical = ref<string>('')
 let writer: HanziWriter | null = null
 let isLooping = ref(false)
 
-// 创建 HanziWriter 实例
+// 建立 HanziWriter 實例
 const createWriter = async () => {
   if (!hanziTarget.value || !props.character) return
 
   try {
-    // 清理旧的实例
+    // 清理舊的實例
     if (writer) {
       writer = null
     }
 
-    // 创建新的 HanziWriter 实例
+    // 建立新的 HanziWriter 實例
     writer = HanziWriter.create(hanziTarget.value, props.character, {
       width: 300,
       height: 300,
@@ -90,7 +90,7 @@ const createWriter = async () => {
       }
     })
 
-    // 获取字符数据以提取笔画数等信息
+    // 獲取字符數據以提取筆畫數等信息
     try {
       const charData = await fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@latest/${props.character}.json`)
         .then(r => r.json())
@@ -98,51 +98,51 @@ const createWriter = async () => {
       strokeCount.value = charData.strokes?.length || 0
       radical.value = charData.radical || '未知'
     } catch (error) {
-      console.warn('无法获取字符详细信息:', error)
+      console.warn('無法獲取字符詳細信息:', error)
       strokeCount.value = 0
       radical.value = '未知'
     }
 
   } catch (error) {
-    console.error('创建 HanziWriter 失败:', error)
-    // 如果无法加载字符数据，显示错误信息
+    console.error('建立 HanziWriter 失敗:', error)
+    // 如果無法載入字符資料，顯示錯誤信息
     if (hanziTarget.value) {
       hanziTarget.value.innerHTML = `
         <div style="display: flex; align-items: center; justify-content: center; height: 300px; color: #999; flex-direction: column;">
           <div style="font-size: 24px; margin-bottom: 10px;">⚠️</div>
-          <div>暂无 "${props.character}" 的笔顺数据</div>
-          <div style="font-size: 12px; margin-top: 5px;">此字符可能不在笔顺数据库中</div>
+          <div>暫無 "${props.character}" 的筆順資料</div>
+          <div style="font-size: 12px; margin-top: 5px;">此字符可能不在筆順資料庫中</div>
         </div>
       `
     }
   }
 }
 
-// 播放笔顺动画
+// 播放筆順動畫
 const animateStroke = () => {
   if (!writer) return
   isLooping.value = false
   writer.animateCharacter()
 }
 
-// 开始测验模式
+// 開始測驗模式
 const startQuiz = () => {
   if (!writer) return
   isLooping.value = false
   writer.quiz({
     onMistake: (strokeData: any) => {
-      console.log('笔画错误:', strokeData)
+      console.log('筆畫錯誤:', strokeData)
     },
     onCorrectStroke: (strokeData: any) => {
-      console.log('笔画正确:', strokeData)
+      console.log('筆畫正確:', strokeData)
     },
     onComplete: () => {
-      console.log('练习完成!')
+      console.log('練習完成!')
     }
   })
 }
 
-// 循环播放动画
+// 循環播放動畫
 const loopAnimation = () => {
   if (!writer) return
   isLooping.value = !isLooping.value
@@ -160,7 +160,7 @@ const resetWriter = () => {
   isLooping.value = false
   writer.cancelQuiz()
   writer.hideCharacter()
-  // 短暂延迟后重新显示字符
+  // 短暫延遲後重新顯示字符
   setTimeout(() => {
     if (writer) {
       writer.showCharacter()
@@ -168,7 +168,7 @@ const resetWriter = () => {
   }, 100)
 }
 
-// 关闭查看器
+// 關閉檢視器
 const closeViewer = () => {
   isLooping.value = false
   if (writer) {
@@ -178,14 +178,14 @@ const closeViewer = () => {
   emit('close')
 }
 
-// 监听字符变化
+// 監聽字符變化
 watch(() => props.character, () => {
   if (props.visible && props.character) {
     createWriter()
   }
 })
 
-// 监听可见性变化
+// 監聽可見性變化
 watch(() => props.visible, (newVisible) => {
   if (newVisible && props.character) {
     createWriter()
