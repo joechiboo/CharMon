@@ -37,14 +37,6 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label>每行字數</label>
-            <select v-model="charsPerRow">
-              <option value="3">3 字</option>
-              <option value="6">6 字</option>
-              <option value="12">12 字</option>
-            </select>
-          </div>
 
         </div>
 
@@ -98,9 +90,8 @@ import { useUserStore } from '@/stores/user'
 const userStore = useUserStore()
 const inputText = ref('')
 const gridType = ref('tian')
-const charsPerRow = ref(6)
 const repeatCount = ref(3)
-const showZhuyin = ref(true)
+const showZhuyin = ref(false)
 const hasPreview = ref(false)
 const previewCanvas = ref<HTMLCanvasElement>()
 
@@ -414,26 +405,13 @@ onMounted(() => {
 })
 
 const generatePreview = async () => {
-  console.log('generatePreview called', { inputText: inputText.value })
-
-  if (!inputText.value.trim()) {
-    console.log('No input text')
-    return
-  }
+  if (!inputText.value.trim()) return
 
   // 先設置 hasPreview 為 true 讓 canvas 渲染
   hasPreview.value = true
   await nextTick()
 
-  // 現在 canvas 應該已經存在了
-  console.log('After nextTick, canvas:', previewCanvas.value)
-
-  if (!previewCanvas.value) {
-    console.log('Still no canvas ref after nextTick')
-    return
-  }
-
-  console.log('Starting to draw preview')
+  if (!previewCanvas.value) return
 
   const canvas = previewCanvas.value
   const ctx = canvas.getContext('2d')
@@ -463,21 +441,16 @@ const generatePreview = async () => {
     allChars = allChars.concat(chars)
   }
 
-  // 計算佈局
-  const cols = charsPerRow.value
+  // 計算佈局 - 每個字符佔6格（3格浮水印 + 3格空白）
+  const totalCols = 6
   const startX = margin
-  const startY = margin + (showZhuyin.value ? 30 : 0)
+  const startY = margin + (showZhuyin.value ? 20 : 0) // 如果有注音，預留空間
 
   let row = 0
-  let col = 0
 
-  // 繪製每個字符
-  allChars.forEach((char, index) => {
-    const x = startX + col * cellSize
+  // 繪製每個字符（每個字符佔一行，6格）
+  allChars.forEach((char, charIndex) => {
     const y = startY + row * cellSize
-
-    // 繪製格子
-    drawGrid(ctx, x, y, cellSize, gridType.value)
 
     // 繪製注音 (如果啟用)
     if (showZhuyin.value) {
@@ -485,15 +458,29 @@ const generatePreview = async () => {
       ctx.font = '8px Arial'
       ctx.textAlign = 'center'
       const zhuyin = getZhuyin(char)
-      ctx.fillText(zhuyin, x + cellSize/2, y - 5)
+      // 在整行的中央顯示注音
+      ctx.fillText(zhuyin, startX + (totalCols * cellSize) / 2, y - 8)
     }
 
-    // 移到下一個位置
-    col++
-    if (col >= cols) {
-      col = 0
-      row++
+    // 繪製6個格子
+    for (let col = 0; col < totalCols; col++) {
+      const x = startX + col * cellSize
+
+      // 繪製格子
+      drawGrid(ctx, x, y, cellSize, gridType.value)
+
+      // 前3格加浮水印，後3格空白
+      if (col < 3) {
+        // 繪製浮水印字符
+        ctx.fillStyle = 'rgba(200, 200, 200, 0.3)'
+        ctx.font = `${cellSize * 0.6}px 'Microsoft YaHei', Arial, sans-serif`
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillText(char, x + cellSize/2, y + cellSize/2)
+      }
     }
+
+    row++
   })
 }
 
