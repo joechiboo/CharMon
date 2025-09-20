@@ -49,7 +49,7 @@
 
 .hero {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 .hero h1 {
@@ -86,30 +86,59 @@
 
 .features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  max-width: 1000px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  width: 100%;
 }
 
 .feature {
   background: rgba(255, 255, 255, 0.1);
-  padding: 30px;
+  padding: 25px 15px;
   border-radius: 15px;
   text-align: center;
   backdrop-filter: blur(10px);
 }
 
 .feature-icon {
-  font-size: 3rem;
-  margin-bottom: 15px;
+  font-size: 2.5rem;
+  margin-bottom: 12px;
 }
 
 .feature h3 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
 }
 
 .feature p {
   opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+/* 響應式設計 */
+@media (max-width: 1200px) {
+  .features {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 3rem;
+  }
+
+  .hero h2 {
+    font-size: 1.5rem;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+
+  .feature {
+    padding: 20px;
+  }
 }
 </style>
