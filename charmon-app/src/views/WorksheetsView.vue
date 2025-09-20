@@ -657,44 +657,6 @@ const downloadPDF = () => {
   margin-right: 8px;
 }
 
-.repeat-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
-}
-
-.repeat-row select {
-  min-width: 100px;
-  flex-shrink: 0;
-}
-
-.zhuyin-display {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-  padding: 8px 12px;
-  background: #f8f9fa;
-  border-radius: 6px;
-  border: 1px solid #e9ecef;
-  flex: 1;
-}
-
-.char-zhuyin {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-}
-
-.char-zhuyin small {
-  font-size: 12px;
-  color: #27ae60;
-  font-weight: normal;
-  margin-top: 2px;
-}
 
 .action-buttons {
   display: flex;
