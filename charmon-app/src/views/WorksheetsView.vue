@@ -675,20 +675,41 @@ const generatePreview = async () => {
 
 // 繪製注音格（只有簡單的外框）
 const drawZhuyinGrid = (ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number) => {
-  ctx.strokeStyle = '#000'
+  const user = userStore.currentUser
+  const isKindergartenOrElementary = user?.gradeLevel === 'kindergarten' || user?.gradeLevel === 'elementary-low'
+
+  // 如果是幼稚園或低年級，使用宣紙紅色，否則使用黑色
+  ctx.strokeStyle = isKindergartenOrElementary ? '#d4794a' : '#000'
   ctx.lineWidth = 2
   ctx.strokeRect(x, y, width, height)
 }
 
 const drawGrid = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, type: string) => {
-  ctx.strokeStyle = '#000'  // 改為純黑色
+  const user = userStore.currentUser
+  const isKindergartenOrElementary = user?.gradeLevel === 'kindergarten' || user?.gradeLevel === 'elementary-low'
+
+  // 如果是幼稚園或低年級，添加淡色背景
+  if (isKindergartenOrElementary) {
+    ctx.fillStyle = 'rgba(212, 121, 74, 0.1)'  // 宣紙紅色背景
+    ctx.fillRect(x, y, size, size)
+  }
+
+  // 如果是幼稚園或低年級，使用宣紙紅色，否則使用黑色
+  ctx.strokeStyle = isKindergartenOrElementary ? '#d4794a' : '#000'
   ctx.lineWidth = 2         // 增加線條粗細
 
   // 繪製外框
   ctx.strokeRect(x, y, size, size)
 
   if (type === 'tian') {
-    // 田字格
+    // 田字格中間十字線使用虛線
+    ctx.save()
+
+    // 如果是幼稚園或低年級，使用宣紙紅色虛線，否則使用黑色虛線
+    ctx.strokeStyle = isKindergartenOrElementary ? '#d4794a' : '#000'
+    ctx.lineWidth = 1
+    ctx.setLineDash([4, 4])  // 虛線樣式
+
     ctx.beginPath()
     // 水平線
     ctx.moveTo(x, y + size/2)
@@ -697,8 +718,17 @@ const drawGrid = (ctx: CanvasRenderingContext2D, x: number, y: number, size: num
     ctx.moveTo(x + size/2, y)
     ctx.lineTo(x + size/2, y + size)
     ctx.stroke()
+
+    ctx.restore()
   } else if (type === 'mi') {
-    // 米字格
+    // 米字格內部線條使用虛線
+    ctx.save()
+
+    // 如果是幼稚園或低年級，使用宣紙紅色虛線，否則使用黑色虛線
+    ctx.strokeStyle = isKindergartenOrElementary ? '#d4794a' : '#000'
+    ctx.lineWidth = 1
+    ctx.setLineDash([4, 4])  // 虛線樣式
+
     ctx.beginPath()
     // 水平線
     ctx.moveTo(x, y + size/2)
@@ -712,6 +742,8 @@ const drawGrid = (ctx: CanvasRenderingContext2D, x: number, y: number, size: num
     ctx.moveTo(x + size, y)
     ctx.lineTo(x, y + size)
     ctx.stroke()
+
+    ctx.restore()
   }
   // simple 格式只有外框，不需要額外線條
 }
@@ -1275,21 +1307,42 @@ const downloadImage = () => {
 
 // 為下載功能創建專用的注音格繪製函數
 const drawZhuyinGridDownload = (ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number) => {
-  ctx.strokeStyle = '#000'
+  const user = userStore.currentUser
+  const isKindergartenOrElementary = user?.gradeLevel === 'kindergarten' || user?.gradeLevel === 'elementary-low'
+
+  // 如果是幼稚園或低年級，使用宣紙紅色，否則使用黑色
+  ctx.strokeStyle = isKindergartenOrElementary ? '#d4794a' : '#000'
   ctx.lineWidth = 5
   ctx.strokeRect(x, y, width, height)
 }
 
 // 為下載功能創建專用的格子繪製函數
 const drawGridDownload = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, type: string) => {
-  ctx.strokeStyle = '#000'
+  const user = userStore.currentUser
+  const isKindergartenOrElementary = user?.gradeLevel === 'kindergarten' || user?.gradeLevel === 'elementary-low'
+
+  // 如果是幼稚園或低年級，添加淡色背景
+  if (isKindergartenOrElementary) {
+    ctx.fillStyle = 'rgba(212, 121, 74, 0.1)'  // 宣紙紅色背景
+    ctx.fillRect(x, y, size, size)
+  }
+
+  // 如果是幼稚園或低年級，使用宣紙紅色，否則使用黑色
+  ctx.strokeStyle = isKindergartenOrElementary ? '#d4794a' : '#000'
   ctx.lineWidth = 5  // 相應增加線條粗細 (3 * 1.7 = 5)
 
   // 繪製外框
   ctx.strokeRect(x, y, size, size)
 
   if (type === 'tian') {
-    // 田字格
+    // 田字格中間十字線使用虛線
+    ctx.save()
+
+    // 如果是幼稚園或低年級，使用宣紙紅色虛線，否則使用黑色虛線
+    ctx.strokeStyle = isKindergartenOrElementary ? '#d4794a' : '#000'
+    ctx.lineWidth = 3  // 下載版本稍粗一些
+    ctx.setLineDash([8, 8])  // 下載版本虛線稍長
+
     ctx.beginPath()
     // 水平線
     ctx.moveTo(x, y + size/2)
@@ -1298,8 +1351,17 @@ const drawGridDownload = (ctx: CanvasRenderingContext2D, x: number, y: number, s
     ctx.moveTo(x + size/2, y)
     ctx.lineTo(x + size/2, y + size)
     ctx.stroke()
+
+    ctx.restore()
   } else if (type === 'mi') {
-    // 米字格
+    // 米字格內部線條使用虛線
+    ctx.save()
+
+    // 如果是幼稚園或低年級，使用宣紙紅色虛線，否則使用黑色虛線
+    ctx.strokeStyle = isKindergartenOrElementary ? '#d4794a' : '#000'
+    ctx.lineWidth = 3  // 下載版本稍粗一些
+    ctx.setLineDash([8, 8])  // 下載版本虛線稍長
+
     ctx.beginPath()
     // 水平線
     ctx.moveTo(x, y + size/2)
@@ -1313,6 +1375,8 @@ const drawGridDownload = (ctx: CanvasRenderingContext2D, x: number, y: number, s
     ctx.moveTo(x + size, y)
     ctx.lineTo(x, y + size)
     ctx.stroke()
+
+    ctx.restore()
   }
   // simple 格式只有外框，不需要額外線條
 }
