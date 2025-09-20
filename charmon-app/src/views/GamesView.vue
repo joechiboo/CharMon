@@ -53,16 +53,30 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 
+// 定義 Pokemon 類型
+interface PokemonVariation {
+  type: string
+  description: string
+}
+
+interface Pokemon {
+  id: number
+  name: string
+  emoji: string
+  theme: string
+  variations: PokemonVariation[]
+}
+
 const router = useRouter()
 const userStore = useUserStore()
 
 // 寶可夢相關
-const selectedPokemon = ref(null)
+const selectedPokemon = ref<Pokemon | null>(null)
 const pokemonLevel = ref(1)
 const pokemonExp = ref(0)
 
 // 寶可夢主題 - 每隻寶可夢一個JSON物件
-const availablePokemon = [
+const availablePokemon: Pokemon[] = [
   {
     id: 1,
     name: '皮卡丘',
@@ -131,7 +145,7 @@ onMounted(() => {
 })
 
 // 選擇寶可夢
-const selectPokemon = (pokemon) => {
+const selectPokemon = (pokemon: Pokemon) => {
   selectedPokemon.value = pokemon
   pokemonLevel.value = 1
   pokemonExp.value = 0
@@ -161,7 +175,9 @@ const gainExp = (amount = 10) => {
   if (pokemonExp.value >= 100) {
     pokemonLevel.value++
     pokemonExp.value = pokemonExp.value - 100
-    console.log(`🎉 ${selectedPokemon.value.name} 升級了！現在是 ${pokemonLevel.value} 級！`)
+    if (selectedPokemon.value) {
+      console.log(`🎉 ${selectedPokemon.value.name} 升級了！現在是 ${pokemonLevel.value} 級！`)
+    }
   }
 
   // 儲存資料
@@ -206,8 +222,8 @@ const startAdventure = () => {
 }
 
 // 顯示原本的屬性和描述
-const getDisplayType = (theme) => {
-  const typeMap = {
+const getDisplayType = (theme: string) => {
+  const typeMap: { [key: string]: string } = {
     'electric': '電系',
     'fire': '火焰系',
     'water': '水流系',
@@ -216,8 +232,8 @@ const getDisplayType = (theme) => {
   return typeMap[theme] || theme
 }
 
-const getDisplayDescription = (name) => {
-  const descriptionMap = {
+const getDisplayDescription = (name: string) => {
+  const descriptionMap: { [key: string]: string } = {
     '皮卡丘': '帶著溫暖的笑容',
     '小火龍': '尾巴燃燒著永不熄滅的火焰',
     '傑尼龜': '殼上閃爍著水波般的光澤',

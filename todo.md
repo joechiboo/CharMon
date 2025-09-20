@@ -69,6 +69,9 @@ const getStroke = (char) => strokesData[char];
 
 # 2. 建立 辭典
 
+好像需要建立每個字的 js mapping
+包含筆劃數、部首、注音等
+
 好像需要建立一個後台，如果有沒有 mapping 到的字應該要保留起來，方便持續新增注音 mapping
 
 # 3. AI 寶可夢

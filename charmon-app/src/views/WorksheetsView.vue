@@ -97,6 +97,14 @@ import { ref, computed, nextTick, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 
+// 定義元素行資訊介面
+interface ElementRowInfo {
+  element: string
+  startRow: number
+  endRow: number
+  middleRow: number
+}
+
 const userStore = useUserStore()
 const route = useRoute()
 const inputText = ref('')
@@ -743,7 +751,7 @@ const generateGameModePreview = async () => {
   // 先模擬右側文字分行，計算每個文學元素的起始行
   const textLines = inputText.value.trim().split('\n')
   const literaryElements = ['顏色', '形容', '地點', '動態', '修辭']
-  let elementStartRows = []
+  let elementStartRows: ElementRowInfo[] = []
   let simulatedRow = 0
   const maxRows = 13 // 預定義最大行數
 
@@ -856,7 +864,7 @@ const generateGameModePreview = async () => {
   ctx.fillText('字樂園', 10, 30)
 
   // 繪製寶可夢主題標題（右側區域對齊）
-  const pokemonEmojis = {
+  const pokemonEmojis: { [key: string]: string } = {
     '皮卡丘': '⚡',
     '小火龍': '🔥',
     '傑尼龜': '💧',
@@ -990,7 +998,7 @@ const generateGameModeDownload = (canvas: HTMLCanvasElement, ctx: CanvasRenderin
   // 複製所有遊戲模式邏輯...
   const textLines = inputText.value.trim().split('\n')
   const literaryElements = ['顏色', '形容', '地點', '動態', '修辭']
-  let elementStartRows = []
+  let elementStartRows: ElementRowInfo[] = []
   let simulatedRow = 0
   const maxRows = 13
   const rightGridStartY = 65
@@ -1087,7 +1095,7 @@ const generateGameModeDownload = (canvas: HTMLCanvasElement, ctx: CanvasRenderin
   ctx.textAlign = 'left'
   ctx.fillText('字樂園', 10, 30)
 
-  const pokemonEmojis = {
+  const pokemonEmojis: { [key: string]: string } = {
     '皮卡丘': '⚡',
     '小火龍': '🔥',
     '傑尼龜': '💧',
