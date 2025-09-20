@@ -37,12 +37,26 @@
             </div>
           </div>
 
-
+          <div class="form-group">
+            <label class="checkbox-item">
+              <input type="checkbox" v-model="showZhuyin" />
+              <span>顯示注音</span>
+            </label>
+          </div>
         </div>
 
       </div>
 
       <div class="character-info">
+        <div class="form-group">
+          <label>每行字數</label>
+          <select v-model="charsPerLine">
+            <option value="3">3 字</option>
+            <option value="6">6 字</option>
+            <option value="12">12 字</option>
+          </select>
+        </div>
+
         <div class="form-group">
           <label>重複行數</label>
           <select v-model="repeatCount">
@@ -50,13 +64,6 @@
             <option value="6">6 行</option>
             <option value="9">9 行</option>
           </select>
-        </div>
-
-        <div class="form-group">
-          <label class="checkbox-item">
-            <input type="checkbox" v-model="showZhuyin" />
-            <span>顯示注音</span>
-          </label>
         </div>
 
         <div class="preview-area">
@@ -90,6 +97,7 @@ import { useUserStore } from '@/stores/user'
 const userStore = useUserStore()
 const inputText = ref('')
 const gridType = ref('tian')
+const charsPerLine = ref(6)
 const repeatCount = ref(3)
 const showZhuyin = ref(false)
 const hasPreview = ref(false)
@@ -418,16 +426,22 @@ const generatePreview = async () => {
   if (!ctx) return
 
   // 準備要練習的字符
-  const chars = inputText.value.trim().split('')
+  const allChars = inputText.value.trim().split('')
+
+  // 將字符分割成每行指定數量的格子（每個字符佔1格）
+  const charLines: string[][] = []
+  for (let i = 0; i < allChars.length; i += charsPerLine.value) {
+    charLines.push(allChars.slice(i, i + charsPerLine.value))
+  }
 
   // 計算所需畫布尺寸
   const cellSize = 40
   const margin = 20
-  const charsPerRow = chars.length
-  const totalColsPerRow = charsPerRow * 6
+  const totalColsPerRow = charsPerLine.value  // 每行固定格子數
+  const totalRows = charLines.length * repeatCount.value
 
   const width = margin * 2 + totalColsPerRow * cellSize
-  const height = margin * 2 + repeatCount.value * cellSize + (showZhuyin.value ? 20 : 0)
+  const height = margin * 2 + totalRows * cellSize + (showZhuyin.value ? 20 : 0)
 
   canvas.width = width
   canvas.height = height
@@ -440,46 +454,52 @@ const generatePreview = async () => {
   const startX = margin
   const startY = margin + (showZhuyin.value ? 20 : 0) // 如果有注音，預留空間
 
-  // 繪製指定行數，每行顯示完整的字符序列（如：紀家禾）
-  for (let rowIndex = 0; rowIndex < repeatCount.value; rowIndex++) {
-    // 繪製注音（如果啟用，且是第一行）
-    if (showZhuyin.value && rowIndex === 0) {
-      chars.forEach((char, charIndex) => {
-        ctx.fillStyle = '#27ae60'
-        ctx.font = '8px Arial'
-        ctx.textAlign = 'center'
-        const zhuyin = getZhuyin(char)
-        const charX = startX + charIndex * 6 * cellSize + (6 * cellSize) / 2
-        const y = startY + rowIndex * cellSize
-        ctx.fillText(zhuyin, charX, y - 8)
-      })
-    }
+  let currentRow = 0
 
-    // 繪製每個字符的6個格子
-    chars.forEach((char, charIndex) => {
-      for (let col = 0; col < 6; col++) {
-        const x = startX + charIndex * 6 * cellSize + col * cellSize
-        const y = startY + rowIndex * cellSize
+  // 對每個字符行進行處理
+  charLines.forEach((lineChars, lineIndex) => {
+    // 每個字符行重複指定次數
+    for (let repeatIndex = 0; repeatIndex < repeatCount.value; repeatIndex++) {
+      const rowY = startY + currentRow * cellSize
+
+      // 繪製注音（如果啟用，且是該字符行的第一次重複）
+      if (showZhuyin.value && repeatIndex === 0) {
+        lineChars.forEach((char, charIndex) => {
+          ctx.fillStyle = '#000'  // 改為黑色
+          ctx.font = 'bold 10px Arial'  // 增加字體大小和粗體
+          ctx.textAlign = 'center'
+          const zhuyin = getZhuyin(char)
+          const charX = startX + charIndex * cellSize + cellSize / 2
+          ctx.fillText(zhuyin, charX, rowY - 8)
+        })
+      }
+
+      // 在當前行中，繪製每個格子
+      for (let col = 0; col < charsPerLine.value; col++) {
+        const x = startX + col * cellSize
 
         // 繪製格子
-        drawGrid(ctx, x, y, cellSize, gridType.value)
+        drawGrid(ctx, x, rowY, cellSize, gridType.value)
 
-        // 前3格加浮水印，後3格空白
-        if (col < 3) {
-          ctx.fillStyle = 'rgba(200, 200, 200, 0.3)'
+        // 如果這個位置有字符，繪製浮水印
+        if (col < lineChars.length) {
+          const char = lineChars[col]
+          ctx.fillStyle = 'rgba(150, 150, 150, 0.6)'  // 增加透明度和對比度
           ctx.font = `${cellSize * 0.6}px 'Microsoft YaHei', Arial, sans-serif`
           ctx.textAlign = 'center'
           ctx.textBaseline = 'middle'
-          ctx.fillText(char, x + cellSize/2, y + cellSize/2)
+          ctx.fillText(char, x + cellSize/2, rowY + cellSize/2)
         }
       }
-    })
-  }
+
+      currentRow++
+    }
+  })
 }
 
 const drawGrid = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, type: string) => {
-  ctx.strokeStyle = '#333'
-  ctx.lineWidth = 1
+  ctx.strokeStyle = '#000'  // 改為純黑色
+  ctx.lineWidth = 2         // 增加線條粗細
 
   // 繪製外框
   ctx.strokeRect(x, y, size, size)
@@ -514,13 +534,126 @@ const drawGrid = (ctx: CanvasRenderingContext2D, x: number, y: number, size: num
 }
 
 const downloadImage = () => {
-  if (!hasPreview.value || !previewCanvas.value) return
+  if (!hasPreview.value || !inputText.value.trim()) return
 
-  // 將 canvas 轉換為圖片並下載
+  // 創建一個新的高解析度 canvas 用於下載
+  const downloadCanvas = document.createElement('canvas')
+  const ctx = downloadCanvas.getContext('2d')
+  if (!ctx) return
+
+  // 準備要練習的字符
+  const allChars = inputText.value.trim().split('')
+
+  // 將字符分割成每行指定數量的格子（每個字符佔1格）
+  const charLines: string[][] = []
+  for (let i = 0; i < allChars.length; i += charsPerLine.value) {
+    charLines.push(allChars.slice(i, i + charsPerLine.value))
+  }
+
+  // 計算所需畫布尺寸 - 使用更大的格子用於下載
+  const cellSize = 80  // 加大一倍
+  const margin = 40    // 相應增加邊距
+  const totalColsPerRow = charsPerLine.value
+  const totalRows = charLines.length * repeatCount.value
+
+  const width = margin * 2 + totalColsPerRow * cellSize
+  const height = margin * 2 + totalRows * cellSize + (showZhuyin.value ? 40 : 0)
+
+  downloadCanvas.width = width
+  downloadCanvas.height = height
+
+  // 清空畫布
+  ctx.fillStyle = 'white'
+  ctx.fillRect(0, 0, width, height)
+
+  // 設定基本參數
+  const startX = margin
+  const startY = margin + (showZhuyin.value ? 40 : 0)
+
+  let currentRow = 0
+
+  // 對每個字符行進行處理
+  charLines.forEach((lineChars, lineIndex) => {
+    // 每個字符行重複指定次數
+    for (let repeatIndex = 0; repeatIndex < repeatCount.value; repeatIndex++) {
+      const rowY = startY + currentRow * cellSize
+
+      // 繪製注音（如果啟用，且是該字符行的第一次重複）
+      if (showZhuyin.value && repeatIndex === 0) {
+        lineChars.forEach((char, charIndex) => {
+          ctx.fillStyle = '#000'
+          ctx.font = 'bold 20px Arial'  // 相應增大注音字體
+          ctx.textAlign = 'center'
+          const zhuyin = getZhuyin(char)
+          const charX = startX + charIndex * cellSize + cellSize / 2
+          ctx.fillText(zhuyin, charX, rowY - 16)
+        })
+      }
+
+      // 在當前行中，繪製每個格子
+      for (let col = 0; col < charsPerLine.value; col++) {
+        const x = startX + col * cellSize
+
+        // 繪製格子
+        drawGridDownload(ctx, x, rowY, cellSize, gridType.value)
+
+        // 如果這個位置有字符，繪製浮水印
+        if (col < lineChars.length) {
+          const char = lineChars[col]
+          ctx.fillStyle = 'rgba(150, 150, 150, 0.6)'
+          ctx.font = `${cellSize * 0.6}px 'Microsoft YaHei', Arial, sans-serif`
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'middle'
+          ctx.fillText(char, x + cellSize/2, rowY + cellSize/2)
+        }
+      }
+
+      currentRow++
+    }
+  })
+
+  // 下載圖片
   const link = document.createElement('a')
   link.download = `練習表_${new Date().toLocaleDateString()}.png`
-  link.href = previewCanvas.value.toDataURL()
+  link.href = downloadCanvas.toDataURL()
   link.click()
+}
+
+// 為下載功能創建專用的格子繪製函數
+const drawGridDownload = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, type: string) => {
+  ctx.strokeStyle = '#000'
+  ctx.lineWidth = 3  // 更粗的線條用於下載
+
+  // 繪製外框
+  ctx.strokeRect(x, y, size, size)
+
+  if (type === 'tian') {
+    // 田字格
+    ctx.beginPath()
+    // 水平線
+    ctx.moveTo(x, y + size/2)
+    ctx.lineTo(x + size, y + size/2)
+    // 垂直線
+    ctx.moveTo(x + size/2, y)
+    ctx.lineTo(x + size/2, y + size)
+    ctx.stroke()
+  } else if (type === 'mi') {
+    // 米字格
+    ctx.beginPath()
+    // 水平線
+    ctx.moveTo(x, y + size/2)
+    ctx.lineTo(x + size, y + size/2)
+    // 垂直線
+    ctx.moveTo(x + size/2, y)
+    ctx.lineTo(x + size/2, y + size)
+    // 對角線
+    ctx.moveTo(x, y)
+    ctx.lineTo(x + size, y + size)
+    ctx.moveTo(x + size, y)
+    ctx.lineTo(x, y + size)
+    ctx.stroke()
+  }
+  // simple 格式只有外框，不需要額外線條
 }
 </script>
 
