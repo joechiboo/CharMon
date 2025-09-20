@@ -46,6 +46,7 @@
   justify-content: center;
   padding: 20px;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .hero {
@@ -93,6 +94,7 @@
   max-width: 1200px;
   width: 100%;
   flex-shrink: 0;
+  margin: 0 auto;
 }
 
 .feature {
