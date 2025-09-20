@@ -130,7 +130,7 @@ const learnCharacter = (char: string) => {
 }
 
 .dashboard-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4CAF50 0%, #2196F3 100%);
   color: white;
   padding: 30px;
   display: flex;
@@ -161,6 +161,7 @@ const learnCharacter = (char: string) => {
   padding: 30px;
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .quick-stats {

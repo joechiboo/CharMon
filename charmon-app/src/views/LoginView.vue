@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="login-card">
-      <h1 class="title">CharMon 中文學習</h1>
+      <h1 class="title">字樂園</h1>
       <div class="welcome-message">歡迎小朋友！</div>
 
       <div class="login-form">
@@ -101,7 +101,7 @@ const handleLogin = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4CAF50 0%, #2196F3 100%);
   padding: 20px;
 }
 
@@ -189,7 +189,7 @@ const handleLogin = () => {
 .login-btn {
   width: 100%;
   padding: 15px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4CAF50 0%, #2196F3 100%);
   color: white;
   border: none;
   border-radius: 10px;

@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <div class="hero">
-      <h1>CharMon</h1>
-      <h2>中文學習應用程式</h2>
+      <h1>字樂園</h1>
+      <h2>中文學習好幫手</h2>
       <p>幫助 4-12 歲孩童快樂學習中文</p>
       <router-link to="/login" class="start-btn">開始學習</router-link>
     </div>
@@ -38,7 +38,7 @@
 <style scoped>
 .home {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4CAF50 0%, #2196F3 100%);
   color: white;
   display: flex;
   flex-direction: column;

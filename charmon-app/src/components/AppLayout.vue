@@ -2,7 +2,7 @@
   <div class="app-layout">
     <nav class="sidebar">
       <div class="logo">
-        <h2>CharMon</h2>
+        <h2>字樂園</h2>
       </div>
 
       <div class="user-info">
@@ -104,7 +104,7 @@ const handleLogout = () => {
 
 .sidebar {
   width: 250px;
-  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(180deg, #4CAF50 0%, #2196F3 100%);
   color: white;
   display: flex;
   flex-direction: column;
