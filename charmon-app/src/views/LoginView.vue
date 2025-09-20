@@ -107,8 +107,8 @@ const handleLogin = () => {
   border-radius: 20px;
   padding: 40px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  max-width: 500px;
-  width: 100%;
+  max-width: 600px;
+  width: 90%;
 }
 
 .title {
