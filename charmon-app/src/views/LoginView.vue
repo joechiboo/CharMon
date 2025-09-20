@@ -17,16 +17,6 @@
         </div>
 
         <div class="form-group">
-          <label for="age">你幾歲了？</label>
-          <select id="age" v-model="userAge">
-            <option disabled value="">請選擇</option>
-            <option v-for="age in ages" :key="age" :value="age">
-              {{ age }} 歲
-            </option>
-          </select>
-        </div>
-
-        <div class="form-group">
           <label>你是...</label>
           <div class="grade-buttons">
             <button
@@ -62,11 +52,8 @@ const router = useRouter()
 const userStore = useUserStore()
 
 const userName = ref('')
-const userAge = ref('')
 const gradeLevel = ref<'kindergarten' | 'elementary-low' | 'elementary-high' | ''>('')
 const showParentLogin = ref(false)
-
-const ages = Array.from({ length: 10 }, (_, i) => i + 3)
 
 const grades = [
   { value: 'kindergarten', label: '幼稚園' },
@@ -75,16 +62,26 @@ const grades = [
 ]
 
 const canLogin = computed(() => {
-  return userName.value && userAge.value && gradeLevel.value
+  return userName.value && gradeLevel.value
 })
 
 const handleLogin = () => {
   if (!canLogin.value) return
 
+  // 根據學習階段設定預設年齡
+  const getAgeByGrade = (grade: string) => {
+    switch(grade) {
+      case 'kindergarten': return 5
+      case 'elementary-low': return 8
+      case 'elementary-high': return 11
+      default: return 6
+    }
+  }
+
   const user: User = {
     id: Date.now().toString(),
     name: userName.value,
-    age: parseInt(userAge.value),
+    age: getAgeByGrade(gradeLevel.value),
     gradeLevel: gradeLevel.value as User['gradeLevel'],
     createdAt: new Date(),
     updatedAt: new Date()
