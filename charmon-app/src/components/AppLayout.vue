@@ -28,13 +28,6 @@
         </li>
         <li>
           <div class="nav-item disabled">
-            <el-icon><Trophy /></el-icon>
-            <span>遊戲</span>
-            <span class="coming-soon-badge">即將推出</span>
-          </div>
-        </li>
-        <li>
-          <div class="nav-item disabled">
             <el-icon><Medal /></el-icon>
             <span>成就</span>
             <span class="coming-soon-badge">即將推出</span>
@@ -82,7 +75,6 @@ import { useUserStore } from '@/stores/user'
 import {
   House,
   Reading,
-  Trophy,
   Medal,
   Present,
   Document,

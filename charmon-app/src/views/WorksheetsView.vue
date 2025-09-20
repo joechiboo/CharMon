@@ -1,8 +1,10 @@
 <template>
   <div class="worksheets-container">
     <header class="worksheets-header">
-      <h1>練習表格生成器</h1>
-      <p>為孩子製作專屬的中文字練習表</p>
+      <h1 v-if="isGameMode">🎮 {{ pokemonTheme }} 文學練習表</h1>
+      <h1 v-else>練習表格生成器</h1>
+      <p v-if="isGameMode">跟著 {{ pokemonTheme }} 一起練習文學描述寫作！</p>
+      <p v-else>為孩子製作專屬的中文字練習表</p>
     </header>
 
     <div class="worksheets-content">
@@ -48,7 +50,7 @@
       </div>
 
       <div class="character-info">
-        <div class="form-group">
+        <div v-if="!isGameMode" class="form-group">
           <label>每行字數</label>
           <select v-model="charsPerLine">
             <option value="3">3 字</option>
@@ -57,7 +59,7 @@
           </select>
         </div>
 
-        <div class="form-group">
+        <div v-if="!isGameMode" class="form-group">
           <label>重複行數</label>
           <select v-model="repeatCount">
             <option value="3">3 行</option>
@@ -96,8 +98,11 @@ import { useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 
 const userStore = useUserStore()
+const route = useRoute()
 const inputText = ref('')
 const gridType = ref('tian')
+const isGameMode = ref(false)
+const pokemonTheme = ref('')
 // 根據使用者年級設定預設值
 const getDefaultCharsPerLine = () => {
   const user = userStore.currentUser
@@ -508,6 +513,35 @@ onMounted(() => {
   if (route.query.name && typeof route.query.name === 'string') {
     inputText.value = route.query.name
   }
+
+  // 檢查寶可夢主題參數 - 遊戲模式
+  if (route.query.pokemonTheme && route.query.variations) {
+    try {
+      const pokemonName = route.query.pokemonTheme as string
+      const variations = JSON.parse(route.query.variations as string)
+
+      // 設定遊戲模式
+      isGameMode.value = true
+      pokemonTheme.value = pokemonName
+
+      // 遊戲模式：每個文學變化換一行
+      const practiceLines = variations.map((v: any) => v.description)
+      inputText.value = practiceLines.join('\n')
+
+      // 設定遊戲模式專用設定 - 仿照demo.jpg
+      charsPerLine.value = 10  // 適中的字數
+      repeatCount.value = 6    // 多行練習
+      gridType.value = 'tian'  // 使用田字格
+      showZhuyin.value = false // 不顯示注音，專注寫字
+
+      // 自動生成預覽
+      nextTick(() => {
+        generateGameModePreview()
+      })
+    } catch (e) {
+      console.warn('解析寶可夢主題參數失敗:', e)
+    }
+  }
 })
 
 const generatePreview = async () => {
@@ -674,6 +708,435 @@ const drawGrid = (ctx: CanvasRenderingContext2D, x: number, y: number, size: num
   // simple 格式只有外框，不需要額外線條
 }
 
+// 遊戲模式專用預覽生成 - 仿照demo.jpg
+const generateGameModePreview = async () => {
+  if (!inputText.value.trim()) return
+
+  hasPreview.value = true
+  await nextTick()
+
+  if (!previewCanvas.value) return
+
+  const canvas = previewCanvas.value
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return
+
+  // 計算畫布尺寸 - 仿照練習簿比例，增加高度以容納簽名處
+  const width = 525
+  const height = 700
+  canvas.width = width
+  canvas.height = height
+
+  // 設定白色背景
+  ctx.fillStyle = 'white'
+  ctx.fillRect(0, 0, width, height)
+
+  // 左側寶可夢主題區域
+  const leftPanelWidth = 50
+  ctx.fillStyle = '#f8f9fa'
+  ctx.fillRect(0, 0, leftPanelWidth, height)
+
+  // 移除寶可夢主題標題
+
+  // 移除寶可夢emoji
+
+  // 先模擬右側文字分行，計算每個文學元素的起始行
+  const textLines = inputText.value.trim().split('\n')
+  const literaryElements = ['顏色', '形容', '地點', '動態', '修辭']
+  let elementStartRows = []
+  let simulatedRow = 0
+  const maxRows = 13 // 預定義最大行數
+
+  // 模擬右側分行邏輯
+  textLines.forEach((line, lineIndex) => {
+    if (simulatedRow >= maxRows || lineIndex >= literaryElements.length) return
+
+    const lineChars = line.split('')
+    const startRow = simulatedRow
+
+    // 計算這一行文字需要多少行來顯示
+    for (let charIndex = 0; charIndex < lineChars.length; ) {
+      if (simulatedRow >= maxRows) break
+
+      const availableCols = simulatedRow < 6 ? 7 : 11
+      charIndex += availableCols
+      simulatedRow++
+    }
+
+    const endRow = simulatedRow - 1
+    const middleRow = Math.floor((startRow + endRow) / 2)
+
+    elementStartRows.push({
+      element: literaryElements[lineIndex],
+      startRow: startRow,
+      endRow: endRow,
+      middleRow: middleRow
+    })
+  })
+
+  // 繪製文學元素說明，對應實際的起始行
+  ctx.fillStyle = '#666'
+  ctx.font = '16px Arial'
+  ctx.textAlign = 'left'
+  const rightGridStartY = 65
+  const cellSize = 40
+
+  elementStartRows.forEach(item => {
+    const correspondingRowY = rightGridStartY + item.startRow * cellSize + cellSize/2
+    ctx.fillText(item.element, 20, correspondingRowY + 5)
+  })
+
+  // 右側田字格練習區域
+  const rightStartX = leftPanelWidth + 20
+  const cols = 11
+  const rows = 13
+
+  // 按行處理文字（使用已定義的 textLines）
+  let currentRow = 0
+
+  textLines.forEach((line, lineIndex) => {
+    if (currentRow >= rows) return // 超出範圍就停止
+
+    const lineChars = line.split('')
+
+    // 每行最多7或10個字，超過的字換到下一行
+    for (let charIndex = 0; charIndex < lineChars.length; ) {
+      if (currentRow >= rows) break
+
+      // 前6行預留最後4格給貼卡片，每行最多7個字；第7行開始可以用完整11格
+      const availableCols = currentRow < 6 ? 7 : 11
+      const rowChars = lineChars.slice(charIndex, charIndex + availableCols)
+      charIndex += availableCols
+
+      for (let col = 0; col < cols; col++) {
+        const x = rightStartX + col * cellSize
+        const y = 65 + currentRow * cellSize
+
+        // 繪製田字格（貼卡片區域只繪製外框）
+        const isCardArea = currentRow < 6 && col >= 7
+        drawGameModeGrid(ctx, x, y, cellSize, isCardArea, currentRow, col)
+
+        // 前6行的最後4格繪製卡片預留區域
+        if (currentRow < 6 && col >= 7) {
+          // 合併區域的背景在drawGameModeGrid中處理
+        } else if (col < rowChars.length) {
+          // 繪製範例字（淡色）
+          ctx.fillStyle = 'rgba(100, 100, 100, 0.3)'
+          ctx.font = `${cellSize * 0.6}px Arial`
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'middle'
+          ctx.fillText(rowChars[col], x + cellSize/2, y + cellSize/2)
+        }
+      }
+      currentRow++
+    }
+
+  })
+
+  // 填充剩餘的空白格子
+  for (let row = currentRow; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      const x = rightStartX + col * cellSize
+      const y = 65 + row * cellSize
+      const isCardArea = row < 4 && col >= 7
+      drawGameModeGrid(ctx, x, y, cellSize, isCardArea, row, col)
+
+      // 如果是前4行的貼卡片區域，繪製背景（除了合併區域的起始格）
+      if (row < 4 && col >= 7 && !(row === 0 && col === 7)) {
+        ctx.fillStyle = 'rgba(200, 200, 200, 0.2)'
+        ctx.fillRect(x + 1, y + 1, cellSize - 2, cellSize - 2)
+      }
+    }
+  }
+
+  // 繪製標題（置左）
+  ctx.fillStyle = '#333'
+  ctx.font = 'bold 16px Arial'
+  ctx.textAlign = 'left'
+  ctx.fillText('字樂園', 10, 30)
+
+  // 繪製寶可夢主題標題（右側區域對齊）
+  const pokemonEmojis = {
+    '皮卡丘': '⚡',
+    '小火龍': '🔥',
+    '傑尼龜': '💧',
+    '妙蛙種子': '🌱'
+  }
+  const pokemonEmoji = pokemonEmojis[pokemonTheme.value] || '⚡'
+  ctx.fillStyle = '#666'
+  ctx.font = 'bold 18px Arial'
+  ctx.textAlign = 'left'
+  ctx.fillText(`${pokemonTheme.value}主題 ${pokemonEmoji}`, rightStartX, 30)
+
+  // 繪製姓名和日期填寫處（與皮卡丘主題同一行）
+  ctx.fillStyle = '#666'
+  ctx.font = '14px Arial'
+  ctx.textAlign = 'left'
+
+  // 計算表格右上角位置
+  const tableRightX = rightStartX + cols * cellSize
+  const tableTopY = 65
+
+  // 姓名和日期與皮卡丘主題同一行（y=30）
+  const sameRowY = 30
+
+  // 姓名填寫處
+  ctx.fillText('姓名：', tableRightX - 220, sameRowY)
+  ctx.strokeStyle = '#666'
+  ctx.lineWidth = 1
+  ctx.beginPath()
+  ctx.moveTo(tableRightX - 180, sameRowY + 2)
+  ctx.lineTo(tableRightX - 130, sameRowY + 2)
+  ctx.stroke()
+
+  // 日期填寫處（同一行，右邊一點）
+  ctx.fillText('日期：', tableRightX - 110, sameRowY)
+  ctx.beginPath()
+  ctx.moveTo(tableRightX - 70, sameRowY + 2)
+  ctx.lineTo(tableRightX - 20, sameRowY + 2)
+  ctx.stroke()
+
+  // 繪製表格右下角家長簽名處
+  const tableBottomY = tableTopY + rows * cellSize
+  ctx.fillStyle = '#666'
+  ctx.font = '14px Arial'
+  ctx.textAlign = 'left'
+  ctx.fillText('家長簽名：', tableRightX - 200, tableBottomY + 30)
+  ctx.strokeStyle = '#666'
+  ctx.lineWidth = 1
+  ctx.beginPath()
+  ctx.moveTo(tableRightX - 130, tableBottomY + 32)
+  ctx.lineTo(tableRightX - 20, tableBottomY + 32)
+  ctx.stroke()
+}
+
+// 遊戲模式田字格繪製
+const drawGameModeGrid = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, isCardArea: boolean = false, row: number = 0, col: number = 0) => {
+
+  if (isCardArea) {
+    // 貼卡片區域：繪製合併儲存格效果
+    if (row === 0 && col === 7) {
+      // 繪製合併區域的大外框（4x6的區域）
+      const mergedWidth = size * 4  // 4列
+      const mergedHeight = size * 6 // 6行
+
+      // 繪製背景
+      ctx.fillStyle = 'rgba(200, 200, 200, 0.2)'
+      ctx.fillRect(x, y, mergedWidth, mergedHeight)
+
+      // 繪製外框
+      ctx.strokeStyle = '#d4794a'
+      ctx.lineWidth = 1.5
+      ctx.setLineDash([]) // 實線
+      ctx.strokeRect(x, y, mergedWidth, mergedHeight)
+
+      // 繪製「黏貼卡片處」文字（置中）
+      ctx.fillStyle = 'rgba(150, 150, 150, 0.7)'
+      ctx.font = '14px Arial'
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.fillText('黏貼卡片處', x + mergedWidth/2, y + mergedHeight/2)
+    }
+    // 其他貼卡片區域的格子不繪製邊框
+  } else {
+    // 一般區域：繪製田字格
+
+    // 外框（實線，毛筆宣紙紅色）
+    ctx.strokeStyle = '#d4794a'
+    ctx.lineWidth = 1.5
+    ctx.setLineDash([]) // 實線
+    ctx.strokeRect(x, y, size, size)
+
+    // 田字格內部線條（虛線，淺紅色）
+    ctx.strokeStyle = '#e6b088'
+    ctx.lineWidth = 1
+    ctx.setLineDash([3, 3]) // 虛線
+    ctx.beginPath()
+    // 水平線
+    ctx.moveTo(x, y + size/2)
+    ctx.lineTo(x + size, y + size/2)
+    // 垂直線
+    ctx.moveTo(x + size/2, y)
+    ctx.lineTo(x + size/2, y + size)
+    ctx.stroke()
+
+    // 恢復實線設定
+    ctx.setLineDash([])
+  }
+}
+
+// 遊戲模式高解析度下載生成
+const generateGameModeDownload = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
+  // 使用更高解析度 - 2倍大小
+  const scaleFactor = 2
+  const width = 525 * scaleFactor
+  const height = 700 * scaleFactor
+  canvas.width = width
+  canvas.height = height
+
+  // 縮放context
+  ctx.scale(scaleFactor, scaleFactor)
+
+  // 基本上複製generateGameModePreview的邏輯
+  // 設定白色背景
+  ctx.fillStyle = 'white'
+  ctx.fillRect(0, 0, width / scaleFactor, height / scaleFactor)
+
+  // 使用相同邏輯但調整後的尺寸
+  const leftPanelWidth = 50
+  ctx.fillStyle = '#f8f9fa'
+  ctx.fillRect(0, 0, leftPanelWidth, height / scaleFactor)
+
+  // 複製所有遊戲模式邏輯...
+  const textLines = inputText.value.trim().split('\n')
+  const literaryElements = ['顏色', '形容', '地點', '動態', '修辭']
+  let elementStartRows = []
+  let simulatedRow = 0
+  const maxRows = 13
+  const rightGridStartY = 65
+  const cellSize = 40
+  const cols = 11
+  const rows = 13
+  const rightStartX = leftPanelWidth + 20
+
+  // 模擬分行邏輯...
+  textLines.forEach((line, lineIndex) => {
+    if (simulatedRow >= maxRows || lineIndex >= literaryElements.length) return
+
+    const lineChars = line.split('')
+    const startRow = simulatedRow
+
+    for (let charIndex = 0; charIndex < lineChars.length; ) {
+      if (simulatedRow >= maxRows) break
+
+      const availableCols = simulatedRow < 6 ? 7 : 11
+      charIndex += availableCols
+      simulatedRow++
+    }
+
+    const endRow = simulatedRow - 1
+    const middleRow = Math.floor((startRow + endRow) / 2)
+
+    elementStartRows.push({
+      element: literaryElements[lineIndex],
+      startRow: startRow,
+      endRow: endRow,
+      middleRow: middleRow
+    })
+  })
+
+  // 繪製文學元素
+  ctx.fillStyle = '#666'
+  ctx.font = '16px Arial'
+  ctx.textAlign = 'left'
+
+  elementStartRows.forEach(item => {
+    const correspondingRowY = rightGridStartY + item.startRow * cellSize + cellSize/2
+    ctx.fillText(item.element, 20, correspondingRowY + 5)
+  })
+
+  // 繪製表格和內容...
+  let currentRow = 0
+  textLines.forEach((line, lineIndex) => {
+    if (currentRow >= rows) return
+
+    const lineChars = line.split('')
+
+    for (let charIndex = 0; charIndex < lineChars.length; ) {
+      if (currentRow >= rows) break
+
+      const availableCols = currentRow < 4 ? 7 : 11
+      const rowChars = lineChars.slice(charIndex, charIndex + availableCols)
+      charIndex += availableCols
+
+      for (let col = 0; col < cols; col++) {
+        const x = rightStartX + col * cellSize
+        const y = 65 + currentRow * cellSize
+
+        const isCardArea = currentRow < 4 && col >= 7
+        drawGameModeGrid(ctx, x, y, cellSize, isCardArea, currentRow, col)
+
+        if (currentRow < 4 && col >= 7) {
+          // 貼卡片區域
+        } else if (col < rowChars.length) {
+          ctx.fillStyle = 'rgba(100, 100, 100, 0.3)'
+          ctx.font = `${cellSize * 0.6}px Arial`
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'middle'
+          ctx.fillText(rowChars[col], x + cellSize/2, y + cellSize/2)
+        }
+      }
+      currentRow++
+    }
+
+  })
+
+  // 填充空白格子
+  for (let row = currentRow; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      const x = rightStartX + col * cellSize
+      const y = 65 + row * cellSize
+      const isCardArea = row < 4 && col >= 7
+      drawGameModeGrid(ctx, x, y, cellSize, isCardArea, row, col)
+    }
+  }
+
+  // 繪製標題和填寫處
+  ctx.fillStyle = '#333'
+  ctx.font = 'bold 16px Arial'
+  ctx.textAlign = 'left'
+  ctx.fillText('字樂園', 10, 30)
+
+  const pokemonEmojis = {
+    '皮卡丘': '⚡',
+    '小火龍': '🔥',
+    '傑尼龜': '💧',
+    '妙蛙種子': '🌱'
+  }
+  const pokemonEmoji = pokemonEmojis[pokemonTheme.value] || '⚡'
+  ctx.fillStyle = '#666'
+  ctx.font = 'bold 18px Arial'
+  ctx.textAlign = 'left'
+  ctx.fillText(`${pokemonTheme.value}主題 ${pokemonEmoji}`, rightStartX, 30)
+
+  // 姓名和日期
+  const tableRightX = rightStartX + cols * cellSize
+  const tableTopY = 65
+  const sameRowY = 30
+
+  ctx.fillStyle = '#666'
+  ctx.font = '14px Arial'
+  ctx.textAlign = 'left'
+
+  ctx.fillText('姓名：', tableRightX - 220, sameRowY)
+  ctx.strokeStyle = '#666'
+  ctx.lineWidth = 1
+  ctx.beginPath()
+  ctx.moveTo(tableRightX - 180, sameRowY + 2)
+  ctx.lineTo(tableRightX - 130, sameRowY + 2)
+  ctx.stroke()
+
+  ctx.fillText('日期：', tableRightX - 110, sameRowY)
+  ctx.beginPath()
+  ctx.moveTo(tableRightX - 70, sameRowY + 2)
+  ctx.lineTo(tableRightX - 20, sameRowY + 2)
+  ctx.stroke()
+
+  // 家長簽名處
+  const tableBottomY = tableTopY + rows * cellSize
+  ctx.fillText('家長簽名：', tableRightX - 200, tableBottomY + 30)
+  ctx.beginPath()
+  ctx.moveTo(tableRightX - 130, tableBottomY + 32)
+  ctx.lineTo(tableRightX - 20, tableBottomY + 32)
+  ctx.stroke()
+
+  // 下載
+  const link = document.createElement('a')
+  link.download = `字樂園_${pokemonTheme.value}主題_練習表.png`
+  link.href = canvas.toDataURL()
+  link.click()
+}
+
 const downloadImage = () => {
   if (!hasPreview.value || !inputText.value.trim()) return
 
@@ -681,6 +1144,13 @@ const downloadImage = () => {
   const downloadCanvas = document.createElement('canvas')
   const ctx = downloadCanvas.getContext('2d')
   if (!ctx) return
+
+  // 檢查是否為遊戲模式
+  if (isGameMode.value) {
+    // 遊戲模式：使用相同的生成邏輯但更高解析度
+    generateGameModeDownload(downloadCanvas, ctx)
+    return
+  }
 
   // 準備要練習的字符
   const allChars = inputText.value.trim().split('')

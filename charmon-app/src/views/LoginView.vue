@@ -93,7 +93,15 @@ const handleLogin = () => {
   }
 
   userStore.login(user)
-  router.push('/dashboard')
+
+  // 根據年級決定登入後的導向
+  if (user.gradeLevel === 'elementary-low') {
+    // 低年級：直接進入遊戲時間
+    router.push('/games')
+  } else {
+    // 幼稚園：進入儀表板
+    router.push('/dashboard')
+  }
 }
 </script>
 

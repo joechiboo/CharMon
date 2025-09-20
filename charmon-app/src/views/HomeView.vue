@@ -14,19 +14,9 @@
         <p>認識和書寫自己的名字</p>
       </div>
       <div class="feature">
-        <div class="feature-icon">📖</div>
-        <h3>認字練習</h3>
-        <p>學習常用中文字</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">🎮</div>
-        <h3>遊戲學習</h3>
-        <p>在遊戲中快樂學習</p>
-      </div>
-      <div class="feature">
         <div class="feature-icon">📝</div>
         <h3>練習表格</h3>
-        <p>可列印的練習紙</p>
+        <p>自製個人化練習紙</p>
       </div>
     </div>
   </div>

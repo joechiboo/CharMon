@@ -27,16 +27,6 @@ const router = createRouter({
       meta: { requiresAuth: true },
       children: [
         {
-          path: 'character/:id',
-          name: 'character-detail',
-          component: () => import('@/views/CharacterDetailView.vue')
-        },
-        {
-          path: 'practice',
-          name: 'practice',
-          component: () => import('@/views/PracticeView.vue')
-        },
-        {
           path: 'name',
           name: 'name-learning',
           component: () => import('@/views/NameLearningView.vue')

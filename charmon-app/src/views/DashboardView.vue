@@ -41,26 +41,55 @@
       </section>
 
       <section class="main-actions">
-        <h2>今天要學什麼？</h2>
+        <h2 v-if="userStore.currentUser?.gradeLevel === 'kindergarten'">今天要學什麼？</h2>
+        <h2 v-else-if="userStore.currentUser?.gradeLevel === 'elementary-low'">今天要玩什麼？</h2>
+        <h2 v-else>今天要學什麼？</h2>
         <div class="action-grid">
-          <router-link to="/learn/name" class="action-card primary">
+          <!-- 幼稚園：學習名字為主要功能 -->
+          <router-link
+            v-if="userStore.currentUser?.gradeLevel === 'kindergarten'"
+            to="/learn/name"
+            class="action-card primary"
+          >
             <div class="action-icon">✍️</div>
             <div class="action-title">學習我的名字</div>
             <div class="action-desc">認識和書寫你的名字</div>
           </router-link>
 
-          <router-link to="/learn/practice" class="action-card">
-            <div class="action-icon">📖</div>
-            <div class="action-title">認字練習</div>
-            <div class="action-desc">學習新的中文字</div>
-          </router-link>
-
-          <router-link to="/games" class="action-card">
+          <!-- 低年級：遊戲時間為主要功能 -->
+          <router-link
+            v-if="userStore.currentUser?.gradeLevel === 'elementary-low'"
+            to="/games"
+            class="action-card primary"
+          >
             <div class="action-icon">🎮</div>
             <div class="action-title">遊戲時間</div>
             <div class="action-desc">玩遊戲學中文</div>
           </router-link>
 
+          <!-- 幼稚園：遊戲時間為次要功能 -->
+          <router-link
+            v-if="userStore.currentUser?.gradeLevel === 'kindergarten'"
+            to="/games"
+            class="action-card"
+          >
+            <div class="action-icon">🎮</div>
+            <div class="action-title">遊戲時間</div>
+            <div class="action-desc">玩遊戲學中文</div>
+          </router-link>
+
+          <!-- 低年級：學習名字為次要功能 -->
+          <router-link
+            v-if="userStore.currentUser?.gradeLevel === 'elementary-low'"
+            to="/learn/name"
+            class="action-card"
+          >
+            <div class="action-icon">✍️</div>
+            <div class="action-title">學習我的名字</div>
+            <div class="action-desc">認識和書寫你的名字</div>
+          </router-link>
+
+          <!-- 練習表格：所有年級都有 -->
           <router-link to="/worksheets" class="action-card">
             <div class="action-icon">📝</div>
             <div class="action-title">練習表格</div>
@@ -70,10 +99,12 @@
       </section>
 
       <section class="recommended-characters">
-        <h2>推薦學習</h2>
+        <h2 v-if="userStore.currentUser?.gradeLevel === 'kindergarten'">推薦學習</h2>
+        <h2 v-else-if="userStore.currentUser?.gradeLevel === 'elementary-low'">常用漢字</h2>
+        <h2 v-else>推薦學習</h2>
         <div class="character-list">
           <div
-            v-for="char in recommendedChars"
+            v-for="char in currentRecommendedChars"
             :key="char"
             class="character-card"
             @click="learnCharacter(char)"
@@ -107,7 +138,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { useLearningStore } from '@/stores/learning'
@@ -116,10 +147,22 @@ const router = useRouter()
 const userStore = useUserStore()
 const learningStore = useLearningStore()
 
-const recommendedChars = ref(['大', '小', '人', '日', '月'])
+// 幼稚園推薦字符：簡單基礎字
+const kindergartenChars = ['大', '小', '人', '日', '月']
+// 低年級推薦字符：更多常用字
+const elementaryLowChars = ['山', '水', '火', '土', '木', '天', '地', '風', '雨', '雲']
+
+const currentRecommendedChars = computed(() => {
+  const user = userStore.currentUser
+  if (user?.gradeLevel === 'elementary-low') {
+    return elementaryLowChars
+  }
+  return kindergartenChars
+})
 
 const learnCharacter = (char: string) => {
-  router.push(`/learn/character/${char}`)
+  // 導向練習表格，並帶入字符參數進行練習
+  router.push(`/worksheets?text=${char}`)
 }
 </script>
 

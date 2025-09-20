@@ -14,12 +14,11 @@
           <p>學習認識和書寫你的名字</p>
         </router-link>
 
-        <div class="learn-option-card disabled">
-          <div class="card-icon">📖</div>
-          <h3>基礎認字</h3>
-          <p>學習常用的中文字</p>
-          <span class="coming-soon">即將推出</span>
-        </div>
+        <router-link to="/games" class="learn-option-card">
+          <div class="card-icon">🎮</div>
+          <h3>遊戲時間</h3>
+          <p>玩遊戲學中文</p>
+        </router-link>
 
         <div class="learn-option-card disabled">
           <div class="card-icon">🎯</div>
