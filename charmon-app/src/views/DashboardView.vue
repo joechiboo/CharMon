@@ -158,8 +158,8 @@ const learnCharacter = (char: string) => {
 }
 
 .dashboard-content {
-  padding: 30px;
-  max-width: 1200px;
+  padding: 30px 40px;
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
 }

@@ -51,8 +51,8 @@ const route = useRoute()
 }
 
 .learn-home {
-  padding: 30px;
-  max-width: 1200px;
+  padding: 30px 40px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 

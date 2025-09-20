@@ -473,8 +473,9 @@ onMounted(() => {
 }
 
 .learning-content {
-  max-width: 1000px;
+  max-width: 1300px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 
 .name-display {

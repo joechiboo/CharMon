@@ -91,7 +91,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  max-width: 1200px;
+  max-width: 1400px;
   width: 100%;
   flex-shrink: 0;
   margin: 0 auto;
@@ -121,10 +121,10 @@
 }
 
 /* 響應式設計 */
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
   .features {
     grid-template-columns: repeat(2, 1fr);
-    max-width: 800px;
+    max-width: 900px;
   }
 }
 

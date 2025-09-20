@@ -103,7 +103,7 @@ const handleLogout = () => {
 }
 
 .sidebar {
-  width: 250px;
+  width: 280px;
   background: linear-gradient(180deg, #4CAF50 0%, #2196F3 100%);
   color: white;
   display: flex;
