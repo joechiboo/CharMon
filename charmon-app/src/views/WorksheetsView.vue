@@ -44,11 +44,11 @@
 
       <div class="character-info">
         <div class="form-group">
-          <label>重複次數</label>
+          <label>重複行數</label>
           <select v-model="repeatCount">
-            <option value="3">3 次</option>
-            <option value="5">5 次</option>
-            <option value="10">10 次</option>
+            <option value="3">3 行</option>
+            <option value="6">6 行</option>
+            <option value="9">9 行</option>
           </select>
         </div>
 
@@ -417,9 +417,18 @@ const generatePreview = async () => {
   const ctx = canvas.getContext('2d')
   if (!ctx) return
 
-  // 設定畫布尺寸 (適合預覽區域)
-  const width = 300
-  const height = 400
+  // 準備要練習的字符
+  const chars = inputText.value.trim().split('')
+
+  // 計算所需畫布尺寸
+  const cellSize = 40
+  const margin = 20
+  const charsPerRow = chars.length
+  const totalColsPerRow = charsPerRow * 6
+
+  const width = margin * 2 + totalColsPerRow * cellSize
+  const height = margin * 2 + repeatCount.value * cellSize + (showZhuyin.value ? 20 : 0)
+
   canvas.width = width
   canvas.height = height
 
@@ -428,46 +437,35 @@ const generatePreview = async () => {
   ctx.fillRect(0, 0, width, height)
 
   // 設定基本參數
-  const cellSize = 40
-  const margin = 20
-  const lineWidth = 1
-
-  // 準備要練習的字符
-  const chars = inputText.value.trim().split('')
-
-  // 計算佈局 - 每個字符佔6格（3格浮水印 + 3格空白）
-  const totalCols = 6
   const startX = margin
   const startY = margin + (showZhuyin.value ? 20 : 0) // 如果有注音，預留空間
 
-  let row = 0
-
-  // 繪製每個字符，每個字符重複指定次數
-  chars.forEach((char) => {
-    // 每個字符重複 repeatCount 次
-    for (let repeat = 0; repeat < repeatCount.value; repeat++) {
-      const y = startY + row * cellSize
-
-      // 繪製注音 (如果啟用，且是該字符的第一行)
-      if (showZhuyin.value && repeat === 0) {
+  // 繪製指定行數，每行顯示完整的字符序列（如：紀家禾）
+  for (let rowIndex = 0; rowIndex < repeatCount.value; rowIndex++) {
+    // 繪製注音（如果啟用，且是第一行）
+    if (showZhuyin.value && rowIndex === 0) {
+      chars.forEach((char, charIndex) => {
         ctx.fillStyle = '#27ae60'
         ctx.font = '8px Arial'
         ctx.textAlign = 'center'
         const zhuyin = getZhuyin(char)
-        // 在整行的中央顯示注音
-        ctx.fillText(zhuyin, startX + (totalCols * cellSize) / 2, y - 8)
-      }
+        const charX = startX + charIndex * 6 * cellSize + (6 * cellSize) / 2
+        const y = startY + rowIndex * cellSize
+        ctx.fillText(zhuyin, charX, y - 8)
+      })
+    }
 
-      // 繪製6個格子
-      for (let col = 0; col < totalCols; col++) {
-        const x = startX + col * cellSize
+    // 繪製每個字符的6個格子
+    chars.forEach((char, charIndex) => {
+      for (let col = 0; col < 6; col++) {
+        const x = startX + charIndex * 6 * cellSize + col * cellSize
+        const y = startY + rowIndex * cellSize
 
         // 繪製格子
         drawGrid(ctx, x, y, cellSize, gridType.value)
 
         // 前3格加浮水印，後3格空白
         if (col < 3) {
-          // 繪製浮水印字符
           ctx.fillStyle = 'rgba(200, 200, 200, 0.3)'
           ctx.font = `${cellSize * 0.6}px 'Microsoft YaHei', Arial, sans-serif`
           ctx.textAlign = 'center'
@@ -475,10 +473,8 @@ const generatePreview = async () => {
           ctx.fillText(char, x + cellSize/2, y + cellSize/2)
         }
       }
-
-      row++
-    }
-  })
+    })
+  }
 }
 
 const drawGrid = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, type: string) => {
@@ -712,7 +708,6 @@ const downloadImage = () => {
 
 .worksheet-preview {
   max-width: 100%;
-  max-height: 200px;
   border: 1px solid #ddd;
   border-radius: 8px;
 }
