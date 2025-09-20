@@ -45,11 +45,13 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .hero {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+  flex-shrink: 0;
 }
 
 .hero h1 {
@@ -90,6 +92,7 @@
   gap: 20px;
   max-width: 1200px;
   width: 100%;
+  flex-shrink: 0;
 }
 
 .feature {
