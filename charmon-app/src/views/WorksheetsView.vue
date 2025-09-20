@@ -723,7 +723,7 @@ const generateGameModePreview = async () => {
 
   // 計算畫布尺寸 - 仿照練習簿比例，增加高度以容納簽名處
   const width = 525
-  const height = 700
+  const height = 650
   canvas.width = width
   canvas.height = height
 
@@ -970,7 +970,7 @@ const generateGameModeDownload = (canvas: HTMLCanvasElement, ctx: CanvasRenderin
   // 使用更高解析度 - 2倍大小
   const scaleFactor = 2
   const width = 525 * scaleFactor
-  const height = 700 * scaleFactor
+  const height = 650 * scaleFactor
   canvas.width = width
   canvas.height = height
 
@@ -1321,7 +1321,7 @@ const drawGridDownload = (ctx: CanvasRenderingContext2D, x: number, y: number, s
 
 .worksheets-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .worksheets-header h1 {
@@ -1352,10 +1352,10 @@ const drawGridDownload = (ctx: CanvasRenderingContext2D, x: number, y: number, s
 
 .character-info {
   background: white;
-  padding: 30px;
+  padding: 10px;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  height: 70vh;
+  height: 60vh;
 }
 
 .form-group {
@@ -1431,7 +1431,7 @@ const drawGridDownload = (ctx: CanvasRenderingContext2D, x: number, y: number, s
 .action-buttons {
   display: flex;
   gap: 15px;
-  margin-top: 30px;
+  margin-top: 15px;
 }
 
 .preview-btn, .download-btn {
@@ -1477,8 +1477,10 @@ const drawGridDownload = (ctx: CanvasRenderingContext2D, x: number, y: number, s
   padding: 15px;
   border-radius: 10px;
   border: 1px solid #e9ecef;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 20px;
+  max-height: 425px;
+  overflow: hidden;
 }
 
 .preview-area h4 {
@@ -1496,6 +1498,8 @@ const drawGridDownload = (ctx: CanvasRenderingContext2D, x: number, y: number, s
   max-width: 100%;
   border: 1px solid #ddd;
   border-radius: 8px;
+  transform: scale(0.55);
+  transform-origin: center top;
 }
 
 .no-preview {
