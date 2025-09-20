@@ -17,7 +17,7 @@
             @click="selectCharacter(index)"
           >
             <div class="character">{{ char }}</div>
-            <div class="pinyin">{{ getPinyin(char) }}</div>
+            <div class="zhuyin">{{ getZhuyin(char) }}</div>
           </div>
         </div>
       </div>
@@ -41,8 +41,8 @@
             <span class="value">{{ getStrokeCount(nameCharacters[selectedCharIndex]) }} 劃</span>
           </div>
           <div class="info-item">
-            <span class="label">拼音：</span>
-            <span class="value">{{ getPinyin(nameCharacters[selectedCharIndex]) }}</span>
+            <span class="label">注音：</span>
+            <span class="value">{{ getZhuyin(nameCharacters[selectedCharIndex]) }}</span>
           </div>
         </div>
       </div>
@@ -82,16 +82,30 @@ const selectCharacter = (index: number) => {
   clearCanvas()
 }
 
-const getPinyin = (char: string) => {
-  const pinyinMap: { [key: string]: string } = {
-    '王': 'wáng',
-    '李': 'lǐ',
-    '張': 'zhāng',
-    '小': 'xiǎo',
-    '明': 'míng',
-    '華': 'huá'
+const getZhuyin = (char: string) => {
+  const zhuyinMap: { [key: string]: string } = {
+    '王': 'ㄨㄤˊ',
+    '李': 'ㄌㄧˇ',
+    '張': 'ㄓㄤ',
+    '小': 'ㄒㄧㄠˇ',
+    '明': 'ㄇㄧㄥˊ',
+    '華': 'ㄏㄨㄚˊ',
+    '陳': 'ㄔㄣˊ',
+    '林': 'ㄌㄧㄣˊ',
+    '黃': 'ㄏㄨㄤˊ',
+    '吳': 'ㄨˊ',
+    '劉': 'ㄌㄧㄡˊ',
+    '楊': 'ㄧㄤˊ',
+    '許': 'ㄒㄩˇ',
+    '鄭': 'ㄓㄥˋ',
+    '謝': 'ㄒㄧㄝˋ',
+    '蔡': 'ㄘㄞˋ',
+    '蘇': 'ㄙㄨ',
+    '馬': 'ㄇㄚˇ',
+    '高': 'ㄍㄠ',
+    '何': 'ㄏㄜˊ'
   }
-  return pinyinMap[char] || 'pīn yīn'
+  return zhuyinMap[char] || 'ㄓㄨ ㄧㄣ'
 }
 
 const getStrokeCount = (char: string) => {
@@ -281,7 +295,7 @@ onMounted(() => {
   margin-bottom: 10px;
 }
 
-.character-box .pinyin {
+.character-box .zhuyin {
   font-size: 1rem;
   opacity: 0.8;
 }
