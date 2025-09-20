@@ -426,10 +426,22 @@ onMounted(() => {
 })
 
 const generatePreview = async () => {
-  if (!inputText.value.trim() || !previewCanvas.value) return
+  console.log('generatePreview called', { inputText: inputText.value, canvas: previewCanvas.value })
+
+  if (!inputText.value.trim()) {
+    console.log('No input text')
+    return
+  }
+
+  if (!previewCanvas.value) {
+    console.log('No canvas ref')
+    return
+  }
 
   hasPreview.value = true
   await nextTick()
+
+  console.log('Preview state set, hasPreview:', hasPreview.value)
 
   const canvas = previewCanvas.value
   const ctx = canvas.getContext('2d')
