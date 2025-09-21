@@ -371,9 +371,21 @@ export async function getZhuyinParts(char: string): Promise<ZhuyinPart[]> {
 
 // 未知字符管理
 export async function getUnknownCharacters(): Promise<string[]> {
-  // 現在完全不使用 Supabase，直接返回本地緩存
+  if (useSupabase) {
+    try {
+      // 從 Supabase 獲取未知字符
+      const unknownChars = await DictionaryService.getUnknownCharacters()
+      const result = unknownChars.map(char => char.character).sort()
+      console.log('📋 從 Supabase 獲取未知字符列表:', result, '總數:', result.length)
+      return result
+    } catch (error) {
+      console.error('從 Supabase 獲取未知字符失敗，使用本地緩存:', error)
+    }
+  }
+
+  // 降級使用本地緩存
   const result = Array.from(unknownCharactersCache).sort()
-  console.log('📋 獲取未知字符列表:', result, '總數:', result.length)
+  console.log('📋 使用本地緩存未知字符列表:', result, '總數:', result.length)
   return result
 }
 
