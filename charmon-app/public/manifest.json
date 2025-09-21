@@ -1,22 +1,15 @@
 {
   "name": "字樂園 - 中文學習應用程式",
   "short_name": "字樂園",
-  "description": "專為4-12歲孩童設計的中文學習應用程式",
-  "theme_color": "#4CAF50",
-  "background_color": "#ffffff",
-  "display": "standalone",
   "start_url": "/CharMon/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
   "icons": [
     {
-      "src": "/CharMon/logo.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/CharMon/favicon.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
+      "src": "logo.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
     }
   ]
 }
