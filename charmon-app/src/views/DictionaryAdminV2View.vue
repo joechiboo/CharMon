@@ -66,7 +66,7 @@
             <button v-if="isLocalhost" @click="syncData" class="action-btn sync" :disabled="loading">
               🔄 同步數據
             </button>
-            <button v-if="!isLocalhost" @click="cleanupExisting" class="action-btn cleanup" :disabled="loading">
+            <button v-if="isSupabaseEnabled()" @click="cleanupExisting" class="action-btn cleanup" :disabled="loading">
               🧹 清理已有字符
             </button>
           </div>
