@@ -3,6 +3,7 @@
 
 import { DictionaryService } from '@/services/dictionaryService'
 import { MoedictService } from '@/services/moedictService'
+import dictionaryData from '@/data/dictionary.json'
 
 export interface CharacterInfo {
   character: string
@@ -203,61 +204,16 @@ const radicalZhuyinMap: { [key: string]: string } = {
   '襾': 'ㄧㄚˋ'
 }
 
-// 本地字典數據
-const fallbackDictionary: { [key: string]: CharacterInfo } = {
-  // 常見姓氏
-  '王': { character: '王', strokeCount: 4, radical: '王', radicalZhuyin: 'ㄨㄤˊ', zhuyin: 'ㄨㄤˊ' },
-  '李': { character: '李', strokeCount: 7, radical: '木', radicalZhuyin: 'ㄇㄨˋ', zhuyin: 'ㄌㄧˇ' },
-  '張': { character: '張', strokeCount: 11, radical: '弓', radicalZhuyin: 'ㄍㄨㄥ', zhuyin: 'ㄓㄤ' },
-  '劉': { character: '劉', strokeCount: 15, radical: '刀', radicalZhuyin: 'ㄉㄠ', zhuyin: 'ㄌㄧㄡˊ' },
-  '陳': { character: '陳', strokeCount: 10, radical: '阝', radicalZhuyin: 'ㄈㄨˋ', zhuyin: 'ㄔㄣˊ' },
-  '周': { character: '周', strokeCount: 8, radical: '口', radicalZhuyin: 'ㄎㄡˇ', zhuyin: 'ㄓㄡ' },
-  '吳': { character: '吳', strokeCount: 7, radical: '口', radicalZhuyin: 'ㄎㄡˇ', zhuyin: 'ㄨˊ' },
-  '小': { character: '小', strokeCount: 3, radical: '小', radicalZhuyin: 'ㄒㄧㄠˇ', zhuyin: 'ㄒㄧㄠˇ' },
-  '明': { character: '明', strokeCount: 8, radical: '日', radicalZhuyin: 'ㄖˋ', zhuyin: 'ㄇㄧㄥˊ' },
-  '家': { character: '家', strokeCount: 10, radical: '宀', radicalZhuyin: 'ㄇㄧㄢˊ', zhuyin: 'ㄐㄧㄚ' },
-  '紀': { character: '紀', strokeCount: 9, radical: '糸', radicalZhuyin: 'ㄇㄧˋ', zhuyin: 'ㄐㄧˋ' },
-  '禾': { character: '禾', strokeCount: 5, radical: '禾', radicalZhuyin: 'ㄏㄜˊ', zhuyin: 'ㄏㄜˊ' },
-  '一': { character: '一', strokeCount: 1, radical: '一', radicalZhuyin: 'ㄧ', zhuyin: 'ㄧ' },
-  '上': { character: '上', strokeCount: 3, radical: '一', radicalZhuyin: 'ㄧ', zhuyin: 'ㄕㄤˋ' },
-  '丘': { character: '丘', strokeCount: 5, radical: '一', radicalZhuyin: 'ㄧ', zhuyin: 'ㄑㄧㄡ' },
-  '來': { character: '來', strokeCount: 8, radical: '人', radicalZhuyin: 'ㄖㄣˊ', zhuyin: 'ㄌㄞˊ' },
-  '像': { character: '像', strokeCount: 14, radical: '人', radicalZhuyin: 'ㄖㄣˊ', zhuyin: 'ㄒㄧㄤˋ' },
-  '勇': { character: '勇', strokeCount: 9, radical: '力', radicalZhuyin: 'ㄌㄧˋ', zhuyin: 'ㄩㄥˇ' },
-  '卡': { character: '卡', strokeCount: 5, radical: '卜', radicalZhuyin: 'ㄅㄨˇ', zhuyin: 'ㄎㄚˇ' },
-  '去': { character: '去', strokeCount: 5, radical: '厶', radicalZhuyin: 'ㄙ', zhuyin: 'ㄑㄩˋ' },
-  '噴': { character: '噴', strokeCount: 15, radical: '口', radicalZhuyin: 'ㄎㄡˇ', zhuyin: 'ㄆㄣ' },
-  '在': { character: '在', strokeCount: 6, radical: '土', radicalZhuyin: 'ㄊㄨˇ', zhuyin: 'ㄗㄞˋ' },
-  '地': { character: '地', strokeCount: 6, radical: '土', radicalZhuyin: 'ㄊㄨˇ', zhuyin: 'ㄉㄧˋ' },
-  '太': { character: '太', strokeCount: 4, radical: '大', radicalZhuyin: 'ㄉㄚˋ', zhuyin: 'ㄊㄞˋ' },
-  '山': { character: '山', strokeCount: 3, radical: '山', radicalZhuyin: 'ㄕㄢ', zhuyin: 'ㄕㄢ' },
-  '心': { character: '心', strokeCount: 4, radical: '心', radicalZhuyin: 'ㄒㄧㄣ', zhuyin: 'ㄒㄧㄣ' },
-  '快': { character: '快', strokeCount: 7, radical: '心', radicalZhuyin: 'ㄒㄧㄣ', zhuyin: 'ㄎㄨㄞˋ' },
-  '情': { character: '情', strokeCount: 11, radical: '心', radicalZhuyin: 'ㄒㄧㄣ', zhuyin: 'ㄑㄧㄥˊ' },
-  '敢': { character: '敢', strokeCount: 12, radical: '攴', radicalZhuyin: 'ㄆㄨ', zhuyin: 'ㄍㄢˇ' },
-  '樂': { character: '樂', strokeCount: 15, radical: '木', radicalZhuyin: 'ㄇㄨˋ', zhuyin: 'ㄩㄝˋ' },
-  '樣': { character: '樣', strokeCount: 15, radical: '木', radicalZhuyin: 'ㄇㄨˋ', zhuyin: 'ㄧㄤˋ' },
-  '橘': { character: '橘', strokeCount: 16, radical: '木', radicalZhuyin: 'ㄇㄨˋ', zhuyin: 'ㄐㄩˊ' },
-  '洞': { character: '洞', strokeCount: 9, radical: '水', radicalZhuyin: 'ㄕㄨㄟˇ', zhuyin: 'ㄉㄨㄥˋ' },
-  '活': { character: '活', strokeCount: 9, radical: '水', radicalZhuyin: 'ㄕㄨㄟˇ', zhuyin: 'ㄏㄨㄛˊ' },
-  '潑': { character: '潑', strokeCount: 15, radical: '水', radicalZhuyin: 'ㄕㄨㄟˇ', zhuyin: 'ㄆㄛ' },
-  '火': { character: '火', strokeCount: 4, radical: '火', radicalZhuyin: 'ㄏㄨㄛˇ', zhuyin: 'ㄏㄨㄛˇ' },
-  '熱': { character: '熱', strokeCount: 15, radical: '火', radicalZhuyin: 'ㄏㄨㄛˇ', zhuyin: 'ㄖㄜˋ' },
-  '的': { character: '的', strokeCount: 8, radical: '白', radicalZhuyin: 'ㄅㄞˊ', zhuyin: 'ㄉㄧˋ' },
-  '皮': { character: '皮', strokeCount: 5, radical: '皮', radicalZhuyin: 'ㄆㄧˊ', zhuyin: 'ㄆㄧˊ' },
-  '紅': { character: '紅', strokeCount: 9, radical: '糸', radicalZhuyin: 'ㄇㄧˋ', zhuyin: 'ㄏㄨㄥˊ' },
-  '綠': { character: '綠', strokeCount: 14, radical: '糸', radicalZhuyin: 'ㄇㄧˋ', zhuyin: 'ㄌㄩˋ' },
-  '色': { character: '色', strokeCount: 6, radical: '色', radicalZhuyin: 'ㄙㄜˋ', zhuyin: 'ㄙㄜˋ' },
-  '草': { character: '草', strokeCount: 10, radical: '艸', radicalZhuyin: 'ㄘㄠˇ', zhuyin: 'ㄘㄠˇ' },
-  '藍': { character: '藍', strokeCount: 18, radical: '艸', radicalZhuyin: 'ㄘㄠˇ', zhuyin: 'ㄌㄢˊ' },
-  '裡': { character: '裡', strokeCount: 13, radical: '衣', radicalZhuyin: 'ㄧ', zhuyin: 'ㄌㄧˇ' },
-  '跑': { character: '跑', strokeCount: 12, radical: '足', radicalZhuyin: 'ㄗㄨˊ', zhuyin: 'ㄆㄠˇ' },
-  '金': { character: '金', strokeCount: 8, radical: '金', radicalZhuyin: 'ㄐㄧㄣ', zhuyin: 'ㄐㄧㄣ' },
-  '開': { character: '開', strokeCount: 12, radical: '門', radicalZhuyin: 'ㄇㄣˊ', zhuyin: 'ㄎㄞ' },
-  '陽': { character: '陽', strokeCount: 12, radical: '阜', radicalZhuyin: 'ㄈㄨˋ', zhuyin: 'ㄧㄤˊ' },
-  '黃': { character: '黃', strokeCount: 12, radical: '黃', radicalZhuyin: 'ㄏㄨㄤˊ', zhuyin: 'ㄏㄨㄤˊ' },
-  '龍': { character: '龍', strokeCount: 16, radical: '龍', radicalZhuyin: 'ㄌㄨㄥˊ', zhuyin: 'ㄌㄨㄥˊ' },
-}
+// 載入靜態字典檔案
+// 將 JSON 陣列轉換為物件格式以便快速查詢
+const fallbackDictionary: { [key: string]: CharacterInfo } = {}
+
+// 初始化字典
+dictionaryData.forEach((char: CharacterInfo) => {
+  fallbackDictionary[char.character] = char
+})
+
+console.log(`📚 已載入靜態字典，共 ${Object.keys(fallbackDictionary).length} 個字符`)
 
 // 工具函數
 export async function getCharacterInfo(char: string): Promise<CharacterInfo | null> {
@@ -481,14 +437,12 @@ export async function getDictionaryStats(): Promise<{ totalCharacters: number; c
   return result
 }
 
-// 字典管理（只處理未知字符標記）
+// 字典管理 - 使用靜態字典，不支援動態新增
 export async function addCharacter(characterInfo: CharacterInfo): Promise<boolean> {
-  console.log('📝 新增字符到本地字典:', characterInfo.character)
+  console.log('⚠️ 靜態字典模式，不支援動態新增字符')
+  console.log('💡 請直接編輯 src/data/dictionary.json 檔案')
 
-  // 將字符添加到本地字典
-  fallbackDictionary[characterInfo.character] = characterInfo
-
-  // 如果 Supabase 可用，標記未知字符為已解決
+  // 如果 Supabase 可用，仍然標記未知字符為已解決
   if (useSupabase) {
     try {
       await DictionaryService.markUnknownCharacterResolved(characterInfo.character)
@@ -498,18 +452,13 @@ export async function addCharacter(characterInfo: CharacterInfo): Promise<boolea
     }
   }
 
-  console.log('✅ 字符已新增到本地字典:', characterInfo.character)
-  return true
+  return false
 }
 
 export async function updateCharacter(characterInfo: CharacterInfo): Promise<boolean> {
-  console.log('📝 更新本地字典字符:', characterInfo.character)
-
-  // 更新本地字典
-  fallbackDictionary[characterInfo.character] = characterInfo
-
-  console.log('✅ 字符已更新:', characterInfo.character)
-  return true
+  console.log('⚠️ 靜態字典模式，不支援動態更新字符')
+  console.log('💡 請直接編輯 src/data/dictionary.json 檔案')
+  return false
 }
 
 export async function exportDictionary(): Promise<CharacterInfo[]> {

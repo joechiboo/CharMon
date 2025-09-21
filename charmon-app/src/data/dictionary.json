@@ -1,0 +1,359 @@
+[
+  {
+    "character": "王",
+    "strokeCount": 4,
+    "radical": "王",
+    "radicalZhuyin": "ㄨㄤˊ",
+    "zhuyin": "ㄨㄤˊ"
+  },
+  {
+    "character": "李",
+    "strokeCount": 7,
+    "radical": "木",
+    "radicalZhuyin": "ㄇㄨˋ",
+    "zhuyin": "ㄌㄧˇ"
+  },
+  {
+    "character": "張",
+    "strokeCount": 11,
+    "radical": "弓",
+    "radicalZhuyin": "ㄍㄨㄥ",
+    "zhuyin": "ㄓㄤ"
+  },
+  {
+    "character": "劉",
+    "strokeCount": 15,
+    "radical": "刀",
+    "radicalZhuyin": "ㄉㄠ",
+    "zhuyin": "ㄌㄧㄡˊ"
+  },
+  {
+    "character": "陳",
+    "strokeCount": 10,
+    "radical": "阝",
+    "radicalZhuyin": "ㄈㄨˋ",
+    "zhuyin": "ㄔㄣˊ"
+  },
+  {
+    "character": "周",
+    "strokeCount": 8,
+    "radical": "口",
+    "radicalZhuyin": "ㄎㄡˇ",
+    "zhuyin": "ㄓㄡ"
+  },
+  {
+    "character": "吳",
+    "strokeCount": 7,
+    "radical": "口",
+    "radicalZhuyin": "ㄎㄡˇ",
+    "zhuyin": "ㄨˊ"
+  },
+  {
+    "character": "小",
+    "strokeCount": 3,
+    "radical": "小",
+    "radicalZhuyin": "ㄒㄧㄠˇ",
+    "zhuyin": "ㄒㄧㄠˇ"
+  },
+  {
+    "character": "明",
+    "strokeCount": 8,
+    "radical": "日",
+    "radicalZhuyin": "ㄖˋ",
+    "zhuyin": "ㄇㄧㄥˊ"
+  },
+  {
+    "character": "家",
+    "strokeCount": 10,
+    "radical": "宀",
+    "radicalZhuyin": "ㄇㄧㄢˊ",
+    "zhuyin": "ㄐㄧㄚ"
+  },
+  {
+    "character": "紀",
+    "strokeCount": 9,
+    "radical": "糸",
+    "radicalZhuyin": "ㄇㄧˋ",
+    "zhuyin": "ㄐㄧˋ"
+  },
+  {
+    "character": "禾",
+    "strokeCount": 5,
+    "radical": "禾",
+    "radicalZhuyin": "ㄏㄜˊ",
+    "zhuyin": "ㄏㄜˊ"
+  },
+  {
+    "character": "一",
+    "strokeCount": 1,
+    "radical": "一",
+    "radicalZhuyin": "ㄧ",
+    "zhuyin": "ㄧ"
+  },
+  {
+    "character": "上",
+    "strokeCount": 3,
+    "radical": "一",
+    "radicalZhuyin": "ㄧ",
+    "zhuyin": "ㄕㄤˋ"
+  },
+  {
+    "character": "丘",
+    "strokeCount": 5,
+    "radical": "一",
+    "radicalZhuyin": "ㄧ",
+    "zhuyin": "ㄑㄧㄡ"
+  },
+  {
+    "character": "來",
+    "strokeCount": 8,
+    "radical": "人",
+    "radicalZhuyin": "ㄖㄣˊ",
+    "zhuyin": "ㄌㄞˊ"
+  },
+  {
+    "character": "像",
+    "strokeCount": 14,
+    "radical": "人",
+    "radicalZhuyin": "ㄖㄣˊ",
+    "zhuyin": "ㄒㄧㄤˋ"
+  },
+  {
+    "character": "勇",
+    "strokeCount": 9,
+    "radical": "力",
+    "radicalZhuyin": "ㄌㄧˋ",
+    "zhuyin": "ㄩㄥˇ"
+  },
+  {
+    "character": "卡",
+    "strokeCount": 5,
+    "radical": "卜",
+    "radicalZhuyin": "ㄅㄨˇ",
+    "zhuyin": "ㄎㄚˇ"
+  },
+  {
+    "character": "去",
+    "strokeCount": 5,
+    "radical": "厶",
+    "radicalZhuyin": "ㄙ",
+    "zhuyin": "ㄑㄩˋ"
+  },
+  {
+    "character": "噴",
+    "strokeCount": 15,
+    "radical": "口",
+    "radicalZhuyin": "ㄎㄡˇ",
+    "zhuyin": "ㄆㄣ"
+  },
+  {
+    "character": "在",
+    "strokeCount": 6,
+    "radical": "土",
+    "radicalZhuyin": "ㄊㄨˇ",
+    "zhuyin": "ㄗㄞˋ"
+  },
+  {
+    "character": "地",
+    "strokeCount": 6,
+    "radical": "土",
+    "radicalZhuyin": "ㄊㄨˇ",
+    "zhuyin": "ㄉㄧˋ"
+  },
+  {
+    "character": "太",
+    "strokeCount": 4,
+    "radical": "大",
+    "radicalZhuyin": "ㄉㄚˋ",
+    "zhuyin": "ㄊㄞˋ"
+  },
+  {
+    "character": "山",
+    "strokeCount": 3,
+    "radical": "山",
+    "radicalZhuyin": "ㄕㄢ",
+    "zhuyin": "ㄕㄢ"
+  },
+  {
+    "character": "心",
+    "strokeCount": 4,
+    "radical": "心",
+    "radicalZhuyin": "ㄒㄧㄣ",
+    "zhuyin": "ㄒㄧㄣ"
+  },
+  {
+    "character": "快",
+    "strokeCount": 7,
+    "radical": "心",
+    "radicalZhuyin": "ㄒㄧㄣ",
+    "zhuyin": "ㄎㄨㄞˋ"
+  },
+  {
+    "character": "情",
+    "strokeCount": 11,
+    "radical": "心",
+    "radicalZhuyin": "ㄒㄧㄣ",
+    "zhuyin": "ㄑㄧㄥˊ"
+  },
+  {
+    "character": "敢",
+    "strokeCount": 12,
+    "radical": "攴",
+    "radicalZhuyin": "ㄆㄨ",
+    "zhuyin": "ㄍㄢˇ"
+  },
+  {
+    "character": "樂",
+    "strokeCount": 15,
+    "radical": "木",
+    "radicalZhuyin": "ㄇㄨˋ",
+    "zhuyin": "ㄩㄝˋ"
+  },
+  {
+    "character": "樣",
+    "strokeCount": 15,
+    "radical": "木",
+    "radicalZhuyin": "ㄇㄨˋ",
+    "zhuyin": "ㄧㄤˋ"
+  },
+  {
+    "character": "橘",
+    "strokeCount": 16,
+    "radical": "木",
+    "radicalZhuyin": "ㄇㄨˋ",
+    "zhuyin": "ㄐㄩˊ"
+  },
+  {
+    "character": "洞",
+    "strokeCount": 9,
+    "radical": "水",
+    "radicalZhuyin": "ㄕㄨㄟˇ",
+    "zhuyin": "ㄉㄨㄥˋ"
+  },
+  {
+    "character": "活",
+    "strokeCount": 9,
+    "radical": "水",
+    "radicalZhuyin": "ㄕㄨㄟˇ",
+    "zhuyin": "ㄏㄨㄛˊ"
+  },
+  {
+    "character": "潑",
+    "strokeCount": 15,
+    "radical": "水",
+    "radicalZhuyin": "ㄕㄨㄟˇ",
+    "zhuyin": "ㄆㄛ"
+  },
+  {
+    "character": "火",
+    "strokeCount": 4,
+    "radical": "火",
+    "radicalZhuyin": "ㄏㄨㄛˇ",
+    "zhuyin": "ㄏㄨㄛˇ"
+  },
+  {
+    "character": "熱",
+    "strokeCount": 15,
+    "radical": "火",
+    "radicalZhuyin": "ㄏㄨㄛˇ",
+    "zhuyin": "ㄖㄜˋ"
+  },
+  {
+    "character": "的",
+    "strokeCount": 8,
+    "radical": "白",
+    "radicalZhuyin": "ㄅㄞˊ",
+    "zhuyin": "ㄉㄧˋ"
+  },
+  {
+    "character": "皮",
+    "strokeCount": 5,
+    "radical": "皮",
+    "radicalZhuyin": "ㄆㄧˊ",
+    "zhuyin": "ㄆㄧˊ"
+  },
+  {
+    "character": "紅",
+    "strokeCount": 9,
+    "radical": "糸",
+    "radicalZhuyin": "ㄇㄧˋ",
+    "zhuyin": "ㄏㄨㄥˊ"
+  },
+  {
+    "character": "綠",
+    "strokeCount": 14,
+    "radical": "糸",
+    "radicalZhuyin": "ㄇㄧˋ",
+    "zhuyin": "ㄌㄩˋ"
+  },
+  {
+    "character": "色",
+    "strokeCount": 6,
+    "radical": "色",
+    "radicalZhuyin": "ㄙㄜˋ",
+    "zhuyin": "ㄙㄜˋ"
+  },
+  {
+    "character": "草",
+    "strokeCount": 10,
+    "radical": "艸",
+    "radicalZhuyin": "ㄘㄠˇ",
+    "zhuyin": "ㄘㄠˇ"
+  },
+  {
+    "character": "藍",
+    "strokeCount": 18,
+    "radical": "艸",
+    "radicalZhuyin": "ㄘㄠˇ",
+    "zhuyin": "ㄌㄢˊ"
+  },
+  {
+    "character": "裡",
+    "strokeCount": 13,
+    "radical": "衣",
+    "radicalZhuyin": "ㄧ",
+    "zhuyin": "ㄌㄧˇ"
+  },
+  {
+    "character": "跑",
+    "strokeCount": 12,
+    "radical": "足",
+    "radicalZhuyin": "ㄗㄨˊ",
+    "zhuyin": "ㄆㄠˇ"
+  },
+  {
+    "character": "金",
+    "strokeCount": 8,
+    "radical": "金",
+    "radicalZhuyin": "ㄐㄧㄣ",
+    "zhuyin": "ㄐㄧㄣ"
+  },
+  {
+    "character": "開",
+    "strokeCount": 12,
+    "radical": "門",
+    "radicalZhuyin": "ㄇㄣˊ",
+    "zhuyin": "ㄎㄞ"
+  },
+  {
+    "character": "陽",
+    "strokeCount": 12,
+    "radical": "阜",
+    "radicalZhuyin": "ㄈㄨˋ",
+    "zhuyin": "ㄧㄤˊ"
+  },
+  {
+    "character": "黃",
+    "strokeCount": 12,
+    "radical": "黃",
+    "radicalZhuyin": "ㄏㄨㄤˊ",
+    "zhuyin": "ㄏㄨㄤˊ"
+  },
+  {
+    "character": "龍",
+    "strokeCount": 16,
+    "radical": "龍",
+    "radicalZhuyin": "ㄌㄨㄥˊ",
+    "zhuyin": "ㄌㄨㄥˊ"
+  }
+]
