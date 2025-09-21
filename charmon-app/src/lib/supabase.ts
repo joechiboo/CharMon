@@ -13,8 +13,14 @@ const isValidConfig = supabaseUrl !== 'https://placeholder.supabase.co' &&
 
 console.log('Supabase 配置檢查:', {
   url: supabaseUrl,
+  keyPrefix: supabaseAnonKey.substring(0, 20) + '...',
+  keyLength: supabaseAnonKey.length,
   hasValidKey: supabaseAnonKey.length > 50,
-  isValid: isValidConfig
+  isValid: isValidConfig,
+  envCheck: {
+    hasUrl: !!import.meta.env.VITE_SUPABASE_URL,
+    hasKey: !!import.meta.env.VITE_SUPABASE_ANON_KEY
+  }
 })
 
 export const supabase = isValidConfig ? createClient(supabaseUrl, supabaseAnonKey, {
