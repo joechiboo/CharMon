@@ -50,40 +50,59 @@ export class ThemeFileService {
     await fs.writeFile(this.indexFile, data, 'utf-8')
   }
 
-  // 生成文件名
+  // 生成文件名 (每個寶可夢只保留一個檔案)
   private generateFileName(pokemonName: string): string {
-    const date = new Date().toISOString().split('T')[0].replace(/-/g, '')
-    const randomSuffix = Math.random().toString(36).substring(2, 5)
     const safeName = pokemonName.replace(/[^\w\u4e00-\u9fff]/g, '')
-    return `${safeName}-${date}-${randomSuffix}.json`
+    return `${safeName}.json`
   }
 
-  // 保存主題
+  // 保存主題 (覆蓋同名寶可夢的舊檔案)
   async saveTheme(theme: PokemonThemeGeneration): Promise<string> {
     await this.ensureDirectoryExists()
 
-    const id = uuidv4()
     const fileName = this.generateFileName(theme.pokemonName)
     const filePath = path.join(this.themesDir, fileName)
 
-    const themeFile: PokemonThemeFile = {
-      id,
-      pokemonName: theme.pokemonName,
-      theme,
-      filePath: fileName,
-      createdAt: new Date(),
-      updatedAt: new Date()
+    // 檢查是否已存在同名寶可夢的主題
+    const index = await this.readIndex()
+    const existingThemeIndex = index.findIndex(tf => tf.pokemonName === theme.pokemonName)
+
+    let id: string
+    let themeFile: PokemonThemeFile
+
+    if (existingThemeIndex !== -1) {
+      // 更新現有主題
+      const existingTheme = index[existingThemeIndex]
+      id = existingTheme.id
+      themeFile = {
+        ...existingTheme,
+        theme,
+        filePath: fileName,
+        updatedAt: new Date()
+      }
+      index[existingThemeIndex] = themeFile
+      console.log(`🔄 更新現有主題: ${fileName}`)
+    } else {
+      // 創建新主題
+      id = uuidv4()
+      themeFile = {
+        id,
+        pokemonName: theme.pokemonName,
+        theme,
+        filePath: fileName,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+      index.push(themeFile)
+      console.log(`✅ 創建新主題: ${fileName}`)
     }
 
     // 寫入主題文件
     await fs.writeFile(filePath, JSON.stringify(theme, null, 2), 'utf-8')
 
     // 更新索引
-    const index = await this.readIndex()
-    index.push(themeFile)
     await this.writeIndex(index)
 
-    console.log(`✅ 主題已保存: ${fileName}`)
     return id
   }
 

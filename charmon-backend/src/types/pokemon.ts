@@ -43,7 +43,11 @@ export interface LiteraryElement {
 
 // 生成結果數據結構
 export interface PokemonThemeGeneration {
+  id?: number
   pokemonName: string
+  name?: string  // alias for pokemonName (for frontend compatibility)
+  emoji?: string
+  theme?: string  // theme type (electric, fire, water, grass)
   elements: LiteraryElement[]
   totalCharacterCount: number
   ageGroup: AgeGroup
@@ -52,8 +56,9 @@ export interface PokemonThemeGeneration {
   variations: ThemeVariation[]
 }
 
-// 用於現有系統的格式
+// 前端相容的主題變化格式
 export interface ThemeVariation {
+  type: string
   description: string
 }
 

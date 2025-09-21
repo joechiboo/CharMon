@@ -8,19 +8,66 @@ import {
   AgeGroup,
   ElementType,
   LiteraryElement,
+  ThemeVariation,
   LITERARY_ELEMENTS,
   CHARACTER_LIMITS
 } from '../types/pokemon'
+import * as fs from 'fs'
+import * as path from 'path'
 
 export class PokemonService {
   private ollamaService: OllamaService
   private templateService: TemplateService
   private themeFileService: ThemeFileService
+  private pokemonNameMap: { [key: string]: string } = {}
+  private reverseNameMap: { [key: string]: string } = {}
+  private pokemonConfig: { [key: string]: { id: number, emoji: string, theme: string } } = {}
 
   constructor() {
     this.ollamaService = new OllamaService()
     this.templateService = new TemplateService()
     this.themeFileService = new ThemeFileService()
+    this.loadPokemonNameMap()
+    this.loadPokemonConfig()
+  }
+
+  // 載入中英文對照表
+  private loadPokemonNameMap() {
+    try {
+      const mapPath = path.join(__dirname, '../data/pokemon-names.json')
+      if (fs.existsSync(mapPath)) {
+        const mapData = JSON.parse(fs.readFileSync(mapPath, 'utf-8'))
+        this.pokemonNameMap = mapData.pokemonNameMap || {}
+        this.reverseNameMap = mapData.reverseMap || {}
+        console.log(`✅ 載入了 ${Object.keys(this.pokemonNameMap).length} 個寶可夢中英文對照`)
+      }
+    } catch (error) {
+      console.warn('⚠️ 無法載入寶可夢名稱對照表:', error)
+    }
+  }
+
+  // 載入寶可夢配置 (ID, emoji, theme)
+  private loadPokemonConfig() {
+    try {
+      const configPath = path.join(__dirname, '../data/pokemon-config.json')
+      if (fs.existsSync(configPath)) {
+        const configData = JSON.parse(fs.readFileSync(configPath, 'utf-8'))
+        this.pokemonConfig = configData.pokemonConfig || {}
+        console.log(`✅ 載入了 ${Object.keys(this.pokemonConfig).length} 個寶可夢配置`)
+      }
+    } catch (error) {
+      console.warn('⚠️ 無法載入寶可夢配置:', error)
+    }
+  }
+
+  // 中文轉英文
+  private chineseToEnglish(chineseName: string): string {
+    return this.pokemonNameMap[chineseName] || chineseName
+  }
+
+  // 英文轉中文
+  private englishToChinese(englishName: string): string {
+    return this.reverseNameMap[englishName] || englishName
   }
 
   // 生成寶可夢主題
@@ -28,7 +75,13 @@ export class PokemonService {
     const ageGroup = request.ageGroup || AgeGroup.KINDERGARTEN
     const generationType = request.generationType || GenerationType.HYBRID
 
-    console.log(`🎮 開始生成寶可夢主題: ${request.pokemonName} (${ageGroup})`)
+    // 處理中英文名稱轉換
+    const originalName = request.pokemonName
+    const englishName = this.chineseToEnglish(originalName)
+    const chineseName = this.englishToChinese(originalName)
+
+    console.log(`🎮 開始生成寶可夢主題: ${originalName}`)
+    console.log(`📝 中文名稱: ${chineseName}, 英文名稱: ${englishName}`)
 
     let elements: string[]
     let actualGenerationType: GenerationType
@@ -64,15 +117,22 @@ export class PokemonService {
       // 構建文學元素對象
       const literaryElements = this.buildLiteraryElements(elements, ageGroup)
 
-      // 創建主題生成結果
+      // 獲取寶可夢配置
+      const pokemonConfig = this.getPokemonConfig(request.pokemonName)
+
+      // 創建主題生成結果 (前端相容格式)
       const themeGeneration: PokemonThemeGeneration = {
+        id: pokemonConfig.id,
         pokemonName: request.pokemonName,
+        name: request.pokemonName, // alias for frontend
+        emoji: pokemonConfig.emoji,
+        theme: pokemonConfig.theme,
         elements: literaryElements,
         totalCharacterCount: literaryElements.reduce((sum, el) => sum + el.characterCount, 0),
         ageGroup,
         generatedAt: new Date(),
         generationType: actualGenerationType,
-        variations: literaryElements.map(el => ({ description: el.content }))
+        variations: this.buildFrontendVariations(literaryElements)
       }
 
       // 保存到文件
@@ -128,6 +188,32 @@ export class PokemonService {
     })
   }
 
+  // 構建前端相容的變化格式
+  private buildFrontendVariations(elements: LiteraryElement[]): ThemeVariation[] {
+    return elements.map(element => ({
+      type: element.type,
+      description: element.content
+    }))
+  }
+
+  // 獲取寶可夢的額外配置信息
+  private getPokemonConfig(pokemonName: string) {
+    const config = this.pokemonConfig[pokemonName]
+    if (config) {
+      return config
+    }
+
+    // 嘗試中英文轉換後再查找
+    const englishName = this.chineseToEnglish(pokemonName)
+    const chineseName = this.englishToChinese(pokemonName)
+
+    return this.pokemonConfig[englishName] || this.pokemonConfig[chineseName] || {
+      id: Math.floor(Math.random() * 1000) + 100, // 隨機ID
+      emoji: '❓',
+      theme: 'unknown'
+    }
+  }
+
   // 獲取所有主題
   async getAllThemes(): Promise<PokemonThemeGeneration[]> {
     return await this.themeFileService.getAllThemes()
@@ -165,9 +251,30 @@ export class PokemonService {
       return false
     }
 
-    // 檢查是否包含適當的字符（中文、英文、數字）
-    const validPattern = /^[\u4e00-\u9fff\w\s]{1,20}$/
-    return validPattern.test(pokemonName.trim())
+    const trimmedName = pokemonName.trim()
+
+    // 檢查長度（1-50 字符）
+    if (trimmedName.length === 0 || trimmedName.length > 50) {
+      console.log(`❌ 寶可夢名稱長度無效: "${trimmedName}" (${trimmedName.length} 字符)`)
+      return false
+    }
+
+    // 檢查是否在已知寶可夢列表中（中文或英文）
+    const isKnownPokemon = this.pokemonNameMap[trimmedName] || this.reverseNameMap[trimmedName]
+    if (isKnownPokemon) {
+      console.log(`✅ 已知寶可夢名稱驗證通過: "${trimmedName}"`)
+      return true
+    }
+
+    // 如果不在已知列表中，進行基本字符檢查
+    const dangerousChars = /[<>{}[\]\\\/\|`~!@#$%^&*()+={};:'"?]/
+    if (dangerousChars.test(trimmedName)) {
+      console.log(`❌ 寶可夢名稱包含危險字符: "${trimmedName}"`)
+      return false
+    }
+
+    console.log(`⚠️ 未知寶可夢名稱但格式有效: "${trimmedName}"`)
+    return true
   }
 
   // 生成統計信息

@@ -28,7 +28,9 @@
       "Bash(python:*)",
       "Bash(curl:*)",
       "Bash(cat:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(npm init:*)",
+      "Bash(npx playwright:*)"
     ],
     "deny": [],
     "ask": []

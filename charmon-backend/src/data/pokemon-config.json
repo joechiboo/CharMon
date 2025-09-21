@@ -1,0 +1,24 @@
+{
+  "pokemonConfig": {
+    "皮卡丘": { "id": 1, "emoji": "⚡", "theme": "electric" },
+    "Pikachu": { "id": 1, "emoji": "⚡", "theme": "electric" },
+    "小火龍": { "id": 2, "emoji": "🔥", "theme": "fire" },
+    "Charmander": { "id": 2, "emoji": "🔥", "theme": "fire" },
+    "傑尼龜": { "id": 3, "emoji": "💧", "theme": "water" },
+    "Squirtle": { "id": 3, "emoji": "💧", "theme": "water" },
+    "妙蛙種子": { "id": 4, "emoji": "🌱", "theme": "grass" },
+    "Bulbasaur": { "id": 4, "emoji": "🌱", "theme": "grass" },
+    "噴火龍": { "id": 5, "emoji": "🔥", "theme": "fire" },
+    "Charizard": { "id": 5, "emoji": "🔥", "theme": "fire" },
+    "水箭龜": { "id": 6, "emoji": "💧", "theme": "water" },
+    "Blastoise": { "id": 6, "emoji": "💧", "theme": "water" },
+    "妙蛙草": { "id": 7, "emoji": "🌱", "theme": "grass" },
+    "Ivysaur": { "id": 7, "emoji": "🌱", "theme": "grass" },
+    "妙蛙花": { "id": 8, "emoji": "🌱", "theme": "grass" },
+    "Venusaur": { "id": 8, "emoji": "🌱", "theme": "grass" },
+    "火恐龍": { "id": 9, "emoji": "🔥", "theme": "fire" },
+    "Charmeleon": { "id": 9, "emoji": "🔥", "theme": "fire" },
+    "卡咪龜": { "id": 10, "emoji": "💧", "theme": "water" },
+    "Wartortle": { "id": 10, "emoji": "💧", "theme": "water" }
+  }
+}

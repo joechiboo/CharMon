@@ -52,6 +52,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import pokemonThemesData from '@/data/pokemon-themes.json'
 
 // 定義 Pokemon 類型
 interface PokemonVariation {
@@ -75,61 +76,8 @@ const selectedPokemon = ref<Pokemon | null>(null)
 const pokemonLevel = ref(1)
 const pokemonExp = ref(0)
 
-// 寶可夢主題 - 每隻寶可夢一個JSON物件
-const availablePokemon: Pokemon[] = [
-  {
-    id: 1,
-    name: '皮卡丘',
-    emoji: '⚡',
-    theme: 'electric',
-    variations: [
-      { type: '顏色', description: '金黃色的皮卡丘' },
-      { type: '形容', description: '活潑快樂的金黃色皮卡丘' },
-      { type: '地點', description: '在草地上活潑快樂的金黃色皮卡丘' },
-      { type: '動態', description: '活潑快樂的金黃色皮卡丘在草地上，快樂地跑來跑去。' },
-      { type: '修辭', description: '活潑快樂的金黃色皮卡丘在草地上，快樂地跑來跑去，像小太陽一樣。' }
-    ]
-  },
-  {
-    id: 2,
-    name: '小火龍',
-    emoji: '🔥',
-    theme: 'fire',
-    variations: [
-      { type: '顏色', description: '橘紅色的小火龍' },
-      { type: '形容', description: '勇敢熱情的橘紅色小火龍' },
-      { type: '地點', description: '在山洞裡勇敢熱情的橘紅色小火龍' },
-      { type: '動態', description: '勇敢熱情的橘紅色小火龍在山洞裡，開心地噴火。' },
-      { type: '修辭', description: '勇敢熱情的橘紅色小火龍在山洞裡，開心地噴火，像小火山一樣。' }
-    ]
-  },
-  {
-    id: 3,
-    name: '傑尼龜',
-    emoji: '💧',
-    theme: 'water',
-    variations: [
-      { type: '顏色', description: '藍色的傑尼龜' },
-      { type: '形容', description: '溫和友善的藍色傑尼龜' },
-      { type: '地點', description: '在水中溫和友善的藍色傑尼龜' },
-      { type: '動態', description: '溫和友善的藍色傑尼龜在水中，慢慢地游泳。' },
-      { type: '修辭', description: '溫和友善的藍色傑尼龜在水中，慢慢地游泳，像小船一樣。' }
-    ]
-  },
-  {
-    id: 4,
-    name: '妙蛙種子',
-    emoji: '🌱',
-    theme: 'grass',
-    variations: [
-      { type: '顏色', description: '綠色的妙蛙種子' },
-      { type: '形容', description: '安靜乖巧的綠色妙蛙種子' },
-      { type: '地點', description: '在花園裡安靜乖巧的綠色妙蛙種子' },
-      { type: '動態', description: '安靜乖巧的綠色妙蛙種子在花園裡，輕輕地曬太陽。' },
-      { type: '修辭', description: '安靜乖巧的綠色妙蛙種子在花園裡，輕輕地曬太陽，像小花朵一樣。' }
-    ]
-  }
-]
+// 從外部JSON文件載入寶可夢主題
+const availablePokemon: Pokemon[] = pokemonThemesData
 
 // 從 localStorage 載入寶可夢資料
 onMounted(() => {
