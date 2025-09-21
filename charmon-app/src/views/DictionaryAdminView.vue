@@ -26,7 +26,7 @@
           </div>
           <div class="stat-item">
             <span class="label">數據源：</span>
-            <span class="value">本地字典 {{ isSupabaseEnabled ? '+ Supabase 未知字符追蹤' : '(純本地模式)' }}</span>
+            <span class="value">本地字典 {{ isSupabaseEnabled() ? '+ Supabase 未知字符追蹤' : '(純本地模式)' }}</span>
           </div>
         </div>
       </div>
