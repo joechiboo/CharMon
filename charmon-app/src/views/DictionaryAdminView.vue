@@ -14,11 +14,19 @@
           <h3>字典統計</h3>
           <div class="stat-item">
             <span class="label">已收錄字符：</span>
-            <span class="value">{{ dictionaryCount }} 個</span>
+            <span class="value">{{ dictionaryStats.totalCharacters }} 個</span>
+          </div>
+          <div class="stat-item">
+            <span class="label">含部首注音：</span>
+            <span class="value">{{ dictionaryStats.charactersWithRadicalZhuyin }} 個</span>
           </div>
           <div class="stat-item">
             <span class="label">未知字符：</span>
-            <span class="value">{{ unknownCount }} 個</span>
+            <span class="value">{{ dictionaryStats.unknownCount }} 個</span>
+          </div>
+          <div class="stat-item">
+            <span class="label">數據源：</span>
+            <span class="value">{{ isSupabaseEnabled ? 'Supabase' : '本地字典' }}</span>
           </div>
         </div>
       </div>
@@ -103,7 +111,8 @@ import { useRouter } from 'vue-router'
 import {
   getUnknownCharacters,
   clearUnknownCharacters,
-  getDictionaryStats
+  getDictionaryStats,
+  isSupabaseEnabled
 } from '@/utils/dictionaryV2'
 
 const router = useRouter()
@@ -122,9 +131,7 @@ const editForm = ref({
 // 響應式數據
 const dictionaryStats = ref({ totalCharacters: 0, charactersWithRadicalZhuyin: 0, unknownCount: 0 })
 
-// 計算屬性
-const dictionaryCount = computed(() => dictionaryStats.value.totalCharacters)
-const unknownCount = computed(() => unknownCharacters.value.length)
+// 計算屬性 - 已移除，直接使用 dictionaryStats
 
 // 方法
 const goBack = () => {

@@ -1,7 +1,9 @@
 <template>
   <div class="login-container">
     <div class="login-card">
-      <h1 class="title">字樂園</h1>
+      <router-link to="/" class="title-link">
+        <h1 class="title">字樂園</h1>
+      </router-link>
       <div class="welcome-message">歡迎小朋友！</div>
 
       <div class="login-form">
@@ -141,11 +143,26 @@ const handleParentLogin = () => {
   max-width: 800px;
 }
 
+.title-link {
+  text-decoration: none;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.title-link:hover {
+  transform: scale(1.05);
+}
+
 .title {
   text-align: center;
   color: #333;
   font-size: 2.5rem;
   margin-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+.title-link:hover .title {
+  color: #27ae60;
 }
 
 .welcome-message {
