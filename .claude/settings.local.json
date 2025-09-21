@@ -23,7 +23,8 @@
       "Bash(npm run build-only:*)",
       "WebFetch(domain:www.moedict.tw)",
       "Bash(npm run:*)",
-      "Bash(ssh:*)"
+      "Bash(ssh:*)",
+      "Bash(gh workflow:*)"
     ],
     "deny": [],
     "ask": []

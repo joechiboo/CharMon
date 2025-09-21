@@ -5,16 +5,16 @@
   "theme_color": "#4CAF50",
   "background_color": "#ffffff",
   "display": "standalone",
-  "start_url": "/",
+  "start_url": "/CharMon/",
   "icons": [
     {
-      "src": "/logo.svg",
+      "src": "/CharMon/logo.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/favicon.ico",
+      "src": "/CharMon/favicon.ico",
       "sizes": "48x48",
       "type": "image/x-icon"
     }
