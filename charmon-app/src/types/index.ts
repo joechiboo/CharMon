@@ -5,6 +5,7 @@ export interface User {
   gradeLevel: 'kindergarten' | 'elementary-low' | 'elementary-high'
   avatar?: string
   parentId?: string
+  isParent?: boolean
   createdAt: Date
   updatedAt: Date
 }

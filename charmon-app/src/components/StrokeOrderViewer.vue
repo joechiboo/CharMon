@@ -25,8 +25,8 @@
 
       <div class="character-info">
         <div class="info-item">
-          <span class="label">筆畫數：</span>
-          <span class="value">{{ strokeCount }} 畫</span>
+          <span class="label">筆劃：</span>
+          <span class="value">{{ strokeCount }} 劃</span>
         </div>
         <div class="info-item">
           <span class="label">部首：</span>
@@ -38,8 +38,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import HanziWriter from 'hanzi-writer'
+import { getStrokeCount, getRadical, getRadicalWithZhuyin, getCharacterInfo, clearCache } from '@/utils/dictionaryV2'
 
 interface Props {
   character: string
@@ -58,6 +59,42 @@ const strokeCount = ref<number>(0)
 const radical = ref<string>('')
 let writer: HanziWriter | null = null
 let isLooping = ref(false)
+
+// 載入字符資訊
+const loadCharacterInfo = async () => {
+  try {
+    console.log('🔍 StrokeOrderViewer 載入字符資訊:', props.character)
+
+    // 如果是「家」字，先清除緩存確保獲取最新資料
+    if (props.character === '家') {
+      clearCache()
+      console.log('🧹 StrokeOrderViewer 清除緩存後重新載入「家」字')
+    }
+
+    const [charInfo, radicalWithZhuyin] = await Promise.all([
+      getCharacterInfo(props.character),
+      getRadicalWithZhuyin(props.character)
+    ])
+
+    console.log('📊 StrokeOrderViewer 字符資訊結果:', {
+      character: props.character,
+      charInfo,
+      radicalWithZhuyin
+    })
+
+    if (charInfo) {
+      strokeCount.value = charInfo.strokeCount
+    } else {
+      strokeCount.value = 0
+    }
+
+    radical.value = radicalWithZhuyin
+  } catch (error) {
+    console.error('載入字符資訊失敗:', error)
+    strokeCount.value = 0
+    radical.value = '？'
+  }
+}
 
 // 建立 HanziWriter 實例
 const createWriter = async () => {
@@ -90,17 +127,20 @@ const createWriter = async () => {
       }
     })
 
-    // 獲取字符數據以提取筆畫數等信息
-    try {
-      const charData = await fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@latest/${props.character}.json`)
-        .then(r => r.json())
+    // 載入字符資訊
+    await loadCharacterInfo()
 
-      strokeCount.value = charData.strokes?.length || 0
-      radical.value = charData.radical || '未知'
-    } catch (error) {
-      console.warn('無法獲取字符詳細信息:', error)
-      strokeCount.value = 0
-      radical.value = '未知'
+    // 如果字典沒有此字符的筆劃數，嘗試從 HanziWriter API 獲取
+    if (strokeCount.value === 0) {
+      try {
+        const charData = await fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@latest/${props.character}.json`)
+          .then(r => r.json())
+
+        strokeCount.value = charData.strokes?.length || 0
+      } catch (error) {
+        console.warn('無法從 API 獲取字符詳細信息:', error)
+        strokeCount.value = 0
+      }
     }
 
   } catch (error) {
@@ -178,6 +218,13 @@ const closeViewer = () => {
   emit('close')
 }
 
+// 處理 ESC 鍵事件
+const handleKeydown = (event: KeyboardEvent) => {
+  if (event.key === 'Escape' && props.visible) {
+    closeViewer()
+  }
+}
+
 // 監聽字符變化
 watch(() => props.character, () => {
   if (props.visible && props.character) {
@@ -203,6 +250,8 @@ onMounted(() => {
   if (props.visible && props.character) {
     createWriter()
   }
+  // 添加鍵盤事件監聽
+  document.addEventListener('keydown', handleKeydown)
 })
 
 onUnmounted(() => {
@@ -211,6 +260,8 @@ onUnmounted(() => {
     writer.cancelQuiz()
     writer = null
   }
+  // 移除鍵盤事件監聽
+  document.removeEventListener('keydown', handleKeydown)
 })
 </script>
 

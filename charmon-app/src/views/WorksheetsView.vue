@@ -96,6 +96,7 @@
 import { ref, computed, nextTick, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { getCharacterInfo } from '@/utils/dictionaryV2'
 
 // 定義元素行資訊介面
 interface ElementRowInfo {
@@ -553,6 +554,25 @@ onMounted(() => {
   }
 })
 
+// 檢查並記錄未知字符的函數
+const checkAndRecordUnknownCharacters = async (characters: string[]) => {
+  console.log('開始檢查字符:', characters)
+  const chineseChars = characters.filter(char => /[\u4e00-\u9fff]/.test(char))
+  console.log('過濾出的中文字符:', chineseChars)
+
+  for (const char of chineseChars) {
+    try {
+      console.log(`正在檢查字符: "${char}"`)
+      // 嘗試獲取字符信息，如果不存在會自動記錄到 Supabase
+      const result = await getCharacterInfo(char)
+      console.log(`字符 "${char}" 檢查結果:`, result)
+    } catch (error) {
+      console.error(`檢查字符 "${char}" 時發生錯誤:`, error)
+    }
+  }
+  console.log('字符檢查完成')
+}
+
 const generatePreview = async () => {
   if (!inputText.value.trim()) return
 
@@ -566,8 +586,11 @@ const generatePreview = async () => {
   const ctx = canvas.getContext('2d')
   if (!ctx) return
 
-  // 準備要練習的字符
-  const allChars = inputText.value.trim().split('')
+  // 準備要練習的字符，限制最大 108 個字符以配合格子數
+  const allChars = inputText.value.trim().split('').slice(0, 108)
+
+  // 檢查字典並記錄未知字符
+  await checkAndRecordUnknownCharacters(allChars)
 
   // 將字符分割成每行指定數量的格子（每個字符佔1格）
   const charLines: string[][] = []
@@ -752,6 +775,10 @@ const drawGrid = (ctx: CanvasRenderingContext2D, x: number, y: number, size: num
 // 遊戲模式專用預覽生成 - 仿照demo.jpg
 const generateGameModePreview = async () => {
   if (!inputText.value.trim()) return
+
+  // 檢查遊戲模式字符並記錄未知字符
+  const allChars = inputText.value.trim().split('').slice(0, 108)
+  await checkAndRecordUnknownCharacters(allChars)
 
   hasPreview.value = true
   await nextTick()
@@ -1178,7 +1205,7 @@ const generateGameModeDownload = (canvas: HTMLCanvasElement, ctx: CanvasRenderin
   link.click()
 }
 
-const downloadImage = () => {
+const downloadImage = async () => {
   if (!hasPreview.value || !inputText.value.trim()) return
 
   // 創建一個新的高解析度 canvas 用於下載
@@ -1188,13 +1215,20 @@ const downloadImage = () => {
 
   // 檢查是否為遊戲模式
   if (isGameMode.value) {
+    // 檢查遊戲模式字符並記錄未知字符
+    const allChars = inputText.value.trim().split('').slice(0, 108)
+    await checkAndRecordUnknownCharacters(allChars)
+
     // 遊戲模式：使用相同的生成邏輯但更高解析度
     generateGameModeDownload(downloadCanvas, ctx)
     return
   }
 
-  // 準備要練習的字符
-  const allChars = inputText.value.trim().split('')
+  // 準備要練習的字符，限制最大 108 個字符以配合格子數
+  const allChars = inputText.value.trim().split('').slice(0, 108)
+
+  // 檢查字典並記錄未知字符
+  await checkAndRecordUnknownCharacters(allChars)
 
   // 將字符分割成每行指定數量的格子（每個字符佔1格）
   const charLines: string[][] = []

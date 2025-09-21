@@ -69,6 +69,12 @@ const router = createRouter({
       meta: { requiresAuth: true }
     },
     {
+      path: '/admin/dictionary',
+      name: 'dictionary-admin',
+      component: () => import('@/views/DictionaryAdminV2View.vue'),
+      meta: { requiresAuth: true, requiresParent: true }
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: () => import('@/views/NotFoundView.vue')
@@ -81,7 +87,8 @@ router.beforeEach((to, from, next) => {
 
   if (to.meta.requiresAuth && !userStore.isAuthenticated) {
     next({ name: 'login', query: { redirect: to.fullPath } })
-  } else if (to.meta.requiresParent && userStore.currentUser?.parentId) {
+  } else if (to.meta.requiresParent && !userStore.currentUser?.isParent) {
+    // If user is not marked as parent, redirect to dashboard
     next({ name: 'dashboard' })
   } else {
     next()

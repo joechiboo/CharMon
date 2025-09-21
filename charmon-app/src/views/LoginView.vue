@@ -41,7 +41,7 @@
       </div>
 
       <div class="parent-link">
-        <a href="#" @click.prevent="showParentLogin = true">家長登入</a>
+        <a href="#" @click.prevent="handleParentLogin">家長登入</a>
       </div>
     </div>
   </div>
@@ -58,8 +58,6 @@ const userStore = useUserStore()
 
 const userName = ref('')
 const gradeLevel = ref<'kindergarten' | 'elementary-low' | 'elementary-high' | ''>('')
-const showParentLogin = ref(false)
-
 const grades = [
   { value: 'kindergarten', label: '幼稚園', disabled: false },
   { value: 'elementary-low', label: '小學\n低年級', disabled: false },
@@ -69,6 +67,7 @@ const grades = [
 const canLogin = computed(() => {
   return userName.value.trim() !== '' && gradeLevel.value
 })
+
 
 const handleLogin = () => {
   if (!canLogin.value) return
@@ -102,6 +101,23 @@ const handleLogin = () => {
     // 幼稚園：進入儀表板
     router.push('/dashboard')
   }
+}
+
+const handleParentLogin = () => {
+  const parentUser: User = {
+    id: `parent-${Date.now()}`,
+    name: '家長',
+    age: 35, // Default parent age
+    gradeLevel: 'kindergarten', // Default grade, not used for parents
+    isParent: true,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }
+
+  userStore.login(parentUser)
+
+  // Redirect to parent area
+  router.push('/parents')
 }
 </script>
 
@@ -255,5 +271,60 @@ const handleLogin = () => {
 
 .parent-link a:hover {
   text-decoration: underline;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancel-btn {
+  flex: 1;
+  padding: 12px;
+  background: #e0e0e0;
+  color: #333;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.cancel-btn:hover {
+  background: #d0d0d0;
+}
+
+.modal-buttons .login-btn {
+  flex: 1;
+  margin: 0;
 }
 </style>

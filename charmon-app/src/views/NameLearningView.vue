@@ -12,9 +12,9 @@
             @click="selectCharacter(index)"
           >
             <div class="character-with-zhuyin">
-              <div class="character">{{ char }}</div>
+              <div class="character" :style="{ fontFamily: `'${selectedFont}', 'Microsoft YaHei', '微軟正黑體', sans-serif` }">{{ char }}</div>
               <div class="zhuyin-right">
-                <template v-for="(part, partIndex) in getZhuyinParts(char)" :key="partIndex">
+                <template v-for="(part, partIndex) in getCharZhuyinParts(char)" :key="partIndex">
                   <div
                     v-if="part.type !== 'tone-mark'"
                     class="zhuyin-part"
@@ -23,10 +23,10 @@
                     {{ part.text }}
                     <!-- 檢查下一個是否為聲調 -->
                     <span
-                      v-if="partIndex + 1 < getZhuyinParts(char).length && getZhuyinParts(char)[partIndex + 1].type === 'tone-mark'"
+                      v-if="partIndex + 1 < getCharZhuyinParts(char).length && getCharZhuyinParts(char)[partIndex + 1].type === 'tone-mark'"
                       class="tone-mark"
                     >
-                      {{ getZhuyinParts(char)[partIndex + 1].text }}
+                      {{ getCharZhuyinParts(char)[partIndex + 1].text }}
                     </span>
                   </div>
                 </template>
@@ -41,6 +41,14 @@
         <div class="stroke-practice">
           <div class="practice-header">
             <h3>筆劃練習</h3>
+            <div class="font-selector">
+              <label>字型：</label>
+              <select v-model="selectedFont">
+                <option value="DFKai-SB">標楷體</option>
+                <option value="Microsoft YaHei">微軟正黑體</option>
+                <option value="SimSun">宋體</option>
+              </select>
+            </div>
             <div class="practice-mode-info" v-if="needsWatermarkAssist">
               <span class="mode-text">{{ practiceModeText }}</span>
               <div class="progress-dots">
@@ -54,7 +62,7 @@
             </div>
           </div>
           <div class="stroke-canvas-container">
-            <div class="watermark-char" :class="{ hidden: !shouldShowWatermark }">{{ nameCharacters[selectedCharIndex] }}</div>
+            <div class="watermark-char" :class="{ hidden: !shouldShowWatermark }" :style="{ fontFamily: `'${selectedFont}', 'Microsoft YaHei', '微軟正黑體', sans-serif` }">{{ nameCharacters[selectedCharIndex] }}</div>
             <canvas ref="canvasRef" width="300" height="300"></canvas>
             <!-- <div class="canvas-zhuyin">{{ getZhuyin(nameCharacters[selectedCharIndex]) }}</div> -->
           </div>
@@ -70,12 +78,16 @@
           <div class="character-info">
             <h3>字的資訊</h3>
             <div class="info-item">
-              <span class="label">筆劃數：</span>
-              <span class="value">{{ getStrokeCount(nameCharacters[selectedCharIndex]) }} 劃</span>
+              <span class="label">筆劃：</span>
+              <span class="value">{{ currentCharInfo.strokeCount }} 劃</span>
+            </div>
+            <div class="info-item">
+              <span class="label">部首：</span>
+              <span class="value">{{ currentCharInfo.radicalWithZhuyin }}</span>
             </div>
             <div class="info-item">
               <span class="label">注音：</span>
-              <span class="value">{{ getZhuyin(nameCharacters[selectedCharIndex]) }}</span>
+              <span class="value">{{ currentCharInfo.zhuyin }}</span>
             </div>
           </div>
 
@@ -109,6 +121,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import StrokeOrderViewer from '@/components/StrokeOrderViewer.vue'
+import { getStrokeCount, getRadical, getRadicalWithZhuyin, getZhuyin, getZhuyinParts, clearCache } from '@/utils/dictionaryV2'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -119,6 +132,7 @@ const showWatermark = ref(true)
 const unknownCharacters = ref<string[]>([])
 const currentRound = ref(1)
 const totalPracticeRounds = 5 // 2次浮水印 + 3次空白
+const selectedFont = ref('DFKai-SB') // 預設標楷體
 
 // 笔顺查看器相关状态
 const showStrokeViewer = ref(false)
@@ -128,6 +142,68 @@ const currentCharacter = computed(() => {
   }
   return ''
 })
+
+// 當前字符的詳細資訊
+const currentCharInfo = ref({
+  strokeCount: 10,
+  radicalWithZhuyin: '？',
+  zhuyin: 'ㄅㄆㄇ'
+})
+
+// 所有字符的注音部件緩存
+const zhuyinPartsCache = ref<Map<string, any[]>>(new Map())
+
+// 取得字符的注音部件（有緩存）
+const getCharZhuyinParts = (char: string) => {
+  if (zhuyinPartsCache.value.has(char)) {
+    return zhuyinPartsCache.value.get(char) || []
+  }
+  return [] // 返回空陣列，避免模板錯誤
+}
+
+// 載入所有名字字符的注音部件
+const loadAllZhuyinParts = async () => {
+  for (const char of nameCharacters.value) {
+    try {
+      const parts = await getZhuyinParts(char)
+      zhuyinPartsCache.value.set(char, parts)
+    } catch (error) {
+      console.error(`載入字符 ${char} 的注音部件失敗:`, error)
+      zhuyinPartsCache.value.set(char, [])
+    }
+  }
+}
+
+// 更新當前字符資訊
+const updateCurrentCharInfo = async () => {
+  if (selectedCharIndex.value !== null && nameCharacters.value[selectedCharIndex.value]) {
+    const char = nameCharacters.value[selectedCharIndex.value]
+    try {
+      console.log('🔍 NameLearning 更新字符資訊:', char)
+
+      const [strokeCount, radicalWithZhuyin, zhuyin] = await Promise.all([
+        getStrokeCount(char),
+        getRadicalWithZhuyin(char),
+        getZhuyin(char)
+      ])
+
+      console.log('📊 NameLearning 字符資訊結果:', { char, strokeCount, radicalWithZhuyin, zhuyin })
+
+      currentCharInfo.value = {
+        strokeCount,
+        radicalWithZhuyin,
+        zhuyin
+      }
+    } catch (error) {
+      console.error('更新字符資訊失敗:', error)
+      currentCharInfo.value = {
+        strokeCount: 10,
+        radicalWithZhuyin: '？',
+        zhuyin: 'ㄅㄆㄇ'
+      }
+    }
+  }
+}
 
 const nameCharacters = computed(() => {
   return userStore.currentUser?.name.split('') || []
@@ -156,9 +232,13 @@ const practiceModeText = computed(() => {
   }
 })
 
-const selectCharacter = (index: number) => {
+const selectCharacter = async (index: number) => {
   selectedCharIndex.value = index
   currentRound.value = 1 // 重置練習回合
+
+  // 更新字符資訊
+  await updateCurrentCharInfo()
+
   // 直接清空並重繪，不調用 clearCanvas 避免增加回合數
   if (canvasRef.value) {
     const ctx = canvasRef.value.getContext('2d')
@@ -169,320 +249,9 @@ const selectCharacter = (index: number) => {
   }
 }
 
-const getZhuyinParts = (char: string) => {
-  const zhuyin = getZhuyin(char)
-  if (zhuyin === '?') {
-    return [{ text: '?', type: 'normal' }]
-  }
 
-  const result = []
-  const consonants = ['ㄅ', 'ㄆ', 'ㄇ', 'ㄈ', 'ㄉ', 'ㄊ', 'ㄋ', 'ㄌ', 'ㄍ', 'ㄎ', 'ㄏ', 'ㄐ', 'ㄑ', 'ㄒ', 'ㄓ', 'ㄔ', 'ㄕ', 'ㄖ', 'ㄗ', 'ㄘ', 'ㄙ']
-  const vowels = ['ㄧ', 'ㄨ', 'ㄩ', 'ㄚ', 'ㄛ', 'ㄜ', 'ㄝ', 'ㄞ', 'ㄟ', 'ㄠ', 'ㄡ', 'ㄢ', 'ㄣ', 'ㄤ', 'ㄥ', 'ㄦ']
-  const tones = ['ˊ', 'ˇ', 'ˋ']
-  const lightTone = '˙'
 
-  let parts = []
-  let toneChar = ''
-  let hasLightTone = false
 
-  // 拆分注音符號
-  for (let i = 0; i < zhuyin.length; i++) {
-    const char = zhuyin[i]
-    if (char === lightTone) {
-      hasLightTone = true
-    } else if (tones.includes(char)) {
-      toneChar = char
-    } else if (consonants.includes(char) || vowels.includes(char)) {
-      parts.push(char)
-    }
-  }
-
-  // 如果有輕聲，放在最上面
-  if (hasLightTone) {
-    result.push({ text: lightTone, type: 'light-tone' })
-  }
-
-  // 添加聲母和韻母
-  parts.forEach((part, index) => {
-    if (index === parts.length - 1 && toneChar && vowels.includes(part)) {
-      // 最後一個韻母，有聲調時分開顯示
-      result.push({ text: part, type: 'vowel-main' })
-      result.push({ text: toneChar, type: 'tone-mark' })
-    } else {
-      result.push({ text: part, type: consonants.includes(part) ? 'consonant' : 'vowel' })
-    }
-  })
-
-  return result
-}
-
-const getZhuyin = (char: string) => {
-  // 完整的中文字注音對照表（擴充版）
-  const zhuyinMap: { [key: string]: string } = {
-    // 常見姓氏
-    '王': 'ㄨㄤˊ',
-    '李': 'ㄌㄧˇ',
-    '張': 'ㄓㄤ',
-    '劉': 'ㄌㄧㄡˊ',
-    '陳': 'ㄔㄣˊ',
-    '楊': 'ㄧㄤˊ',
-    '趙': 'ㄓㄠˋ',
-    '黃': 'ㄏㄨㄤˊ',
-    '周': 'ㄓㄡ',
-    '吳': 'ㄨˊ',
-    '徐': 'ㄒㄩˊ',
-    '孫': 'ㄙㄨㄣ',
-    '胡': 'ㄏㄨˊ',
-    '朱': 'ㄓㄨ',
-    '高': 'ㄍㄠ',
-    '林': 'ㄌㄧㄣˊ',
-    '何': 'ㄏㄜˊ',
-    '郭': 'ㄍㄨㄛ',
-    '馬': 'ㄇㄚˇ',
-    '羅': 'ㄌㄨㄛˊ',
-    '梁': 'ㄌㄧㄤˊ',
-    '宋': 'ㄙㄨㄥˋ',
-    '鄭': 'ㄓㄥˋ',
-    '謝': 'ㄒㄧㄝˋ',
-    '韓': 'ㄏㄢˊ',
-    '唐': 'ㄊㄤˊ',
-    '馮': 'ㄈㄥˊ',
-    '于': 'ㄩˊ',
-    '董': 'ㄉㄨㄥˇ',
-    '蕭': 'ㄒㄧㄠ',
-    '程': 'ㄔㄥˊ',
-    '曹': 'ㄘㄠˊ',
-    '袁': 'ㄩㄢˊ',
-    '鄧': 'ㄉㄥˋ',
-    '許': 'ㄒㄩˇ',
-    '傅': 'ㄈㄨˋ',
-    '沈': 'ㄕㄣˇ',
-    '曾': 'ㄗㄥ',
-    '彭': 'ㄆㄥˊ',
-    '呂': 'ㄌㄩˇ',
-    '蘇': 'ㄙㄨ',
-    '蔡': 'ㄘㄞˋ',
-    '賈': 'ㄐㄧㄚˇ',
-    '丁': 'ㄉㄧㄥ',
-    '魏': 'ㄨㄟˋ',
-    '薛': 'ㄒㄩㄝ',
-    '葉': 'ㄧㄝˋ',
-    '閻': 'ㄧㄢˊ',
-    '余': 'ㄩˊ',
-    '潘': 'ㄆㄢ',
-    '杜': 'ㄉㄨˋ',
-    '戴': 'ㄉㄞˋ',
-    '夏': 'ㄒㄧㄚˋ',
-    '鍾': 'ㄓㄨㄥ',
-    '汪': 'ㄨㄤ',
-    '田': 'ㄊㄧㄢˊ',
-    '任': 'ㄖㄣˋ',
-    '姜': 'ㄐㄧㄤ',
-    '范': 'ㄈㄢˋ',
-    '方': 'ㄈㄤ',
-    '石': 'ㄕˊ',
-    '姚': 'ㄧㄠˊ',
-    '譚': 'ㄊㄢˊ',
-    '廖': 'ㄌㄧㄠˋ',
-    '鄒': 'ㄗㄡ',
-    '熊': 'ㄒㄩㄥˊ',
-    '金': 'ㄐㄧㄣ',
-    '陸': 'ㄌㄨˋ',
-    '郝': 'ㄏㄠˇ',
-    '孔': 'ㄎㄨㄥˇ',
-    '白': 'ㄅㄞˊ',
-    '崔': 'ㄘㄨㄟ',
-    '康': 'ㄎㄤ',
-    '毛': 'ㄇㄠˊ',
-    '邱': 'ㄑㄧㄡ',
-    '秦': 'ㄑㄧㄣˊ',
-    '江': 'ㄐㄧㄤ',
-    '史': 'ㄕˇ',
-    '顧': 'ㄍㄨˋ',
-    '侯': 'ㄏㄡˊ',
-    '邵': 'ㄕㄠˋ',
-    '孟': 'ㄇㄥˋ',
-    '龍': 'ㄌㄨㄥˊ',
-    '萬': 'ㄨㄢˋ',
-    '段': 'ㄉㄨㄢˋ',
-    '雷': 'ㄌㄟˊ',
-    '錢': 'ㄑㄧㄢˊ',
-    '湯': 'ㄊㄤ',
-    '尹': 'ㄧㄣˇ',
-    '黎': 'ㄌㄧˊ',
-    '易': 'ㄧˋ',
-    '常': 'ㄔㄤˊ',
-    '武': 'ㄨˇ',
-    '喬': 'ㄑㄧㄠˊ',
-    '賴': 'ㄌㄞˋ',
-    '龔': 'ㄍㄨㄥ',
-    '文': 'ㄨㄣˊ',
-    '紀': 'ㄐㄧˋ',
-    '關': 'ㄍㄨㄢ',
-    '苗': 'ㄇㄧㄠˊ',
-
-    // 常見名字用字
-    '明': 'ㄇㄧㄥˊ',
-    '華': 'ㄏㄨㄚˊ',
-    '小': 'ㄒㄧㄠˇ',
-    '大': 'ㄉㄚˋ',
-    '中': 'ㄓㄨㄥ',
-    '偉': 'ㄨㄟˇ',
-    '強': 'ㄑㄧㄤˊ',
-    '民': 'ㄇㄧㄣˊ',
-    '永': 'ㄩㄥˇ',
-    '健': 'ㄐㄧㄢˋ',
-    '世': 'ㄕˋ',
-    '廣': 'ㄍㄨㄤˇ',
-    '志': 'ㄓˋ',
-    '義': 'ㄧˋ',
-    '禮': 'ㄌㄧˇ',
-    '智': 'ㄓˋ',
-    '信': 'ㄒㄧㄣˋ',
-    '德': 'ㄉㄜˊ',
-    '仁': 'ㄖㄣˊ',
-    '美': 'ㄇㄟˇ',
-    '麗': 'ㄌㄧˋ',
-    '玉': 'ㄩˋ',
-    '花': 'ㄏㄨㄚ',
-    '春': 'ㄔㄨㄣ',
-    '秋': 'ㄑㄧㄡ',
-    '冬': 'ㄉㄨㄥ',
-    '雨': 'ㄩˇ',
-    '雪': 'ㄒㄩㄝˇ',
-    '月': 'ㄩㄝˋ',
-    '日': 'ㄖˋ',
-    '星': 'ㄒㄧㄥ',
-    '光': 'ㄍㄨㄤ',
-    '亮': 'ㄌㄧㄤˋ',
-    '晶': 'ㄐㄧㄥ',
-    '珍': 'ㄓㄣ',
-    '寶': 'ㄅㄠˇ',
-    '貴': 'ㄍㄨㄟˋ',
-    '富': 'ㄈㄨˋ',
-    '榮': 'ㄖㄨㄥˊ',
-    '福': 'ㄈㄨˊ',
-    '壽': 'ㄕㄡˋ',
-    '安': 'ㄢ',
-    '平': 'ㄆㄧㄥˊ',
-    '和': 'ㄏㄜˊ',
-    '樂': 'ㄌㄜˋ',
-    '喜': 'ㄒㄧˇ',
-    '愛': 'ㄞˋ',
-    '慈': 'ㄘˊ',
-    '孝': 'ㄒㄧㄠˋ',
-    '忠': 'ㄓㄨㄥ',
-    '良': 'ㄌㄧㄤˊ',
-    '善': 'ㄕㄢˋ',
-    '真': 'ㄓㄣ',
-    '純': 'ㄔㄨㄣˊ',
-    '清': 'ㄑㄧㄥ',
-    '正': 'ㄓㄥˋ',
-    '直': 'ㄓˊ',
-    '誠': 'ㄔㄥˊ',
-    '實': 'ㄕˊ',
-    '謙': 'ㄑㄧㄢ',
-    '虛': 'ㄒㄩ',
-    '恭': 'ㄍㄨㄥ',
-    '敬': 'ㄐㄧㄥˋ',
-    '勤': 'ㄑㄧㄣˊ',
-    '奮': 'ㄈㄣˋ',
-    '進': 'ㄐㄧㄣˋ',
-    '學': 'ㄒㄩㄝˊ',
-    '問': 'ㄨㄣˋ',
-    '思': 'ㄙ',
-    '想': 'ㄒㄧㄤˇ',
-    '念': 'ㄋㄧㄢˋ',
-    '心': 'ㄒㄧㄣ',
-    '意': 'ㄧˋ',
-    '情': 'ㄑㄧㄥˊ',
-    '感': 'ㄍㄢˇ',
-    '受': 'ㄕㄡˋ',
-    '知': 'ㄓ',
-    '識': 'ㄕˋ',
-    '理': 'ㄌㄧˇ',
-    '解': 'ㄐㄧㄝˇ',
-    '懂': 'ㄉㄨㄥˇ',
-    '會': 'ㄏㄨㄟˋ',
-    '能': 'ㄋㄥˊ',
-    '可': 'ㄎㄜˇ',
-    '以': 'ㄧˇ',
-    '要': 'ㄧㄠˋ',
-    '必': 'ㄅㄧˋ',
-    '須': 'ㄒㄩ',
-    '應': 'ㄧㄥ',
-    '該': 'ㄍㄞ',
-    '當': 'ㄉㄤ',
-    '就': 'ㄐㄧㄡˋ',
-    '是': 'ㄕˋ',
-    '為': 'ㄨㄟˊ',
-    '有': 'ㄧㄡˇ',
-    '無': 'ㄨˊ',
-    '沒': 'ㄇㄟˊ',
-    '不': 'ㄅㄨˋ',
-    '非': 'ㄈㄟ',
-    '很': 'ㄏㄣˇ',
-    '多': 'ㄉㄨㄛ',
-    '少': 'ㄕㄠˇ',
-    '好': 'ㄏㄠˇ',
-    '壞': 'ㄏㄨㄞˋ',
-    '對': 'ㄉㄨㄟˋ',
-    '錯': 'ㄘㄨㄛˋ',
-    '新': 'ㄒㄧㄣ',
-    '舊': 'ㄐㄧㄡˋ',
-    '低': 'ㄉㄧ',
-    '長': 'ㄔㄤˊ',
-    '短': 'ㄉㄨㄢˇ',
-    '遠': 'ㄩㄢˇ',
-    '近': 'ㄐㄧㄣˋ',
-    '快': 'ㄎㄨㄞˋ',
-    '慢': 'ㄇㄢˋ',
-    '早': 'ㄗㄠˇ',
-    '晚': 'ㄨㄢˇ',
-    '先': 'ㄒㄧㄢ',
-    '後': 'ㄏㄡˋ',
-    '前': 'ㄑㄧㄢˊ',
-    '次': 'ㄘˋ',
-    '第': 'ㄉㄧˋ',
-    '一': 'ㄧ',
-    '二': 'ㄦˋ',
-    '三': 'ㄙㄢ',
-    '四': 'ㄙˋ',
-    '五': 'ㄨˇ',
-    '六': 'ㄌㄧㄡˋ',
-    '七': 'ㄑㄧ',
-    '八': 'ㄅㄚ',
-    '九': 'ㄐㄧㄡˇ',
-    '十': 'ㄕˊ',
-    '百': 'ㄅㄞˇ',
-    '千': 'ㄑㄧㄢ',
-    '億': 'ㄧˋ',
-    '家': 'ㄐㄧㄚ',
-    '禾': 'ㄏㄜˊ'
-  }
-
-  if (!zhuyinMap[char]) {
-    // 記錄未知字符以便後續添加
-    if (!unknownCharacters.value.includes(char)) {
-      unknownCharacters.value.push(char)
-      console.log('未知字符:', char, '需要添加注音')
-    }
-    return 'ㄓㄨ ㄧㄣ'
-  }
-  return zhuyinMap[char]
-}
-
-const getStrokeCount = (char: string) => {
-  const strokeMap: { [key: string]: number } = {
-    '王': 4,
-    '李': 7,
-    '張': 11,
-    '小': 3,
-    '明': 8,
-    '華': 12
-  }
-  return strokeMap[char] || 10
-}
 
 const clearCanvas = () => {
   if (canvasRef.value) {
@@ -501,7 +270,14 @@ const clearCanvas = () => {
 
 const resetPractice = () => {
   currentRound.value = 1
-  clearCanvas()
+  // 只清除畫布，不增加回合數
+  if (canvasRef.value) {
+    const ctx = canvasRef.value.getContext('2d')
+    if (ctx) {
+      ctx.clearRect(0, 0, 300, 300)
+      drawGrid()
+    }
+  }
 }
 
 const drawGrid = () => {
@@ -574,7 +350,13 @@ const completeLesson = () => {
   router.push('/dashboard')
 }
 
-onMounted(() => {
+onMounted(async () => {
+  // 初始化所有字符的注音部件
+  await loadAllZhuyinParts()
+
+  // 初始化字符資訊
+  await updateCurrentCharInfo()
+
   if (canvasRef.value) {
     drawGrid()
 
@@ -779,7 +561,6 @@ onMounted(() => {
   font-weight: normal;
   pointer-events: none;
   z-index: 3;
-  font-family: 'Microsoft YaHei', '微軟正黑體', sans-serif;
   user-select: none;
   transition: opacity 0.3s ease;
 }
@@ -818,10 +599,31 @@ canvas {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .practice-header h3 {
   margin: 0;
+}
+
+.font-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.font-selector label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.font-selector select {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: white;
 }
 
 .practice-mode-info {

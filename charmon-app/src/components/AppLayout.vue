@@ -8,7 +8,7 @@
       <div class="user-info">
         <div class="avatar">{{ userStore.currentUser?.name[0] }}</div>
         <div class="user-details">
-          <div class="user-name">{{ userStore.currentUser?.name }}</div>
+          <div class="user-name">{{ userStore.currentUser?.name }}<span v-if="userStore.currentUser?.isParent">，歡迎！</span></div>
           <div class="user-points">⭐ {{ userStore.totalPoints }} 點</div>
         </div>
       </div>
@@ -46,12 +46,11 @@
             <span>練習表格</span>
           </router-link>
         </li>
-        <li v-if="!userStore.currentUser?.parentId">
-          <div class="nav-item disabled">
+        <li v-if="userStore.currentUser?.isParent">
+          <router-link to="/parents" class="nav-item">
             <el-icon><User /></el-icon>
             <span>家長專區</span>
-            <span class="coming-soon-badge">即將推出</span>
-          </div>
+          </router-link>
         </li>
       </ul>
 
