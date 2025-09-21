@@ -2,11 +2,9 @@ import { supabase, type Database } from '@/lib/supabase'
 import type { CharacterInfo } from '@/utils/dictionaryV2'
 
 type DictionaryCharacter = Database['public']['Tables']['dictionary_characters']['Row']
-type DictionaryCharacterInsert = Database['public']['Tables']['dictionary_characters']['Insert']
-type DictionaryCharacterUpdate = Database['public']['Tables']['dictionary_characters']['Update']
 type UnknownCharacter = Database['public']['Tables']['unknown_characters']['Row']
-type UnknownCharacterInsert = Database['public']['Tables']['unknown_characters']['Insert']
 type UnknownCharacterUpdate = Database['public']['Tables']['unknown_characters']['Update']
+type UnknownCharacterInsert = Database['public']['Tables']['unknown_characters']['Insert']
 
 export class DictionaryService {
   // 獲取所有字典字符 - 現在只返回空數組，因為我們不使用 Supabase 字典表
@@ -59,8 +57,8 @@ export class DictionaryService {
         // 增加出現次數
         await supabase
           .from('unknown_characters')
-          .update({ occurrence_count: (existing as any).occurrence_count + 1 } as any)
-          .eq('id', (existing as any).id)
+          .update({ occurrence_count: (existing as UnknownCharacter).occurrence_count + 1 } as UnknownCharacterUpdate)
+          .eq('id', (existing as UnknownCharacter).id)
       } else {
         // 新增未知字符
         await supabase
@@ -68,7 +66,7 @@ export class DictionaryService {
           .insert({
             character,
             occurrence_count: 1
-          } as any)
+          } as UnknownCharacterInsert)
       }
     } catch (error) {
       console.error('記錄未知字符失敗:', error)
@@ -120,7 +118,7 @@ export class DictionaryService {
 
       const { data, error } = await supabase
         .from('unknown_characters')
-        .update({ resolved: true } as any)
+        .update({ resolved: true } as UnknownCharacterUpdate)
         .eq('character', character)
         .select()
 
@@ -210,7 +208,7 @@ export class DictionaryService {
   }
 
   // 批量導入字典數據 - 已停用，因為我們不使用 Supabase 字典表
-  static async importDictionary(characters: CharacterInfo[]): Promise<boolean> {
+  static async importDictionary(): Promise<boolean> {
     console.log('⚠️ 已停用 Supabase 字典表功能，無法導入字典')
     console.log('💡 請更新本地字典文件')
     return false

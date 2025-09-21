@@ -49,9 +49,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '@/stores/user'
 import pokemonThemesData from '@/data/pokemon-themes.json'
 
 // 定義 Pokemon 類型
@@ -69,7 +68,6 @@ interface Pokemon {
 }
 
 const router = useRouter()
-const userStore = useUserStore()
 
 // 寶可夢相關
 const selectedPokemon = ref<Pokemon | null>(null)
@@ -133,21 +131,6 @@ const gainExp = (amount = 10) => {
   localStorage.setItem('pokemonExp', pokemonExp.value.toString())
 }
 
-const goToWorksheets = () => {
-  router.push('/worksheets')
-  // 增加經驗值
-  if (selectedPokemon.value) {
-    gainExp(5)
-  }
-}
-
-const goToNameLearning = () => {
-  router.push('/learn/name')
-  // 增加經驗值
-  if (selectedPokemon.value) {
-    gainExp(5)
-  }
-}
 
 const startAdventure = () => {
   if (selectedPokemon.value) {

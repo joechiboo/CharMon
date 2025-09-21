@@ -1,0 +1,56 @@
+{
+  "pokemonName": "ConcurrentTest3",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "美麗的粉紅色Concu…",
+      "characterCount": 12,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "聰明伶俐又機靈",
+      "characterCount": 7,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "在花園裡玩耍",
+      "characterCount": 6,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "愉快地玩耍",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "就像星星那麼純潔",
+      "characterCount": 8,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 38,
+  "ageGroup": "kindergarten",
+  "generatedAt": "2025-09-21T11:51:37.224Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "美麗的粉紅色Concu…"
+    },
+    {
+      "description": "聰明伶俐又機靈"
+    },
+    {
+      "description": "在花園裡玩耍"
+    },
+    {
+      "description": "愉快地玩耍"
+    },
+    {
+      "description": "就像星星那麼純潔"
+    }
+  ]
+}

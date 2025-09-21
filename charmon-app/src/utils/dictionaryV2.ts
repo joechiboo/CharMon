@@ -41,7 +41,7 @@ if (useSupabase) {
 
       // 只檢查未知字符表
       supabase.from('unknown_characters').select('count', { count: 'exact', head: true })
-        .then(({ error, count }: { error: any, count: any }) => {
+        .then(({ error, count }: { error: unknown, count: unknown }) => {
           if (error) {
             console.error('❌ Supabase 未知字符表連接失敗:', error)
           } else {
@@ -340,7 +340,7 @@ export function parseZhuyinToParts(zhuyin: string): ZhuyinPart[] {
   const lightTone = '˙'
 
   const result = []
-  let zhuyinParts = []
+  const zhuyinParts = []
   let toneChar = ''
   let hasLightTone = false
 
@@ -455,7 +455,7 @@ export async function addCharacter(characterInfo: CharacterInfo): Promise<boolea
   return false
 }
 
-export async function updateCharacter(characterInfo: CharacterInfo): Promise<boolean> {
+export async function updateCharacter(): Promise<boolean> {
   console.log('⚠️ 靜態字典模式，不支援動態更新字符')
   console.log('💡 請直接編輯 src/data/dictionary.json 檔案')
   return false

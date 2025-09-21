@@ -30,7 +30,12 @@
       "Bash(cat:*)",
       "Bash(node:*)",
       "Bash(npm init:*)",
-      "Bash(npx playwright:*)"
+      "Bash(npx playwright:*)",
+      "Bash(npm restart)",
+      "Bash(sort:*)",
+      "Bash(npm start)",
+      "Bash(timeout:*)",
+      "Bash(npx eslint:*)"
     ],
     "deny": [],
     "ask": []

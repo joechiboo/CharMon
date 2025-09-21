@@ -1,0 +1,1914 @@
+{
+  "config": {
+    "configFile": "C:\\Personal\\Project\\CharMon\\charmon-app\\playwright.config.ts",
+    "rootDir": "C:/Personal/Project/CharMon/charmon-app/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 12
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "test-results/results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Personal/Project/CharMon/charmon-app/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 12
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Personal/Project/CharMon/charmon-app/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Personal/Project/CharMon/charmon-app/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 12
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Personal/Project/CharMon/charmon-app/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Personal/Project/CharMon/charmon-app/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 12
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Personal/Project/CharMon/charmon-app/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Personal/Project/CharMon/charmon-app/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 12
+        },
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "C:/Personal/Project/CharMon/charmon-app/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Personal/Project/CharMon/charmon-app/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 12
+        },
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "C:/Personal/Project/CharMon/charmon-app/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 12,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "01-navigation.spec.ts",
+      "file": "01-navigation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "應用導航測試",
+          "file": "01-navigation.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "首頁載入正常",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3026,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:30.245Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\01-navigation-應用導航測試-首頁載入正常-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "957431cae479accf8a10-d4c5bb8e9557bc6ef21d",
+              "file": "01-navigation.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "主選單導航功能",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1602,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:30.353Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\01-navigation-應用導航測試-主選單導航功能-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "957431cae479accf8a10-fd7bc0c4e63432cfb8e9",
+              "file": "01-navigation.spec.ts",
+              "line": 14,
+              "column": 3
+            },
+            {
+              "title": "響應式設計測試",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1968,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:30.249Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\01-navigation-應用導航測試-響應式設計測試-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "957431cae479accf8a10-8dde2b5080c89b6dab6b",
+              "file": "01-navigation.spec.ts",
+              "line": 33,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "02-worksheets.spec.ts",
+      "file": "02-worksheets.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "練習表生成器測試",
+          "file": "02-worksheets.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "基本練習表生成功能",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "failed",
+                      "duration": 7248,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"練習表格生成器\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"練習表格生成器\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:35:38",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
+                          "column": 38,
+                          "line": 35
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 33 |\u001b[39m   test(\u001b[32m'基本練習表生成功能'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 34 |\u001b[39m     \u001b[90m// 檢查頁面標題\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 35 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'練習表格生成器'\u001b[39m)\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 36 |\u001b[39m\n \u001b[90m 37 |\u001b[39m     \u001b[90m// 輸入要練習的字\u001b[39m\n \u001b[90m 38 |\u001b[39m     \u001b[36mconst\u001b[39m textInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#characters'\u001b[39m)\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
+                            "column": 38,
+                            "line": 35
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"練習表格生成器\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n\n  33 |   test('基本練習表生成功能', async ({ page }) => {\n  34 |     // 檢查頁面標題\n> 35 |     await expect(page.locator('h1')).toContainText('練習表格生成器')\n     |                                      ^\n  36 |\n  37 |     // 輸入要練習的字\n  38 |     const textInput = page.locator('#characters')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:35:38"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:30.299Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
+                        "column": 38,
+                        "line": 35
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "3f1f01fc046cb202350c-7568964291339e862cff",
+              "file": "02-worksheets.spec.ts",
+              "line": 33,
+              "column": 3
+            },
+            {
+              "title": "不同格式選項測試",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "timedOut",
+                      "duration": 30690,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
+                            "column": 21,
+                            "line": 62
+                          },
+                          "message": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#characters')\u001b[22m\n\n\n  60 |   test('不同格式選項測試', async ({ page }) => {\n  61 |     const textInput = page.locator('#characters')\n> 62 |     await textInput.fill('測試')\n     |                     ^\n  63 |\n  64 |     // 測試田字格\n  65 |     await page.locator('select').first().selectOption('tian')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:62:21"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:30.379Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-不同格式選項測試-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-不同格式選項測試-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-不同格式選項測試-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-不同格式選項測試-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "3f1f01fc046cb202350c-31a3b94e251d7637edd9",
+              "file": "02-worksheets.spec.ts",
+              "line": 60,
+              "column": 3
+            },
+            {
+              "title": "字數限制測試",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
+                      "status": "timedOut",
+                      "duration": 30740,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
+                            "column": 21,
+                            "line": 85
+                          },
+                          "message": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#characters')\u001b[22m\n\n\n  83 |     // 測試最大字數限制 (100字)\n  84 |     const longText = '一'.repeat(101)\n> 85 |     await textInput.fill(longText)\n     |                     ^\n  86 |\n  87 |     // 檢查是否有字數限制提示\n  88 |     const charCount = page.locator('.char-count')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:85:21"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:30.337Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-字數限制測試-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-字數限制測試-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-字數限制測試-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-字數限制測試-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "3f1f01fc046cb202350c-f1e6e4aba6018e62ade3",
+              "file": "02-worksheets.spec.ts",
+              "line": 80,
+              "column": 3
+            },
+            {
+              "title": "寶可夢主題模式測試",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 6,
+                      "status": "failed",
+                      "duration": 5670,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"皮卡丘 文學練習表\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"皮卡丘 文學練習表\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:109:38",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
+                          "column": 38,
+                          "line": 109
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 107 |\u001b[39m\n \u001b[90m 108 |\u001b[39m     \u001b[90m// 檢查是否進入遊戲模式\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 109 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'皮卡丘 文學練習表'\u001b[39m)\n \u001b[90m     |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 110 |\u001b[39m\n \u001b[90m 111 |\u001b[39m     \u001b[90m// 檢查文學內容是否正確填入\u001b[39m\n \u001b[90m 112 |\u001b[39m     \u001b[36mconst\u001b[39m textInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#characters'\u001b[39m)\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
+                            "column": 38,
+                            "line": 109
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"皮卡丘 文學練習表\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n\n  107 |\n  108 |     // 檢查是否進入遊戲模式\n> 109 |     await expect(page.locator('h1')).toContainText('皮卡丘 文學練習表')\n      |                                      ^\n  110 |\n  111 |     // 檢查文學內容是否正確填入\n  112 |     const textInput = page.locator('#characters')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:109:38"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:30.451Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
+                        "column": 38,
+                        "line": 109
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "3f1f01fc046cb202350c-8cb47f8b00c852d72de7",
+              "file": "02-worksheets.spec.ts",
+              "line": 92,
+              "column": 3
+            },
+            {
+              "title": "下載功能測試",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 7,
+                      "status": "timedOut",
+                      "duration": 30740,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
+                            "column": 21,
+                            "line": 119
+                          },
+                          "message": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#characters')\u001b[22m\n\n\n  117 |   test('下載功能測試', async ({ page }) => {\n  118 |     const textInput = page.locator('#characters')\n> 119 |     await textInput.fill('下載測試')\n      |                     ^\n  120 |\n  121 |     // 生成預覽\n  122 |     const previewBtn = page.locator('button:has-text(\"預覽練習表\")')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:119:21"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:30.476Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-下載功能測試-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-下載功能測試-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-下載功能測試-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-下載功能測試-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "3f1f01fc046cb202350c-aafdc45a83c8500ca4ff",
+              "file": "02-worksheets.spec.ts",
+              "line": 117,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "03-dictionary.spec.ts",
+      "file": "03-dictionary.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "字典系統測試",
+          "file": "03-dictionary.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "字典查詢功能",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 8,
+                      "status": "passed",
+                      "duration": 708,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:30.502Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-字典查詢功能-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4774d8cbc6b5fdc1c041-e823a7765cd9392c078f",
+              "file": "03-dictionary.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "筆順動畫功能",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 9,
+                      "status": "passed",
+                      "duration": 3782,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:30.599Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-筆順動畫功能-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4774d8cbc6b5fdc1c041-78c0b7d4a47b378a4ee8",
+              "file": "03-dictionary.spec.ts",
+              "line": 24,
+              "column": 3
+            },
+            {
+              "title": "字典管理後台功能",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 10,
+                      "status": "failed",
+                      "duration": 5672,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"字典管理後台\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"字典管理後台\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts:43:38",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
+                          "column": 38,
+                          "line": 43
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 41 |\u001b[39m\n \u001b[90m 42 |\u001b[39m     \u001b[90m// 檢查管理後台頁面\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'字典管理後台'\u001b[39m)\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m\n \u001b[90m 45 |\u001b[39m     \u001b[90m// 檢查統計信息\u001b[39m\n \u001b[90m 46 |\u001b[39m     \u001b[36mconst\u001b[39m statsSection \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.stats-section'\u001b[39m)\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
+                            "column": 38,
+                            "line": 43
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"字典管理後台\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n\n  41 |\n  42 |     // 檢查管理後台頁面\n> 43 |     await expect(page.locator('h1')).toContainText('字典管理後台')\n     |                                      ^\n  44 |\n  45 |     // 檢查統計信息\n  46 |     const statsSection = page.locator('.stats-section')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts:43:38"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:30.609Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-字典管理後台功能-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-字典管理後台功能-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-字典管理後台功能-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-字典管理後台功能-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
+                        "column": 38,
+                        "line": 43
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "4774d8cbc6b5fdc1c041-27d93eb8a4404b046fb3",
+              "file": "03-dictionary.spec.ts",
+              "line": 39,
+              "column": 3
+            },
+            {
+              "title": "字典數據同步功能",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 11,
+                      "status": "passed",
+                      "duration": 2175,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:30.619Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-字典數據同步功能-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4774d8cbc6b5fdc1c041-5aab5e0242ae094ae138",
+              "file": "03-dictionary.spec.ts",
+              "line": 66,
+              "column": 3
+            },
+            {
+              "title": "Supabase 連接測試",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 11,
+                      "status": "passed",
+                      "duration": 769,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:35.282Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-Supabase-連接測試-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4774d8cbc6b5fdc1c041-84e988626d098c7f09f5",
+              "file": "03-dictionary.spec.ts",
+              "line": 88,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "04-pokemon-api.spec.ts",
+      "file": "04-pokemon-api.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "寶可夢 API 後端測試",
+          "file": "04-pokemon-api.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "API 健康檢查",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 9,
+                      "status": "passed",
+                      "duration": 121,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:35.672Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-API-健康檢查-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c1b14ecdb587ccc527fe-0a9fb21c07cfc8c66ee8",
+              "file": "04-pokemon-api.spec.ts",
+              "line": 6,
+              "column": 3
+            },
+            {
+              "title": "API 服務狀態檢查",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 9,
+                      "status": "passed",
+                      "duration": 75,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:35.852Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-API-服務狀態檢查-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c1b14ecdb587ccc527fe-9615182eae68524c2ccd",
+              "file": "04-pokemon-api.spec.ts",
+              "line": 15,
+              "column": 3
+            },
+            {
+              "title": "寶可夢主題生成 - 模板模式",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 8,
+                      "status": "passed",
+                      "duration": 111,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:35.862Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-寶可夢主題生成---模板模式-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c1b14ecdb587ccc527fe-b50530967c1abd298da5",
+              "file": "04-pokemon-api.spec.ts",
+              "line": 25,
+              "column": 3
+            },
+            {
+              "title": "寶可夢主題生成 - 混合模式",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 9,
+                      "status": "passed",
+                      "duration": 72,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:35.979Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-寶可夢主題生成---混合模式-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c1b14ecdb587ccc527fe-f4f70bd94386d4692de0",
+              "file": "04-pokemon-api.spec.ts",
+              "line": 55,
+              "column": 3
+            },
+            {
+              "title": "無效寶可夢名稱處理",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 8,
+                      "status": "passed",
+                      "duration": 80,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:36.090Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-無效寶可夢名稱處理-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c1b14ecdb587ccc527fe-30424204d3b8c6c45d69",
+              "file": "04-pokemon-api.spec.ts",
+              "line": 77,
+              "column": 3
+            },
+            {
+              "title": "寶可夢名稱驗證",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 11,
+                      "status": "passed",
+                      "duration": 494,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:36.126Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-寶可夢名稱驗證-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c1b14ecdb587ccc527fe-e2f8bb2485b58785ee5d",
+              "file": "04-pokemon-api.spec.ts",
+              "line": 92,
+              "column": 3
+            },
+            {
+              "title": "主題列表獲取",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 9,
+                      "status": "passed",
+                      "duration": 80,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:36.113Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-主題列表獲取-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c1b14ecdb587ccc527fe-e87cd188d2a0ae8c2a6f",
+              "file": "04-pokemon-api.spec.ts",
+              "line": 118,
+              "column": 3
+            },
+            {
+              "title": "主題搜索功能",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 137,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:36.150Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-主題搜索功能-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c1b14ecdb587ccc527fe-6f4969f86483958ad822",
+              "file": "04-pokemon-api.spec.ts",
+              "line": 138,
+              "column": 3
+            },
+            {
+              "title": "API 統計信息",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 73,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:36.245Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-API-統計信息-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c1b14ecdb587ccc527fe-8f629e51416fe063eed7",
+              "file": "04-pokemon-api.spec.ts",
+              "line": 148,
+              "column": 3
+            },
+            {
+              "title": "錯誤處理測試",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 9,
+                      "status": "passed",
+                      "duration": 44,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:36.234Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-錯誤處理測試-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c1b14ecdb587ccc527fe-faac8be33fb5bbecbc49",
+              "file": "04-pokemon-api.spec.ts",
+              "line": 159,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "05-performance.spec.ts",
+      "file": "05-performance.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "性能和穩定性測試",
+          "file": "05-performance.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "頁面載入性能測試",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 8,
+                      "status": "failed",
+                      "duration": 6469,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('header')\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('header')\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:19:42",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                          "column": 42,
+                          "line": 19
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 17 |\u001b[39m\n \u001b[90m 18 |\u001b[39m     \u001b[90m// 檢查頁面關鍵元素是否載入\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 19 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'main, .main-content'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m 21 |\u001b[39m   })\n \u001b[90m 22 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                            "column": 42,
+                            "line": 19
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('header')\u001b[22m\n\n\n  17 |\n  18 |     // 檢查頁面關鍵元素是否載入\n> 19 |     await expect(page.locator('header')).toBeVisible()\n     |                                          ^\n  20 |     await expect(page.locator('main, .main-content')).toBeVisible()\n  21 |   })\n  22 |\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:19:42"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "首頁載入時間: 764ms\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:36.285Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-頁面載入性能測試-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-頁面載入性能測試-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-頁面載入性能測試-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-頁面載入性能測試-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                        "column": 42,
+                        "line": 19
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "287184de4a6dfcb71595-d9c8e90eb48393f787b7",
+              "file": "05-performance.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "練習表生成性能測試",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "timedOut",
+                      "duration": 30828,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                            "column": 21,
+                            "line": 28
+                          },
+                          "message": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#characters')\u001b[22m\n\n\n  26 |     // 輸入測試文字\n  27 |     const textInput = page.locator('#characters')\n> 28 |     await textInput.fill('性能測試用的中文字符')\n     |                     ^\n  29 |\n  30 |     // 測量生成時間\n  31 |     const startTime = Date.now()\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:28:21"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:36.364Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-練習表生成性能測試-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-練習表生成性能測試-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-練習表生成性能測試-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-練習表生成性能測試-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "287184de4a6dfcb71595-b6389585d4d040fd0e5f",
+              "file": "05-performance.spec.ts",
+              "line": 23,
+              "column": 3
+            },
+            {
+              "title": "API 響應時間測試",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 379,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "健康檢查 API 響應時間: 5ms\n"
+                        },
+                        {
+                          "text": "服務狀態 API 響應時間: 11ms\n"
+                        },
+                        {
+                          "text": "主題列表 API 響應時間: 6ms\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:36.383Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-API-響應時間測試-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "287184de4a6dfcb71595-c803577b949268163970",
+              "file": "05-performance.spec.ts",
+              "line": 48,
+              "column": 3
+            },
+            {
+              "title": "記憶體洩漏測試",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "timedOut",
+                      "duration": 30818,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                            "column": 23,
+                            "line": 75
+                          },
+                          "message": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#characters')\u001b[22m\n\n\n  73 |     for (let i = 0; i < 5; i++) {\n  74 |       const textInput = page.locator('#characters')\n> 75 |       await textInput.fill(`記憶體測試 ${i + 1}`)\n     |                       ^\n  76 |\n  77 |       const previewBtn = page.locator('button:has-text(\"預覽練習表\")')\n  78 |       if (await previewBtn.isVisible()) {\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:75:23"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:36.403Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "287184de4a6dfcb71595-90f83a31a4c0ed23e92b",
+              "file": "05-performance.spec.ts",
+              "line": 69,
+              "column": 3
+            },
+            {
+              "title": "大量文字處理測試",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 9,
+                      "status": "timedOut",
+                      "duration": 30825,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                            "column": 21,
+                            "line": 98
+                          },
+                          "message": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#characters')\u001b[22m\n\n\n   96 |     const maxText = '測'.repeat(100)\n   97 |     const textInput = page.locator('#characters')\n>  98 |     await textInput.fill(maxText)\n      |                     ^\n   99 |\n  100 |     // 檢查字數顯示\n  101 |     const charCount = page.locator('.char-count')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:98:21"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:36.587Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-大量文字處理測試-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-大量文字處理測試-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-大量文字處理測試-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-大量文字處理測試-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "287184de4a6dfcb71595-cddbacf33804e77cf18f",
+              "file": "05-performance.spec.ts",
+              "line": 92,
+              "column": 3
+            },
+            {
+              "title": "網路異常處理測試",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 11,
+                      "status": "failed",
+                      "duration": 713,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at http://localhost:5174/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5174/worksheets\", waiting until \"domcontentloaded\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at http://localhost:5174/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5174/worksheets\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:126:16",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                          "column": 16,
+                          "line": 126
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 124 |\u001b[39m     \u001b[36mawait\u001b[39m context\u001b[33m.\u001b[39msetOffline(\u001b[36mtrue\u001b[39m)\n \u001b[90m 125 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 126 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/worksheets'\u001b[39m\u001b[33m,\u001b[39m { waitUntil\u001b[33m:\u001b[39m \u001b[32m'domcontentloaded'\u001b[39m })\n \u001b[90m     |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 127 |\u001b[39m\n \u001b[90m 128 |\u001b[39m     \u001b[90m// 檢查離線時的行為\u001b[39m\n \u001b[90m 129 |\u001b[39m     \u001b[36mconst\u001b[39m textInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#characters'\u001b[39m)\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                            "column": 16,
+                            "line": 126
+                          },
+                          "message": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at http://localhost:5174/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5174/worksheets\", waiting until \"domcontentloaded\"\u001b[22m\n\n\n  124 |     await context.setOffline(true)\n  125 |\n> 126 |     await page.goto('/worksheets', { waitUntil: 'domcontentloaded' })\n      |                ^\n  127 |\n  128 |     // 檢查離線時的行為\n  129 |     const textInput = page.locator('#characters')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:126:16"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:36.695Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-網路異常處理測試-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-網路異常處理測試-chromium\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-網路異常處理測試-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                        "column": 16,
+                        "line": 126
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "287184de4a6dfcb71595-cb172903b91d6f478107",
+              "file": "05-performance.spec.ts",
+              "line": 122,
+              "column": 3
+            },
+            {
+              "title": "並發請求測試",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 602,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "並發請求 1 狀態: 200\n"
+                        },
+                        {
+                          "text": "並發請求 2 狀態: 200\n"
+                        },
+                        {
+                          "text": "並發請求 3 狀態: 200\n"
+                        },
+                        {
+                          "text": "並發請求 4 狀態: 200\n"
+                        },
+                        {
+                          "text": "並發請求 5 狀態: 200\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:36.862Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-並發請求測試-chromium\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "287184de4a6dfcb71595-bb1f93c71fd6fa04b3d4",
+              "file": "05-performance.spec.ts",
+              "line": 142,
+              "column": 3
+            },
+            {
+              "title": "瀏覽器兼容性測試",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "failed",
+                      "duration": 5982,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('header')\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('header')\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:172:42",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                          "column": 42,
+                          "line": 172
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 170 |\u001b[39m\n \u001b[90m 171 |\u001b[39m     \u001b[90m// 檢查基本功能在不同瀏覽器中是否正常\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 172 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m     |\u001b[39m                                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 173 |\u001b[39m\n \u001b[90m 174 |\u001b[39m     \u001b[90m// 檢查 CSS 支援\u001b[39m\n \u001b[90m 175 |\u001b[39m     \u001b[36mconst\u001b[39m header \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                            "column": 42,
+                            "line": 172
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('header')\u001b[22m\n\n\n  170 |\n  171 |     // 檢查基本功能在不同瀏覽器中是否正常\n> 172 |     await expect(page.locator('header')).toBeVisible()\n      |                                          ^\n  173 |\n  174 |     // 檢查 CSS 支援\n  175 |     const header = page.locator('header')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:172:42"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "測試瀏覽器: chromium\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-21T11:51:37.552Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                        "column": 42,
+                        "line": 172
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "287184de4a6dfcb71595-4a18bae5d364d77342bb",
+              "file": "05-performance.spec.ts",
+              "line": 166,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-09-21T11:51:25.444Z",
+    "duration": 42237.206999999995,
+    "expected": 19,
+    "skipped": 0,
+    "unexpected": 12,
+    "flaky": 0
+  }
+}

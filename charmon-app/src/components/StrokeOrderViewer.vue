@@ -38,9 +38,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import HanziWriter from 'hanzi-writer'
-import { getStrokeCount, getRadical, getRadicalWithZhuyin, getCharacterInfo, clearCache } from '@/utils/dictionaryV2'
+import { getRadicalWithZhuyin, getCharacterInfo, clearCache } from '@/utils/dictionaryV2'
 
 interface Props {
   character: string
@@ -58,7 +58,7 @@ const hanziTarget = ref<HTMLElement | null>(null)
 const strokeCount = ref<number>(0)
 const radical = ref<string>('')
 let writer: HanziWriter | null = null
-let isLooping = ref(false)
+const isLooping = ref(false)
 
 // 載入字符資訊
 const loadCharacterInfo = async () => {
@@ -170,10 +170,10 @@ const startQuiz = () => {
   if (!writer) return
   isLooping.value = false
   writer.quiz({
-    onMistake: (strokeData: any) => {
+    onMistake: (strokeData: unknown) => {
       console.log('筆畫錯誤:', strokeData)
     },
-    onCorrectStroke: (strokeData: any) => {
+    onCorrectStroke: (strokeData: unknown) => {
       console.log('筆畫正確:', strokeData)
     },
     onComplete: () => {

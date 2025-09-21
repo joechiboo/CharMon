@@ -121,7 +121,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import StrokeOrderViewer from '@/components/StrokeOrderViewer.vue'
-import { getStrokeCount, getRadical, getRadicalWithZhuyin, getZhuyin, getZhuyinParts, clearCache } from '@/utils/dictionaryV2'
+import { getStrokeCount, getRadicalWithZhuyin, getZhuyin, getZhuyinParts } from '@/utils/dictionaryV2'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -129,7 +129,6 @@ const userStore = useUserStore()
 const selectedCharIndex = ref<number | null>(0)
 const canvasRef = ref<HTMLCanvasElement>()
 const showWatermark = ref(true)
-const unknownCharacters = ref<string[]>([])
 const currentRound = ref(1)
 const totalPracticeRounds = 5 // 2次浮水印 + 3次空白
 const selectedFont = ref('DFKai-SB') // 預設標楷體
@@ -151,7 +150,7 @@ const currentCharInfo = ref({
 })
 
 // 所有字符的注音部件緩存
-const zhuyinPartsCache = ref<Map<string, any[]>>(new Map())
+const zhuyinPartsCache = ref<Map<string, unknown[]>>(new Map())
 
 // 取得字符的注音部件（有緩存）
 const getCharZhuyinParts = (char: string) => {

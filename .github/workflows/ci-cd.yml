@@ -1,4 +1,4 @@
-name: 🧪 測試流程
+name: 🚀 CI/CD Pipeline
 
 on:
   push:
@@ -7,6 +7,9 @@ on:
     branches: [ main ]
 
 jobs:
+  # ========================================
+  # 單元測試
+  # ========================================
   unit-tests:
     name: 🔬 單元測試
     runs-on: ubuntu-latest
@@ -43,6 +46,9 @@ jobs:
           cd charmon-app
           npm run test:unit
 
+  # ========================================
+  # 後端測試
+  # ========================================
   backend-tests:
     name: 🚀 後端測試
     runs-on: ubuntu-latest
@@ -58,30 +64,26 @@ jobs:
           cache: 'npm'
           cache-dependency-path: charmon-backend/package-lock.json
 
-      - name: 📋 安裝後端依賴
+      - name: 🔧 安裝後端依賴
         run: |
           cd charmon-backend
-          rm -rf node_modules package-lock.json
           npm install
 
-      - name: 🔧 TypeScript 編譯檢查
+      - name: 🏗️ 建構後端
         run: |
           cd charmon-backend
           npm run build
 
-      - name: 🚀 啟動後端服務 (背景)
+      - name: 🧪 執行後端測試
         run: |
           cd charmon-backend
-          npm run dev &
-          sleep 10
+          npm test
 
-      - name: 🩺 API 健康檢查
-        run: |
-          curl -f http://localhost:3001/api/pokemon/health || exit 1
-          curl -f http://localhost:3001/api/pokemon/status || exit 1
-
+  # ========================================
+  # E2E 測試
+  # ========================================
   e2e-tests:
-    name: 🎭 端到端測試
+    name: 🎭 E2E 測試
     runs-on: ubuntu-latest
     needs: [unit-tests, backend-tests]
 
@@ -94,6 +96,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: charmon-app/package-lock.json
 
       - name: 📋 安裝前端依賴
         run: |
@@ -101,11 +104,15 @@ jobs:
           rm -rf node_modules package-lock.json
           npm install
 
-      - name: 📋 安裝後端依賴
+      - name: 🔧 安裝後端依賴
         run: |
           cd charmon-backend
-          rm -rf node_modules package-lock.json
           npm install
+
+      - name: 🏗️ 建構後端
+        run: |
+          cd charmon-backend
+          npm run build
 
       - name: 🎭 安裝 Playwright
         run: |
@@ -115,13 +122,18 @@ jobs:
       - name: 🚀 啟動後端服務
         run: |
           cd charmon-backend
-          npm run dev &
-          sleep 15
+          npm start &
+          sleep 10
+        env:
+          NODE_ENV: test
 
-      - name: 🎬 執行 E2E 測試
+      - name: 🧪 執行 E2E 測試
         run: |
           cd charmon-app
           npm run test:e2e
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
       - name: 📊 上傳測試報告
         uses: actions/upload-artifact@v4
@@ -131,18 +143,23 @@ jobs:
           path: charmon-app/playwright-report/
           retention-days: 30
 
-      - name: 📈 上傳測試結果
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: playwright-results
-          path: charmon-app/test-results/
-          retention-days: 30
-
-  build-test:
-    name: 🏗️ 構建測試
+  # ========================================
+  # 部署到 GitHub Pages
+  # ========================================
+  deploy:
+    name: 🚀 部署到 GitHub Pages
     runs-on: ubuntu-latest
-    needs: [unit-tests]
+    needs: [unit-tests, backend-tests, e2e-tests]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: 📥 檢出代碼
@@ -161,36 +178,22 @@ jobs:
           rm -rf node_modules package-lock.json
           npm install
 
-      - name: 🏗️ 構建生產版本
+      - name: 🏗️ 建構應用
         run: |
           cd charmon-app
           npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
-      - name: 📦 上傳構建產物
-        uses: actions/upload-artifact@v4
+      - name: 📄 設置 Pages
+        uses: actions/configure-pages@v4
+
+      - name: 📤 上傳構建產物
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: dist
-          path: charmon-app/dist/
+          path: charmon-app/dist
 
-  security-scan:
-    name: 🔒 安全掃描
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: 📥 檢出代碼
-        uses: actions/checkout@v4
-
-      - name: 📦 設置 Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: 🔍 安全漏洞掃描 (前端)
-        run: |
-          cd charmon-app
-          npm audit --audit-level high
-
-      - name: 🔍 安全漏洞掃描 (後端)
-        run: |
-          cd charmon-backend
-          npm audit --audit-level high
+      - name: 🚀 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

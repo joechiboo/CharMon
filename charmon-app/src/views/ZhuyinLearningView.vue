@@ -153,10 +153,8 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 
-const router = useRouter()
 const userStore = useUserStore()
 
 // 注音符号数据

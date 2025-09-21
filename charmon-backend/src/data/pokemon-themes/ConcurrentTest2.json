@@ -1,0 +1,56 @@
+{
+  "pokemonName": "ConcurrentTest2",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "黑色的Concurre…",
+      "characterCount": 12,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "友善可愛又友善",
+      "characterCount": 7,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "生活在花園",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "快樂地探險",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "好比小鳥一樣珍貴",
+      "characterCount": 8,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 37,
+  "ageGroup": "kindergarten",
+  "generatedAt": "2025-09-21T11:51:37.222Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "黑色的Concurre…"
+    },
+    {
+      "description": "友善可愛又友善"
+    },
+    {
+      "description": "生活在花園"
+    },
+    {
+      "description": "快樂地探險"
+    },
+    {
+      "description": "好比小鳥一樣珍貴"
+    }
+  ]
+}

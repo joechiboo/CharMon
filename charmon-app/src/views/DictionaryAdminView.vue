@@ -183,8 +183,6 @@ import {
   getDictionaryStats,
   isSupabaseEnabled,
   getSessionStatus,
-  resetSessionUnknownCounter,
-  addCharacter,
   exportDictionary
 } from '@/utils/dictionaryV2'
 import { DictionaryService } from '@/services/dictionaryService'
@@ -387,7 +385,7 @@ const generateDictionaryJson = async () => {
     addLog(`🎯 開始查詢 ${unknowns.length} 個未知字符...`)
     addLog(`📋 字符列表: ${unknowns.join(', ')}`)
 
-    const results: any = {}
+    const results: Record<string, unknown> = {}
     let successCount = 0
     let failedCount = 0
 

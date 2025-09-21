@@ -93,7 +93,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, nextTick, onMounted } from 'vue'
+import { ref, nextTick, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { getCharacterInfo } from '@/utils/dictionaryV2'
@@ -440,7 +440,6 @@ const getZhuyinParts = (char: string): string[] => {
 
   const consonants = ['ㄅ', 'ㄆ', 'ㄇ', 'ㄈ', 'ㄉ', 'ㄊ', 'ㄋ', 'ㄌ', 'ㄍ', 'ㄎ', 'ㄏ', 'ㄐ', 'ㄑ', 'ㄒ', 'ㄓ', 'ㄔ', 'ㄕ', 'ㄖ', 'ㄗ', 'ㄘ', 'ㄙ']
   const medials = ['ㄧ', 'ㄨ', 'ㄩ'] // 介音
-  const vowels = ['ㄚ', 'ㄛ', 'ㄜ', 'ㄝ', 'ㄞ', 'ㄟ', 'ㄠ', 'ㄡ', 'ㄢ', 'ㄣ', 'ㄤ', 'ㄥ', 'ㄦ']
   const tones = ['ˊ', 'ˇ', 'ˋ']
   const lightTone = '˙'
 
@@ -484,7 +483,7 @@ const getZhuyinParts = (char: string): string[] => {
   vowel = remaining
 
   // 組合結果
-  let result = []
+  const result = []
 
   // 輕聲在最上面
   if (hasLightTone) {
@@ -519,7 +518,6 @@ const getZhuyinParts = (char: string): string[] => {
 
 onMounted(() => {
   // 檢查 URL 參數，如果有 name 參數就自動填入
-  const route = useRoute()
   if (route.query.name && typeof route.query.name === 'string') {
     inputText.value = route.query.name
   }
@@ -535,7 +533,7 @@ onMounted(() => {
       pokemonTheme.value = pokemonName
 
       // 遊戲模式：每個文學變化換一行
-      const practiceLines = variations.map((v: any) => v.description)
+      const practiceLines = variations.map((v: { description: string }) => v.description)
       inputText.value = practiceLines.join('\n')
 
       // 設定遊戲模式專用設定 - 仿照demo.jpg
@@ -602,7 +600,6 @@ const generatePreview = async () => {
   const cellSize = 68  // 增加70% (40 * 1.7 = 68)
   const zhuyinCellWidth = cellSize * 0.5  // 注音格寬度為字符格的一半
   const margin = 34    // 相應增加邊距
-  const totalColsPerRow = charsPerLine.value * 2  // 每個字符需要2個格子（字符格+注音格）
   const totalRows = charLines.length * repeatCount.value
 
   // 計算總寬度：每個字符佔用(字符格+注音格)的寬度
@@ -623,7 +620,7 @@ const generatePreview = async () => {
   let currentRow = 0
 
   // 對每個字符行進行處理
-  charLines.forEach((lineChars, lineIndex) => {
+  charLines.forEach((lineChars) => {
     // 每個字符行重複指定次數
     for (let repeatIndex = 0; repeatIndex < repeatCount.value; repeatIndex++) {
       const rowY = startY + currentRow * cellSize
@@ -811,7 +808,7 @@ const generateGameModePreview = async () => {
   // 先模擬右側文字分行，計算每個文學元素的起始行
   const textLines = inputText.value.trim().split('\n')
   const literaryElements = ['顏色', '形容', '地點', '動態', '修辭']
-  let elementStartRows: ElementRowInfo[] = []
+  const elementStartRows: ElementRowInfo[] = []
   let simulatedRow = 0
   const maxRows = 13 // 預定義最大行數
 
@@ -862,7 +859,7 @@ const generateGameModePreview = async () => {
   // 按行處理文字（使用已定義的 textLines）
   let currentRow = 0
 
-  textLines.forEach((line, lineIndex) => {
+  textLines.forEach((line) => {
     if (currentRow >= rows) return // 超出範圍就停止
 
     const lineChars = line.split('')
@@ -1058,7 +1055,7 @@ const generateGameModeDownload = (canvas: HTMLCanvasElement, ctx: CanvasRenderin
   // 複製所有遊戲模式邏輯...
   const textLines = inputText.value.trim().split('\n')
   const literaryElements = ['顏色', '形容', '地點', '動態', '修辭']
-  let elementStartRows: ElementRowInfo[] = []
+  const elementStartRows: ElementRowInfo[] = []
   let simulatedRow = 0
   const maxRows = 13
   const rightGridStartY = 65
@@ -1105,7 +1102,7 @@ const generateGameModeDownload = (canvas: HTMLCanvasElement, ctx: CanvasRenderin
 
   // 繪製表格和內容...
   let currentRow = 0
-  textLines.forEach((line, lineIndex) => {
+  textLines.forEach((line) => {
     if (currentRow >= rows) return
 
     const lineChars = line.split('')
@@ -1260,7 +1257,7 @@ const downloadImage = async () => {
   let currentRow = 0
 
   // 對每個字符行進行處理
-  charLines.forEach((lineChars, lineIndex) => {
+  charLines.forEach((lineChars) => {
     // 每個字符行重複指定次數
     for (let repeatIndex = 0; repeatIndex < repeatCount.value; repeatIndex++) {
       const rowY = startY + currentRow * cellSize

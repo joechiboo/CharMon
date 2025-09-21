@@ -225,7 +225,6 @@ import {
   getUnknownCharacters,
   getDictionaryStats,
   addCharacter,
-  updateCharacter,
   isSupabaseEnabled,
   getCharacterInfo,
   exportDictionary,
@@ -599,7 +598,7 @@ const syncData = async () => {
               // 降級到直接解析
               characterZhuyin = moedictResult.heteronyms?.[0]?.b || moedictResult.heteronyms?.[0]?.bopomofo || 'ㄅㄆㄇ'
             }
-          } catch (zhuyinError) {
+          } catch {
             console.log(`⚠️ 注音查詢失敗，使用原始數據: ${char}`)
             characterZhuyin = moedictResult.heteronyms?.[0]?.b || moedictResult.heteronyms?.[0]?.bopomofo || 'ㄅㄆㄇ'
           }

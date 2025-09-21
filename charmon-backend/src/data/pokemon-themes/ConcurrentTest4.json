@@ -1,0 +1,56 @@
+{
+  "pokemonName": "ConcurrentTest4",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "綠色的Concurre…",
+      "characterCount": 12,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "機靈活潑的ConcurrentTe…",
+      "characterCount": 18,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "在海邊裡玩耍",
+      "characterCount": 6,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "開心地探險",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "好比小鳥一樣優雅",
+      "characterCount": 8,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 49,
+  "ageGroup": "kindergarten",
+  "generatedAt": "2025-09-21T11:51:37.225Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "綠色的Concurre…"
+    },
+    {
+      "description": "機靈活潑的ConcurrentTe…"
+    },
+    {
+      "description": "在海邊裡玩耍"
+    },
+    {
+      "description": "開心地探險"
+    },
+    {
+      "description": "好比小鳥一樣優雅"
+    }
+  ]
+}

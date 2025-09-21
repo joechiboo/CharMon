@@ -1,0 +1,56 @@
+{
+  "pokemonName": "Pikachu",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "金黃色的Pikachu",
+      "characterCount": 11,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "友善可愛又機靈",
+      "characterCount": 7,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "在美麗的海邊裡",
+      "characterCount": 7,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "自由自在地游泳",
+      "characterCount": 7,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "好比小鳥一樣閃亮",
+      "characterCount": 8,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 40,
+  "ageGroup": "kindergarten",
+  "generatedAt": "2025-09-21T12:16:18.682Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "金黃色的Pikachu"
+    },
+    {
+      "description": "友善可愛又機靈"
+    },
+    {
+      "description": "在美麗的海邊裡"
+    },
+    {
+      "description": "自由自在地游泳"
+    },
+    {
+      "description": "好比小鳥一樣閃亮"
+    }
+  ]
+}

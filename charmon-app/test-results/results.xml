@@ -1,0 +1,786 @@
+<testsuites id="" name="" tests="31" failures="12" skipped="0" errors="0" time="42.237207">
+<testsuite name="01-navigation.spec.ts" timestamp="2025-09-21T11:51:27.091Z" hostname="chromium" tests="3" failures="0" skipped="0" time="6.596" errors="0">
+<testcase name="應用導航測試 › 首頁載入正常" classname="01-navigation.spec.ts" time="3.026">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|01-navigation-應用導航測試-首頁載入正常-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="應用導航測試 › 主選單導航功能" classname="01-navigation.spec.ts" time="1.602">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|01-navigation-應用導航測試-主選單導航功能-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="應用導航測試 › 響應式設計測試" classname="01-navigation.spec.ts" time="1.968">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|01-navigation-應用導航測試-響應式設計測試-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="02-worksheets.spec.ts" timestamp="2025-09-21T11:51:27.091Z" hostname="chromium" tests="5" failures="5" skipped="0" time="105.088" errors="0">
+<testcase name="練習表生成器測試 › 基本練習表生成功能" classname="02-worksheets.spec.ts" time="7.248">
+<failure message="02-worksheets.spec.ts:33:3 基本練習表生成功能" type="FAILURE">
+<![CDATA[  [chromium] › 02-worksheets.spec.ts:33:3 › 練習表生成器測試 › 基本練習表生成功能 ───────────────────────────────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('h1')
+    Expected string: "練習表格生成器"
+    Received: <element(s) not found>
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('h1')
+
+
+      33 |   test('基本練習表生成功能', async ({ page }) => {
+      34 |     // 檢查頁面標題
+    > 35 |     await expect(page.locator('h1')).toContainText('練習表格生成器')
+         |                                      ^
+      36 |
+      37 |     // 輸入要練習的字
+      38 |     const textInput = page.locator('#characters')
+        at C:\Personal\Project\CharMon\charmon-app\tests\e2e\02-worksheets.spec.ts:35:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\video.webm]]
+
+[[ATTACHMENT|02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\error-context.md]]
+
+[[ATTACHMENT|02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="練習表生成器測試 › 不同格式選項測試" classname="02-worksheets.spec.ts" time="30.69">
+<failure message="02-worksheets.spec.ts:60:3 不同格式選項測試" type="FAILURE">
+<![CDATA[  [chromium] › 02-worksheets.spec.ts:60:3 › 練習表生成器測試 › 不同格式選項測試 ────────────────────────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('#characters')
+
+
+      60 |   test('不同格式選項測試', async ({ page }) => {
+      61 |     const textInput = page.locator('#characters')
+    > 62 |     await textInput.fill('測試')
+         |                     ^
+      63 |
+      64 |     // 測試田字格
+      65 |     await page.locator('select').first().selectOption('tian')
+        at C:\Personal\Project\CharMon\charmon-app\tests\e2e\02-worksheets.spec.ts:62:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\02-worksheets-練習表生成器測試-不同格式選項測試-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\02-worksheets-練習表生成器測試-不同格式選項測試-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\02-worksheets-練習表生成器測試-不同格式選項測試-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\02-worksheets-練習表生成器測試-不同格式選項測試-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\02-worksheets-練習表生成器測試-不同格式選項測試-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|02-worksheets-練習表生成器測試-不同格式選項測試-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|02-worksheets-練習表生成器測試-不同格式選項測試-chromium\video.webm]]
+
+[[ATTACHMENT|02-worksheets-練習表生成器測試-不同格式選項測試-chromium\error-context.md]]
+
+[[ATTACHMENT|02-worksheets-練習表生成器測試-不同格式選項測試-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="練習表生成器測試 › 字數限制測試" classname="02-worksheets.spec.ts" time="30.74">
+<failure message="02-worksheets.spec.ts:80:3 字數限制測試" type="FAILURE">
+<![CDATA[  [chromium] › 02-worksheets.spec.ts:80:3 › 練習表生成器測試 › 字數限制測試 ──────────────────────────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('#characters')
+
+
+      83 |     // 測試最大字數限制 (100字)
+      84 |     const longText = '一'.repeat(101)
+    > 85 |     await textInput.fill(longText)
+         |                     ^
+      86 |
+      87 |     // 檢查是否有字數限制提示
+      88 |     const charCount = page.locator('.char-count')
+        at C:\Personal\Project\CharMon\charmon-app\tests\e2e\02-worksheets.spec.ts:85:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\02-worksheets-練習表生成器測試-字數限制測試-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\02-worksheets-練習表生成器測試-字數限制測試-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\02-worksheets-練習表生成器測試-字數限制測試-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\02-worksheets-練習表生成器測試-字數限制測試-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\02-worksheets-練習表生成器測試-字數限制測試-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|02-worksheets-練習表生成器測試-字數限制測試-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|02-worksheets-練習表生成器測試-字數限制測試-chromium\video.webm]]
+
+[[ATTACHMENT|02-worksheets-練習表生成器測試-字數限制測試-chromium\error-context.md]]
+
+[[ATTACHMENT|02-worksheets-練習表生成器測試-字數限制測試-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="練習表生成器測試 › 寶可夢主題模式測試" classname="02-worksheets.spec.ts" time="5.67">
+<failure message="02-worksheets.spec.ts:92:3 寶可夢主題模式測試" type="FAILURE">
+<![CDATA[  [chromium] › 02-worksheets.spec.ts:92:3 › 練習表生成器測試 › 寶可夢主題模式測試 ───────────────────────────────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('h1')
+    Expected string: "皮卡丘 文學練習表"
+    Received: <element(s) not found>
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('h1')
+
+
+      107 |
+      108 |     // 檢查是否進入遊戲模式
+    > 109 |     await expect(page.locator('h1')).toContainText('皮卡丘 文學練習表')
+          |                                      ^
+      110 |
+      111 |     // 檢查文學內容是否正確填入
+      112 |     const textInput = page.locator('#characters')
+        at C:\Personal\Project\CharMon\charmon-app\tests\e2e\02-worksheets.spec.ts:109:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\video.webm]]
+
+[[ATTACHMENT|02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\error-context.md]]
+
+[[ATTACHMENT|02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="練習表生成器測試 › 下載功能測試" classname="02-worksheets.spec.ts" time="30.74">
+<failure message="02-worksheets.spec.ts:117:3 下載功能測試" type="FAILURE">
+<![CDATA[  [chromium] › 02-worksheets.spec.ts:117:3 › 練習表生成器測試 › 下載功能測試 ─────────────────────────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('#characters')
+
+
+      117 |   test('下載功能測試', async ({ page }) => {
+      118 |     const textInput = page.locator('#characters')
+    > 119 |     await textInput.fill('下載測試')
+          |                     ^
+      120 |
+      121 |     // 生成預覽
+      122 |     const previewBtn = page.locator('button:has-text("預覽練習表")')
+        at C:\Personal\Project\CharMon\charmon-app\tests\e2e\02-worksheets.spec.ts:119:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\02-worksheets-練習表生成器測試-下載功能測試-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\02-worksheets-練習表生成器測試-下載功能測試-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\02-worksheets-練習表生成器測試-下載功能測試-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\02-worksheets-練習表生成器測試-下載功能測試-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\02-worksheets-練習表生成器測試-下載功能測試-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|02-worksheets-練習表生成器測試-下載功能測試-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|02-worksheets-練習表生成器測試-下載功能測試-chromium\video.webm]]
+
+[[ATTACHMENT|02-worksheets-練習表生成器測試-下載功能測試-chromium\error-context.md]]
+
+[[ATTACHMENT|02-worksheets-練習表生成器測試-下載功能測試-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="03-dictionary.spec.ts" timestamp="2025-09-21T11:51:27.091Z" hostname="chromium" tests="5" failures="1" skipped="0" time="13.106" errors="0">
+<testcase name="字典系統測試 › 字典查詢功能" classname="03-dictionary.spec.ts" time="0.708">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|03-dictionary-字典系統測試-字典查詢功能-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="字典系統測試 › 筆順動畫功能" classname="03-dictionary.spec.ts" time="3.782">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|03-dictionary-字典系統測試-筆順動畫功能-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="字典系統測試 › 字典管理後台功能" classname="03-dictionary.spec.ts" time="5.672">
+<failure message="03-dictionary.spec.ts:39:3 字典管理後台功能" type="FAILURE">
+<![CDATA[  [chromium] › 03-dictionary.spec.ts:39:3 › 字典系統測試 › 字典管理後台功能 ──────────────────────────────────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('h1')
+    Expected string: "字典管理後台"
+    Received: <element(s) not found>
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('h1')
+
+
+      41 |
+      42 |     // 檢查管理後台頁面
+    > 43 |     await expect(page.locator('h1')).toContainText('字典管理後台')
+         |                                      ^
+      44 |
+      45 |     // 檢查統計信息
+      46 |     const statsSection = page.locator('.stats-section')
+        at C:\Personal\Project\CharMon\charmon-app\tests\e2e\03-dictionary.spec.ts:43:38
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\03-dictionary-字典系統測試-字典管理後台功能-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\03-dictionary-字典系統測試-字典管理後台功能-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\03-dictionary-字典系統測試-字典管理後台功能-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\03-dictionary-字典系統測試-字典管理後台功能-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\03-dictionary-字典系統測試-字典管理後台功能-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|03-dictionary-字典系統測試-字典管理後台功能-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|03-dictionary-字典系統測試-字典管理後台功能-chromium\video.webm]]
+
+[[ATTACHMENT|03-dictionary-字典系統測試-字典管理後台功能-chromium\error-context.md]]
+
+[[ATTACHMENT|03-dictionary-字典系統測試-字典管理後台功能-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="字典系統測試 › 字典數據同步功能" classname="03-dictionary.spec.ts" time="2.175">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|03-dictionary-字典系統測試-字典數據同步功能-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="字典系統測試 › Supabase 連接測試" classname="03-dictionary.spec.ts" time="0.769">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|03-dictionary-字典系統測試-Supabase-連接測試-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="04-pokemon-api.spec.ts" timestamp="2025-09-21T11:51:27.091Z" hostname="chromium" tests="10" failures="0" skipped="0" time="1.287" errors="0">
+<testcase name="寶可夢 API 後端測試 › API 健康檢查" classname="04-pokemon-api.spec.ts" time="0.121">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|04-pokemon-api-寶可夢-API-後端測試-API-健康檢查-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="寶可夢 API 後端測試 › API 服務狀態檢查" classname="04-pokemon-api.spec.ts" time="0.075">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|04-pokemon-api-寶可夢-API-後端測試-API-服務狀態檢查-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="寶可夢 API 後端測試 › 寶可夢主題生成 - 模板模式" classname="04-pokemon-api.spec.ts" time="0.111">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|04-pokemon-api-寶可夢-API-後端測試-寶可夢主題生成---模板模式-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="寶可夢 API 後端測試 › 寶可夢主題生成 - 混合模式" classname="04-pokemon-api.spec.ts" time="0.072">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|04-pokemon-api-寶可夢-API-後端測試-寶可夢主題生成---混合模式-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="寶可夢 API 後端測試 › 無效寶可夢名稱處理" classname="04-pokemon-api.spec.ts" time="0.08">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|04-pokemon-api-寶可夢-API-後端測試-無效寶可夢名稱處理-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="寶可夢 API 後端測試 › 寶可夢名稱驗證" classname="04-pokemon-api.spec.ts" time="0.494">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|04-pokemon-api-寶可夢-API-後端測試-寶可夢名稱驗證-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="寶可夢 API 後端測試 › 主題列表獲取" classname="04-pokemon-api.spec.ts" time="0.08">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|04-pokemon-api-寶可夢-API-後端測試-主題列表獲取-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="寶可夢 API 後端測試 › 主題搜索功能" classname="04-pokemon-api.spec.ts" time="0.137">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|04-pokemon-api-寶可夢-API-後端測試-主題搜索功能-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="寶可夢 API 後端測試 › API 統計信息" classname="04-pokemon-api.spec.ts" time="0.073">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|04-pokemon-api-寶可夢-API-後端測試-API-統計信息-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="寶可夢 API 後端測試 › 錯誤處理測試" classname="04-pokemon-api.spec.ts" time="0.044">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|04-pokemon-api-寶可夢-API-後端測試-錯誤處理測試-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="05-performance.spec.ts" timestamp="2025-09-21T11:51:27.091Z" hostname="chromium" tests="8" failures="6" skipped="0" time="106.616" errors="0">
+<testcase name="性能和穩定性測試 › 頁面載入性能測試" classname="05-performance.spec.ts" time="6.469">
+<failure message="05-performance.spec.ts:4:3 頁面載入性能測試" type="FAILURE">
+<![CDATA[  [chromium] › 05-performance.spec.ts:4:3 › 性能和穩定性測試 › 頁面載入性能測試 ────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('header')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('header')
+
+
+      17 |
+      18 |     // 檢查頁面關鍵元素是否載入
+    > 19 |     await expect(page.locator('header')).toBeVisible()
+         |                                          ^
+      20 |     await expect(page.locator('main, .main-content')).toBeVisible()
+      21 |   })
+      22 |
+        at C:\Personal\Project\CharMon\charmon-app\tests\e2e\05-performance.spec.ts:19:42
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-頁面載入性能測試-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-頁面載入性能測試-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\05-performance-性能和穩定性測試-頁面載入性能測試-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-頁面載入性能測試-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\05-performance-性能和穩定性測試-頁面載入性能測試-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[首頁載入時間: 764ms
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-頁面載入性能測試-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-頁面載入性能測試-chromium\video.webm]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-頁面載入性能測試-chromium\error-context.md]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-頁面載入性能測試-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="性能和穩定性測試 › 練習表生成性能測試" classname="05-performance.spec.ts" time="30.828">
+<failure message="05-performance.spec.ts:23:3 練習表生成性能測試" type="FAILURE">
+<![CDATA[  [chromium] › 05-performance.spec.ts:23:3 › 性能和穩定性測試 › 練習表生成性能測試 ──────────────────────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('#characters')
+
+
+      26 |     // 輸入測試文字
+      27 |     const textInput = page.locator('#characters')
+    > 28 |     await textInput.fill('性能測試用的中文字符')
+         |                     ^
+      29 |
+      30 |     // 測量生成時間
+      31 |     const startTime = Date.now()
+        at C:\Personal\Project\CharMon\charmon-app\tests\e2e\05-performance.spec.ts:28:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-練習表生成性能測試-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-練習表生成性能測試-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\05-performance-性能和穩定性測試-練習表生成性能測試-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-練習表生成性能測試-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\05-performance-性能和穩定性測試-練習表生成性能測試-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|05-performance-性能和穩定性測試-練習表生成性能測試-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-練習表生成性能測試-chromium\video.webm]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-練習表生成性能測試-chromium\error-context.md]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-練習表生成性能測試-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="性能和穩定性測試 › API 響應時間測試" classname="05-performance.spec.ts" time="0.379">
+<system-out>
+<![CDATA[健康檢查 API 響應時間: 5ms
+服務狀態 API 響應時間: 11ms
+主題列表 API 響應時間: 6ms
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-API-響應時間測試-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="性能和穩定性測試 › 記憶體洩漏測試" classname="05-performance.spec.ts" time="30.818">
+<failure message="05-performance.spec.ts:69:3 記憶體洩漏測試" type="FAILURE">
+<![CDATA[  [chromium] › 05-performance.spec.ts:69:3 › 性能和穩定性測試 › 記憶體洩漏測試 ────────────────────────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('#characters')
+
+
+      73 |     for (let i = 0; i < 5; i++) {
+      74 |       const textInput = page.locator('#characters')
+    > 75 |       await textInput.fill(`記憶體測試 ${i + 1}`)
+         |                       ^
+      76 |
+      77 |       const previewBtn = page.locator('button:has-text("預覽練習表")')
+      78 |       if (await previewBtn.isVisible()) {
+        at C:\Personal\Project\CharMon\charmon-app\tests\e2e\05-performance.spec.ts:75:23
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\video.webm]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\error-context.md]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="性能和穩定性測試 › 大量文字處理測試" classname="05-performance.spec.ts" time="30.825">
+<failure message="05-performance.spec.ts:92:3 大量文字處理測試" type="FAILURE">
+<![CDATA[  [chromium] › 05-performance.spec.ts:92:3 › 性能和穩定性測試 › 大量文字處理測試 ───────────────────────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('#characters')
+
+
+       96 |     const maxText = '測'.repeat(100)
+       97 |     const textInput = page.locator('#characters')
+    >  98 |     await textInput.fill(maxText)
+          |                     ^
+       99 |
+      100 |     // 檢查字數顯示
+      101 |     const charCount = page.locator('.char-count')
+        at C:\Personal\Project\CharMon\charmon-app\tests\e2e\05-performance.spec.ts:98:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-大量文字處理測試-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-大量文字處理測試-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\05-performance-性能和穩定性測試-大量文字處理測試-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-大量文字處理測試-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\05-performance-性能和穩定性測試-大量文字處理測試-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|05-performance-性能和穩定性測試-大量文字處理測試-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-大量文字處理測試-chromium\video.webm]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-大量文字處理測試-chromium\error-context.md]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-大量文字處理測試-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="性能和穩定性測試 › 網路異常處理測試" classname="05-performance.spec.ts" time="0.713">
+<failure message="05-performance.spec.ts:122:3 網路異常處理測試" type="FAILURE">
+<![CDATA[  [chromium] › 05-performance.spec.ts:122:3 › 性能和穩定性測試 › 網路異常處理測試 ──────────────────────────────────
+
+    Error: page.goto: net::ERR_INTERNET_DISCONNECTED at http://localhost:5174/worksheets
+    Call log:
+      - navigating to "http://localhost:5174/worksheets", waiting until "domcontentloaded"
+
+
+      124 |     await context.setOffline(true)
+      125 |
+    > 126 |     await page.goto('/worksheets', { waitUntil: 'domcontentloaded' })
+          |                ^
+      127 |
+      128 |     // 檢查離線時的行為
+      129 |     const textInput = page.locator('#characters')
+        at C:\Personal\Project\CharMon\charmon-app\tests\e2e\05-performance.spec.ts:126:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-網路異常處理測試-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-網路異常處理測試-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-網路異常處理測試-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\05-performance-性能和穩定性測試-網路異常處理測試-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|05-performance-性能和穩定性測試-網路異常處理測試-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-網路異常處理測試-chromium\video.webm]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-網路異常處理測試-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="性能和穩定性測試 › 並發請求測試" classname="05-performance.spec.ts" time="0.602">
+<system-out>
+<![CDATA[並發請求 1 狀態: 200
+並發請求 2 狀態: 200
+並發請求 3 狀態: 200
+並發請求 4 狀態: 200
+並發請求 5 狀態: 200
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-並發請求測試-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="性能和穩定性測試 › 瀏覽器兼容性測試" classname="05-performance.spec.ts" time="5.982">
+<failure message="05-performance.spec.ts:166:3 瀏覽器兼容性測試" type="FAILURE">
+<![CDATA[  [chromium] › 05-performance.spec.ts:166:3 › 性能和穩定性測試 › 瀏覽器兼容性測試 ──────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('header')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('header')
+
+
+      170 |
+      171 |     // 檢查基本功能在不同瀏覽器中是否正常
+    > 172 |     await expect(page.locator('header')).toBeVisible()
+          |                                          ^
+      173 |
+      174 |     // 檢查 CSS 支援
+      175 |     const header = page.locator('header')
+        at C:\Personal\Project\CharMon\charmon-app\tests\e2e\05-performance.spec.ts:172:42
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[測試瀏覽器: chromium
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\video.webm]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\error-context.md]]
+
+[[ATTACHMENT|05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

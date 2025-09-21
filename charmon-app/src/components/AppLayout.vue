@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import {
   House,
@@ -81,7 +81,6 @@ import {
   SwitchButton
 } from '@element-plus/icons-vue'
 
-const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
 

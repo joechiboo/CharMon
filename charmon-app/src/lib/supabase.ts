@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
 // 這些值需要從 Supabase 專案設定中獲取
 // 在生產環境中應該使用環境變量
@@ -24,7 +24,7 @@ console.log('Supabase 配置檢查:', {
 })
 
 // 嘗試創建 supabase 客戶端並測試
-let supabaseClient: any = null
+let supabaseClient: SupabaseClient<Database> | null = null
 if (isValidConfig) {
   try {
     supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {

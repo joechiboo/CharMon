@@ -92,22 +92,23 @@ export class MoedictService {
   /**
    * 轉換萌典 API 資料格式
    */
-  private static mapMoedictData(data: any): MoedictResult | null {
-    if (!data) {
+  private static mapMoedictData(data: unknown): MoedictResult | null {
+    if (!data || typeof data !== 'object') {
       console.log('❌ 萌典資料為空')
       return null
     }
 
-    console.log('🔍 萌典原始資料:', data)
+    const apiData = data as Record<string, unknown>
+    console.log('🔍 萌典原始資料:', apiData)
 
     // 檢查資料是否有必要欄位
-    if (!data.title && !data.c && !data.h) {
+    if (!apiData.title && !apiData.c && !apiData.h) {
       console.log('❌ 萌典資料格式不正確，缺少必要欄位')
       return null
     }
 
     // 清理部首格式，移除 ` 字首符和 ~ 字尾符
-    let cleanRadical = data.r || '？'
+    let cleanRadical = (apiData.r as string) || '？'
     if (typeof cleanRadical === 'string') {
       // 移除開頭的 ` 符號
       if (cleanRadical.startsWith('`')) {
@@ -122,11 +123,11 @@ export class MoedictService {
     // 萌典 API 實際返回的格式：
     // c: 筆劃數, r: 部首, h: 異體字陣列 (heteronyms)
     const result = {
-      title: data.title || data.h?.[0]?.title || '？',
-      heteronyms: data.h || [],  // h 代表 heteronyms
+      title: (apiData.title as string) || ((apiData.h as Record<string, unknown>[])?.[0]?.title as string) || '？',
+      heteronyms: (apiData.h as MoedictHeteronym[]) || [],  // h 代表 heteronyms
       radical: cleanRadical,     // r 代表 radical (已清理)
-      stroke_count: data.c,      // c 代表筆劃數 (count)
-      non_radical_stroke_count: data.c ? data.c - 1 : undefined // 估算非部首筆劃
+      stroke_count: apiData.c as number,      // c 代表筆劃數 (count)
+      non_radical_stroke_count: apiData.c ? (apiData.c as number) - 1 : undefined // 估算非部首筆劃
     }
 
     console.log('✅ 轉換後資料 (已清理部首):', result)
