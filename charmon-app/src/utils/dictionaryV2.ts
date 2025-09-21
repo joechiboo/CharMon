@@ -343,17 +343,17 @@ export function parseZhuyinToParts(zhuyin: string): ZhuyinPart[] {
 
   // 如果有輕聲，放在最上面
   if (hasLightTone) {
-    result.push({ text: lightTone, type: 'tone-mark' })
+    result.push({ text: lightTone, type: 'tone-mark' as const })
   }
 
   // 添加聲母和韻母（每個符號單獨成一個部件）
   zhuyinParts.forEach((part, index) => {
     if (index === zhuyinParts.length - 1 && toneChar && vowels.includes(part)) {
       // 最後一個韻母，有聲調時分開顯示
-      result.push({ text: part, type: 'final' })
-      result.push({ text: toneChar, type: 'tone-mark' })
+      result.push({ text: part, type: 'final' as const })
+      result.push({ text: toneChar, type: 'tone-mark' as const })
     } else {
-      result.push({ text: part, type: consonants.includes(part) ? 'initial' : 'final' })
+      result.push({ text: part, type: consonants.includes(part) ? 'initial' as const : 'final' as const })
     }
   })
 

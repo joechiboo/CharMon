@@ -2,7 +2,11 @@ import { supabase, type Database } from '@/lib/supabase'
 import type { CharacterInfo } from '@/utils/dictionaryV2'
 
 type DictionaryCharacter = Database['public']['Tables']['dictionary_characters']['Row']
+type DictionaryCharacterInsert = Database['public']['Tables']['dictionary_characters']['Insert']
+type DictionaryCharacterUpdate = Database['public']['Tables']['dictionary_characters']['Update']
 type UnknownCharacter = Database['public']['Tables']['unknown_characters']['Row']
+type UnknownCharacterInsert = Database['public']['Tables']['unknown_characters']['Insert']
+type UnknownCharacterUpdate = Database['public']['Tables']['unknown_characters']['Update']
 
 export class DictionaryService {
   // 獲取所有字典字符
@@ -57,15 +61,17 @@ export class DictionaryService {
   // 添加新字符
   static async addCharacter(characterInfo: CharacterInfo): Promise<boolean> {
     try {
+      const insertData: DictionaryCharacterInsert = {
+        character: characterInfo.character,
+        stroke_count: characterInfo.strokeCount,
+        radical: characterInfo.radical,
+        radical_zhuyin: characterInfo.radicalZhuyin || null,
+        zhuyin: characterInfo.zhuyin
+      }
+
       const { error } = await supabase
         .from('dictionary_characters')
-        .insert({
-          character: characterInfo.character,
-          stroke_count: characterInfo.strokeCount,
-          radical: characterInfo.radical,
-          radical_zhuyin: characterInfo.radicalZhuyin || null,
-          zhuyin: characterInfo.zhuyin
-        })
+        .insert(insertData as any)
 
       if (error) throw error
 
@@ -82,15 +88,17 @@ export class DictionaryService {
   // 更新字符信息
   static async updateCharacter(characterInfo: CharacterInfo): Promise<boolean> {
     try {
+      const updateData: DictionaryCharacterUpdate = {
+        stroke_count: characterInfo.strokeCount,
+        radical: characterInfo.radical,
+        radical_zhuyin: characterInfo.radicalZhuyin || null,
+        zhuyin: characterInfo.zhuyin,
+        updated_at: new Date().toISOString()
+      }
+
       const { error } = await supabase
         .from('dictionary_characters')
-        .update({
-          stroke_count: characterInfo.strokeCount,
-          radical: characterInfo.radical,
-          radical_zhuyin: characterInfo.radicalZhuyin || null,
-          zhuyin: characterInfo.zhuyin,
-          updated_at: new Date().toISOString()
-        })
+        .update(updateData as any)
         .eq('character', characterInfo.character)
 
       if (error) throw error
@@ -116,8 +124,8 @@ export class DictionaryService {
         // 增加出現次數
         await supabase
           .from('unknown_characters')
-          .update({ occurrence_count: existing.occurrence_count + 1 })
-          .eq('id', existing.id)
+          .update({ occurrence_count: (existing as any).occurrence_count + 1 } as any)
+          .eq('id', (existing as any).id)
       } else {
         // 新增未知字符
         await supabase
@@ -125,7 +133,7 @@ export class DictionaryService {
           .insert({
             character,
             occurrence_count: 1
-          })
+          } as any)
       }
     } catch (error) {
       console.error('記錄未知字符失敗:', error)
@@ -154,7 +162,7 @@ export class DictionaryService {
     try {
       await supabase
         .from('unknown_characters')
-        .update({ resolved: true })
+        .update({ resolved: true } as any)
         .eq('character', character)
     } catch (error) {
       console.error('標記未知字符已解決失敗:', error)
@@ -234,7 +242,7 @@ export class DictionaryService {
 
       const { error } = await supabase
         .from('dictionary_characters')
-        .upsert(dbCharacters, {
+        .upsert(dbCharacters as any, {
           onConflict: 'character',
           ignoreDuplicates: false
         })

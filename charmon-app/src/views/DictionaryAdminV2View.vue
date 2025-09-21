@@ -26,8 +26,8 @@
           </div>
           <div class="stat-item">
             <span class="label">數據源：</span>
-            <span class="value" :class="{ 'supabase': isSupabaseEnabled, 'local': !isSupabaseEnabled }">
-              {{ isSupabaseEnabled ? 'Supabase' : '本地字典' }}
+            <span class="value" :class="{ 'supabase': isSupabaseEnabled(), 'local': !isSupabaseEnabled() }">
+              {{ isSupabaseEnabled() ? 'Supabase' : '本地字典' }}
             </span>
           </div>
         </div>
@@ -55,7 +55,7 @@
             <button @click="refreshUnknownCharacters" class="refresh-btn" :disabled="loading">
               🔄 刷新
             </button>
-            <button v-if="isSupabaseEnabled && isLocalhost" @click="syncData" class="action-btn sync" :disabled="loading">
+            <button v-if="isLocalhost" @click="syncData" class="action-btn sync" :disabled="loading">
               🔄 同步數據
             </button>
           </div>
@@ -155,13 +155,13 @@
         <div v-if="checkResult" class="check-result">
           <div class="result-stats">
             <span class="stat-item">
-              📊 總字符: {{ checkResult.totalChars }}
+              📊 總字符: {{ checkResult?.totalChars }}
             </span>
             <span class="stat-item">
-              ✅ 已在字典: {{ checkResult.foundChars }}
+              ✅ 已在字典: {{ checkResult?.foundChars }}
             </span>
             <span class="stat-item">
-              ❌ 缺少字符: {{ checkResult.missingChars }}
+              ❌ 缺少字符: {{ checkResult?.missingChars }}
             </span>
           </div>
 
@@ -194,6 +194,7 @@ import {
   addCharacter,
   updateCharacter,
   isSupabaseEnabled,
+  getCharacterInfo,
   type CharacterInfo
 } from '@/utils/dictionaryV2'
 import { MoedictService } from '@/services/moedictService'
@@ -246,7 +247,11 @@ const loadStats = async () => {
     console.log('📋 Supabase 狀態:', isSupabaseEnabled())
     const result = await getDictionaryStats()
     console.log('📊 統計結果:', result)
-    stats.value = result
+    stats.value = {
+      totalCharacters: result.totalCharacters,
+      charactersWithRadicalZhuyin: result.charactersWithRadicalZhuyin,
+      unknownCount: result.unknownCount || 0
+    }
     console.log('✅ 統計載入完成:', stats.value)
   } catch (error) {
     console.error('❌ 載入統計失敗:', error)
@@ -398,7 +403,7 @@ const addMissingChars = async () => {
         character: char,
         strokeCount: 10, // 預設筆劃數
         radical: '？', // 預設部首
-        radicalZhuyin: null,
+        radicalZhuyin: undefined,
         zhuyin: 'ㄅㄆㄇ' // 預設注音，待後續修改
       }
 

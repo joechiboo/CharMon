@@ -119,8 +119,10 @@ const editForm = ref({
   zhuyin: ''
 })
 
+// 響應式數據
+const dictionaryStats = ref({ totalCharacters: 0, charactersWithRadicalZhuyin: 0, unknownCount: 0 })
+
 // 計算屬性
-const dictionaryStats = computed(() => getDictionaryStats())
 const dictionaryCount = computed(() => dictionaryStats.value.totalCharacters)
 const unknownCount = computed(() => unknownCharacters.value.length)
 
@@ -129,8 +131,25 @@ const goBack = () => {
   router.push('/dashboard')
 }
 
-const loadUnknownCharacters = () => {
-  unknownCharacters.value = getUnknownCharacters()
+const loadDictionaryStats = async () => {
+  try {
+    const stats = await getDictionaryStats()
+    dictionaryStats.value = {
+      totalCharacters: stats.totalCharacters,
+      charactersWithRadicalZhuyin: stats.charactersWithRadicalZhuyin,
+      unknownCount: stats.unknownCount || 0
+    }
+  } catch (error) {
+    console.error('載入字典統計失敗:', error)
+  }
+}
+
+const loadUnknownCharacters = async () => {
+  try {
+    unknownCharacters.value = await getUnknownCharacters()
+  } catch (error) {
+    console.error('載入未知字符失敗:', error)
+  }
 }
 
 const selectCharForEdit = (char: string) => {
@@ -176,8 +195,11 @@ const clearUnknown = () => {
   }
 }
 
-onMounted(() => {
-  loadUnknownCharacters()
+onMounted(async () => {
+  await Promise.all([
+    loadDictionaryStats(),
+    loadUnknownCharacters()
+  ])
 })
 </script>
 

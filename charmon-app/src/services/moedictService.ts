@@ -14,6 +14,7 @@ export interface MoedictHeteronym {
   bopomofo2?: string  // 羅馬拼音 (如: wáng)
   pinyin?: string  // 漢語拼音
   definitions?: MoedictDefinition[]  // 字義定義
+  b?: string  // 萌典 API 實際返回的注音欄位
 }
 
 export interface MoedictDefinition {
