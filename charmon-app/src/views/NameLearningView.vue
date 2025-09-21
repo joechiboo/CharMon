@@ -121,7 +121,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import StrokeOrderViewer from '@/components/StrokeOrderViewer.vue'
-import { getStrokeCount, getRadicalWithZhuyin, getZhuyin, getZhuyinParts } from '@/utils/dictionaryV2'
+import { getStrokeCount, getRadicalWithZhuyin, getZhuyin, getZhuyinParts, type ZhuyinPart } from '@/utils/dictionaryV2'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -150,7 +150,7 @@ const currentCharInfo = ref({
 })
 
 // 所有字符的注音部件緩存
-const zhuyinPartsCache = ref<Map<string, object[]>>(new Map())
+const zhuyinPartsCache = ref<Map<string, ZhuyinPart[]>>(new Map())
 
 // 取得字符的注音部件（有緩存）
 const getCharZhuyinParts = (char: string) => {
