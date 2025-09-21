@@ -49,5 +49,8 @@
   { "character": "開", "strokeCount": 12, "radical": "門", "radicalZhuyin": "ㄇㄣˊ", "zhuyin": "ㄎㄞ" },
   { "character": "陽", "strokeCount": 12, "radical": "阜", "radicalZhuyin": "ㄈㄨˋ", "zhuyin": "ㄧㄤˊ" },
   { "character": "黃", "strokeCount": 12, "radical": "黃", "radicalZhuyin": "ㄏㄨㄤˊ", "zhuyin": "ㄏㄨㄤˊ" },
-  { "character": "龍", "strokeCount": 16, "radical": "龍", "radicalZhuyin": "ㄌㄨㄥˊ", "zhuyin": "ㄌㄨㄥˊ" }
+  { "character": "龍", "strokeCount": 16, "radical": "龍", "radicalZhuyin": "ㄌㄨㄥˊ", "zhuyin": "ㄌㄨㄥˊ" },
+  { "character": "傑", "strokeCount": 12, "radical": "人", "radicalZhuyin": "ㄖㄣˊ", "zhuyin": "ㄐㄧㄝˊ" },
+  { "character": "尼", "strokeCount": 5, "radical": "尸", "radicalZhuyin": "ㄕ", "zhuyin": "ㄋㄧˊ" },
+  { "character": "龜", "strokeCount": 16, "radical": "龜", "radicalZhuyin": "ㄍㄨㄟ", "zhuyin": "ㄍㄨㄟ" }
 ]
