@@ -631,15 +631,18 @@ const syncData = async () => {
       console.log('✅ 所有未知字符都已存在於本地字典中')
     }
 
-    // 如果有成功獲取的字符，產生手動更新的程式碼
+    // 如果有成功獲取的字符，產生 JSON 格式供添加到字典檔案
     if (Object.keys(newCharacters).length > 0) {
-      console.warn('📝 請將以下字符添加到 fallbackDictionary:')
+      console.warn('📝 請將以下字符添加到 dictionary.json:')
 
-      // 產生手動更新的程式碼
-      let codeToAdd = '\n// 新增的字符 (請複製到 fallbackDictionary 物件中):\n'
+      // 產生 JSON 格式（橫向單行格式，與字典檔案一致）
+      let codeToAdd = '// 新增的字符 (請複製到 dictionary.json 檔案中，記得在前一個項目後加逗號):\n'
+      const jsonLines = []
       for (const [char, info] of Object.entries(newCharacters)) {
-        codeToAdd += `  '${char}': { character: '${char}', strokeCount: ${info.strokeCount}, radical: '${info.radical}', radicalZhuyin: ${info.radicalZhuyin ? `'${info.radicalZhuyin}'` : 'undefined'}, zhuyin: '${info.zhuyin}' },\n`
+        const radicalZhuyin = info.radicalZhuyin ? `"${info.radicalZhuyin}"` : '""'
+        jsonLines.push(`  { "character": "${char}", "strokeCount": ${info.strokeCount}, "radical": "${info.radical}", "radicalZhuyin": ${radicalZhuyin}, "zhuyin": "${info.zhuyin}" }`)
       }
+      codeToAdd += jsonLines.join(',\n')
 
       console.log(codeToAdd)
 
@@ -655,7 +658,7 @@ const syncData = async () => {
       syncedCode.value = codeToAdd
       showSyncedCode.value = true
 
-      showStatus(`✅ 同步成功取得 ${successCount} 個字符資料！\n請複製下方的代碼並添加到 fallbackDictionary 物件中。`, false)
+      showStatus(`✅ 同步成功取得 ${successCount} 個字符資料！\n請複製下方的 JSON 並添加到 src/data/dictionary.json 檔案中。`, false)
     }
 
     // 重新載入數據
