@@ -71,7 +71,7 @@
             </button>
             <!-- 調試信息 -->
             <div style="font-size: 12px; color: #666; margin-top: 10px;">
-              DEBUG: hostname={{ location.hostname }}, isLocalhost={{ isLocalhost }}
+              DEBUG: hostname={{ currentHostname }}, isLocalhost={{ isLocalhost }}
             </div>
           </div>
         </div>
@@ -288,8 +288,9 @@ const showStatus = (message: string, autoHide = true) => {
 
 // 計算屬性
 const supabaseEnabled = computed(() => !!supabase)
+const currentHostname = ref(window.location.hostname)
 const isLocalhost = computed(() => {
-  return location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+  return currentHostname.value === 'localhost' || currentHostname.value === '127.0.0.1'
 })
 
 // 方法
@@ -770,7 +771,7 @@ onMounted(async () => {
     supabase: !!supabase,
     supabaseEnabled: supabaseEnabled.value,
     isLocalhost: isLocalhost.value,
-    hostname: location.hostname,
+    hostname: currentHostname.value,
     env: {
       hasUrl: !!import.meta.env.VITE_SUPABASE_URL,
       hasKey: !!import.meta.env.VITE_SUPABASE_ANON_KEY,
