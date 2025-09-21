@@ -69,10 +69,6 @@
             <button v-if="!isLocalhost" @click="cleanupExisting" class="action-btn cleanup" :disabled="loading">
               🧹 清理已有字符
             </button>
-            <!-- 調試信息 -->
-            <div style="font-size: 12px; color: #666; margin-top: 10px;">
-              DEBUG: hostname={{ currentHostname }}, isLocalhost={{ isLocalhost }}
-            </div>
           </div>
         </div>
 
