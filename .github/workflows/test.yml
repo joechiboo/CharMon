@@ -1,0 +1,196 @@
+name: 🧪 測試流程
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  unit-tests:
+    name: 🔬 單元測試
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 檢出代碼
+        uses: actions/checkout@v4
+
+      - name: 📦 設置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: charmon-app/package-lock.json
+
+      - name: 📋 安裝前端依賴
+        run: |
+          cd charmon-app
+          rm -rf node_modules package-lock.json
+          npm install
+
+      - name: 🔧 類型檢查
+        run: |
+          cd charmon-app
+          npm run type-check
+
+      - name: 🧹 程式碼檢查
+        run: |
+          cd charmon-app
+          npm run lint
+
+      - name: 🧪 執行單元測試
+        run: |
+          cd charmon-app
+          npm run test:unit
+
+  backend-tests:
+    name: 🚀 後端測試
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 檢出代碼
+        uses: actions/checkout@v4
+
+      - name: 📦 設置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: charmon-backend/package-lock.json
+
+      - name: 📋 安裝後端依賴
+        run: |
+          cd charmon-backend
+          rm -rf node_modules package-lock.json
+          npm install
+
+      - name: 🔧 TypeScript 編譯檢查
+        run: |
+          cd charmon-backend
+          npm run build
+
+      - name: 🚀 啟動後端服務 (背景)
+        run: |
+          cd charmon-backend
+          npm run dev &
+          sleep 10
+
+      - name: 🩺 API 健康檢查
+        run: |
+          curl -f http://localhost:3001/api/pokemon/health || exit 1
+          curl -f http://localhost:3001/api/pokemon/status || exit 1
+
+  e2e-tests:
+    name: 🎭 端到端測試
+    runs-on: ubuntu-latest
+    needs: [unit-tests, backend-tests]
+
+    steps:
+      - name: 📥 檢出代碼
+        uses: actions/checkout@v4
+
+      - name: 📦 設置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📋 安裝前端依賴
+        run: |
+          cd charmon-app
+          rm -rf node_modules package-lock.json
+          npm install
+
+      - name: 📋 安裝後端依賴
+        run: |
+          cd charmon-backend
+          rm -rf node_modules package-lock.json
+          npm install
+
+      - name: 🎭 安裝 Playwright
+        run: |
+          cd charmon-app
+          npx playwright install --with-deps
+
+      - name: 🚀 啟動後端服務
+        run: |
+          cd charmon-backend
+          npm run dev &
+          sleep 15
+
+      - name: 🎬 執行 E2E 測試
+        run: |
+          cd charmon-app
+          npm run test:e2e
+
+      - name: 📊 上傳測試報告
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: charmon-app/playwright-report/
+          retention-days: 30
+
+      - name: 📈 上傳測試結果
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-results
+          path: charmon-app/test-results/
+          retention-days: 30
+
+  build-test:
+    name: 🏗️ 構建測試
+    runs-on: ubuntu-latest
+    needs: [unit-tests]
+
+    steps:
+      - name: 📥 檢出代碼
+        uses: actions/checkout@v4
+
+      - name: 📦 設置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: charmon-app/package-lock.json
+
+      - name: 📋 安裝依賴
+        run: |
+          cd charmon-app
+          rm -rf node_modules package-lock.json
+          npm install
+
+      - name: 🏗️ 構建生產版本
+        run: |
+          cd charmon-app
+          npm run build
+
+      - name: 📦 上傳構建產物
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: charmon-app/dist/
+
+  security-scan:
+    name: 🔒 安全掃描
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 檢出代碼
+        uses: actions/checkout@v4
+
+      - name: 📦 設置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 🔍 安全漏洞掃描 (前端)
+        run: |
+          cd charmon-app
+          npm audit --audit-level high
+
+      - name: 🔍 安全漏洞掃描 (後端)
+        run: |
+          cd charmon-backend
+          npm audit --audit-level high
