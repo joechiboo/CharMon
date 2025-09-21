@@ -29,7 +29,8 @@ jobs:
     - name: Install dependencies
       run: |
         cd charmon-app
-        npm ci
+        rm -rf node_modules package-lock.json
+        npm install
 
     - name: Build
       run: |
