@@ -61,7 +61,7 @@ test.describe('練習表生成器測試', () => {
         // 如果被重定向回登入頁面，說明認證失效了
         throw new Error('認證狀態失效，被重定向到登入頁面')
       }
-    } catch (error) {
+    } catch {
       // 如果出現問題，再次嘗試登入
       console.log('重新嘗試登入...')
       await loginAsTestUser(page)
