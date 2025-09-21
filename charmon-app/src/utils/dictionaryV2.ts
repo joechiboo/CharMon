@@ -388,27 +388,21 @@ export async function clearUnknownCharacters(): Promise<boolean> {
 
 // 字典統計
 export async function getDictionaryStats(): Promise<{ totalCharacters: number; charactersWithRadicalZhuyin: number; unknownCount?: number }> {
-  // 本地統計（總是計算本地字典數量）
+  // 統計本地字典數據
   console.log('📊 計算本地字典統計')
   const localCharacters = Object.values(fallbackDictionary)
-  let totalCharacters = localCharacters.length
-  let charactersWithRadicalZhuyin = localCharacters.filter(char => char.radicalZhuyin).length
-  let unknownCount = unknownCharactersCache.size
+  const totalCharacters = localCharacters.length
+  const charactersWithRadicalZhuyin = localCharacters.filter(char => char.radicalZhuyin).length
 
-  // 如果 Supabase 可用，嘗試獲取更完整的統計
+  // 從 Supabase 獲取未知字符數量（如果可用）
+  let unknownCount = unknownCharactersCache.size
   if (useSupabase) {
     try {
-      const supabaseStats = await DictionaryService.getDictionaryStats()
-      console.log('📊 Supabase 統計:', supabaseStats)
-
-      // 使用 Supabase 的數據（如果有的話）
-      if (supabaseStats.totalCharacters > 0) {
-        totalCharacters = supabaseStats.totalCharacters
-        charactersWithRadicalZhuyin = supabaseStats.charactersWithRadicalZhuyin
-      }
-      unknownCount = supabaseStats.unknownCount
+      const unknownChars = await DictionaryService.getUnknownCharacters()
+      unknownCount = unknownChars.length
+      console.log('📊 Supabase 未知字符數量:', unknownCount)
     } catch (error) {
-      console.error('獲取 Supabase 統計失敗，使用本地統計:', error)
+      console.error('獲取 Supabase 未知字符失敗，使用本地緩存:', error)
     }
   }
 
@@ -421,19 +415,37 @@ export async function getDictionaryStats(): Promise<{ totalCharacters: number; c
   return result
 }
 
-// 字典管理（已移除緩存功能）
+// 字典管理（只處理未知字符標記）
 export async function addCharacter(characterInfo: CharacterInfo): Promise<boolean> {
-  console.log('⚠️ 字典檔緩存功能已移除，addCharacter 不再修改本地字典檔')
+  console.log('📝 新增字符到本地字典:', characterInfo.character)
 
-  // 只移除未知字符標記
+  // 將字符添加到本地字典
+  fallbackDictionary[characterInfo.character] = characterInfo
+
+  // 從未知字符列表移除
   unknownCharactersCache.delete(characterInfo.character)
 
-  console.log('✅ 已從待新增列表移除:', characterInfo.character)
+  // 如果 Supabase 可用，標記未知字符為已解決
+  if (useSupabase) {
+    try {
+      await DictionaryService.markUnknownCharacterResolved(characterInfo.character)
+      console.log('✅ 已在 Supabase 標記字符為已解決:', characterInfo.character)
+    } catch (error) {
+      console.error('標記 Supabase 未知字符失敗:', error)
+    }
+  }
+
+  console.log('✅ 字符已新增到本地字典:', characterInfo.character)
   return true
 }
 
 export async function updateCharacter(characterInfo: CharacterInfo): Promise<boolean> {
-  console.log('⚠️ 字典檔緩存功能已移除，updateCharacter 不再修改本地字典檔')
+  console.log('📝 更新本地字典字符:', characterInfo.character)
+
+  // 更新本地字典
+  fallbackDictionary[characterInfo.character] = characterInfo
+
+  console.log('✅ 字符已更新:', characterInfo.character)
   return true
 }
 

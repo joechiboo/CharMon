@@ -278,6 +278,28 @@ export class DictionaryService {
     return await this.getAllCharacters()
   }
 
+  // 清空字典表（危險操作！）
+  static async clearDictionary(): Promise<boolean> {
+    try {
+      if (!supabase) {
+        console.log('⚠️ Supabase 未配置，無法清空字典')
+        return false
+      }
+
+      const { error } = await supabase
+        .from('dictionary_characters')
+        .delete()
+        .neq('id', '') // 刪除所有記錄
+
+      if (error) throw error
+      console.log('✅ 字典表已清空')
+      return true
+    } catch (error) {
+      console.error('清空字典失敗:', error)
+      return false
+    }
+  }
+
   // 批量導入字典數據
   static async importDictionary(characters: CharacterInfo[]): Promise<boolean> {
     try {
