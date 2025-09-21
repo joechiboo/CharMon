@@ -66,7 +66,7 @@
             <button v-if="isLocalhost" @click="syncData" class="action-btn sync" :disabled="loading">
               🔄 同步數據
             </button>
-            <button v-if="isSupabaseEnabled()" @click="cleanupExisting" class="action-btn cleanup" :disabled="loading">
+            <button v-if="!isLocalhost" @click="cleanupExisting" class="action-btn cleanup" :disabled="loading">
               🧹 清理已有字符
             </button>
           </div>
@@ -233,6 +233,7 @@ import {
 } from '@/utils/dictionaryV2'
 import { MoedictService } from '@/services/moedictService'
 import { DictionaryService } from '@/services/dictionaryService'
+import { supabase } from '@/lib/supabase'
 
 const router = useRouter()
 
@@ -282,7 +283,7 @@ const showStatus = (message: string, autoHide = true) => {
 }
 
 // 計算屬性
-const supabaseEnabled = computed(() => isSupabaseEnabled())
+const supabaseEnabled = computed(() => !!supabase)
 const isLocalhost = computed(() => {
   return location.hostname === 'localhost' || location.hostname === '127.0.0.1'
 })
@@ -761,6 +762,18 @@ const cleanupExisting = async () => {
 
 
 onMounted(async () => {
+  console.log('🔍 Supabase 狀態檢查:', {
+    supabase: !!supabase,
+    supabaseEnabled: supabaseEnabled.value,
+    isLocalhost: isLocalhost.value,
+    hostname: location.hostname,
+    env: {
+      hasUrl: !!import.meta.env.VITE_SUPABASE_URL,
+      hasKey: !!import.meta.env.VITE_SUPABASE_ANON_KEY,
+      url: import.meta.env.VITE_SUPABASE_URL
+    }
+  })
+
   await loadStats()
   await loadUnknownCharacters()
 })
