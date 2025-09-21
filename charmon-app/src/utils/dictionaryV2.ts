@@ -232,11 +232,24 @@ export async function getCharacterInfo(char: string): Promise<CharacterInfo | nu
       console.log('✅ 使用本地字典檔:', char, localInfo)
       info = localInfo
     } else {
-      // 步驟 2: 不在本地字典檔中，直接記錄為待新增並嘗試萌典 API
+      // 步驟 2: 不在本地字典檔中，直接記錄到 Supabase 並嘗試萌典 API
       if (char.trim() && /[\u4e00-\u9fff]/.test(char)) {
-        console.log('📝 不在本地字典檔，記錄為待新增:', char)
-        unknownCharactersCache.add(char)
-        console.log('📝 已加入 unknownCharactersCache，當前大小:', unknownCharactersCache.size)
+        console.log('📝 不在本地字典檔，記錄到 Supabase:', char)
+
+        // 直接寫入 Supabase，不使用本地緩存
+        if (useSupabase) {
+          try {
+            await DictionaryService.recordUnknownCharacter(char)
+            console.log('✅ 已記錄到 Supabase:', char)
+          } catch (error) {
+            console.error('❌ 記錄到 Supabase 失敗，降級使用本地緩存:', error)
+            unknownCharactersCache.add(char)
+          }
+        } else {
+          // 沒有 Supabase 時使用本地緩存
+          unknownCharactersCache.add(char)
+          console.log('📝 已加入本地緩存，當前大小:', unknownCharactersCache.size)
+        }
 
         console.log('🔍 嘗試萌典 API 獲取資料:', char)
         const moedictResult = await MoedictService.getCharacterInfo(char)
@@ -434,9 +447,6 @@ export async function addCharacter(characterInfo: CharacterInfo): Promise<boolea
   // 將字符添加到本地字典
   fallbackDictionary[characterInfo.character] = characterInfo
 
-  // 從未知字符列表移除
-  unknownCharactersCache.delete(characterInfo.character)
-
   // 如果 Supabase 可用，標記未知字符為已解決
   if (useSupabase) {
     try {
@@ -445,6 +455,9 @@ export async function addCharacter(characterInfo: CharacterInfo): Promise<boolea
     } catch (error) {
       console.error('標記 Supabase 未知字符失敗:', error)
     }
+  } else {
+    // 沒有 Supabase 時才操作本地緩存
+    unknownCharactersCache.delete(characterInfo.character)
   }
 
   console.log('✅ 字符已新增到本地字典:', characterInfo.character)
