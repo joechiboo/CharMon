@@ -24,7 +24,11 @@
       "WebFetch(domain:www.moedict.tw)",
       "Bash(npm run:*)",
       "Bash(ssh:*)",
-      "Bash(gh workflow:*)"
+      "Bash(gh workflow:*)",
+      "Bash(python:*)",
+      "Bash(curl:*)",
+      "Bash(cat:*)",
+      "Bash(node:*)"
     ],
     "deny": [],
     "ask": []

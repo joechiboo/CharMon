@@ -1,5 +1,41 @@
 # 0. bug
-搞一個縮圖吧 目前是預設的 vite
+
+# 1. 商業模式
+
+建立後台 ?
+  選項 1: 保持 GitHub Pages + 無伺服器函數
+  - Vercel Functions / Netlify Functions
+    - ✅ 免費額度充足
+    - ✅ 與靜態站點整合好
+    - ✅ 可環境變數隱藏 API key
+    - ❌ 冷啟動延遲
+
+  選項 2: 輕量雲端服務
+  - Railway / Render
+    - ✅ 簡單部署
+    - ✅ 免費額度
+    - ✅ 持續運行
+    - ❌ 需要額外維護
+
+  選項 3: GitHub Pages + Cloudflare Workers
+  - ✅ 高效能
+  - ✅ 全球 CDN
+  - ✅ 免費額度
+  - ❌ 學習曲線
+
+  建議方案
+
+  混合架構：GitHub Pages + Vercel Functions
+
+  1. 前端：繼續用 GitHub Pages 部署 Vue 應用
+  2. API：Vercel Functions 處理敏感操作
+  3. 漸進式遷移：
+    - 先移轉會員系統 API
+    - 保留字典功能的直接 Supabase 連接（這部分較不敏感）
+
+會員系統
+
+付費獲得更多內容
 
 # 2. AI 寶可夢
 線上生成 
@@ -27,14 +63,6 @@
 遇到不確定的，先查一下 docs/context 裡的文檔，還不確定的，網上搜尋一下
 所有子任務分階段執行，每個階段完了都跑一下單測，以免全搞完了發現不行要推倒重來
 UI 部分不要糾結，儘量用主流通俗寫法，明天我來打磨細節，你搞定功能就行
-
-# 3. 商業模式
-
-建立後台 ?
-
-會員系統
-
-付費獲得更多內容
 
 # 4. 測試 playwright ?
 
