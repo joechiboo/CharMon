@@ -12,6 +12,11 @@ export class DictionaryService {
   // 獲取所有字典字符
   static async getAllCharacters(): Promise<CharacterInfo[]> {
     try {
+      if (!supabase) {
+        console.log('⚠️ Supabase 未配置，返回空數組')
+        return []
+      }
+
       const { data, error } = await supabase
         .from('dictionary_characters')
         .select('*')
@@ -29,6 +34,11 @@ export class DictionaryService {
   // 獲取單個字符信息
   static async getCharacter(character: string): Promise<CharacterInfo | null> {
     try {
+      if (!supabase) {
+        console.log('⚠️ Supabase 未配置，無法查詢字符:', character)
+        return null
+      }
+
       console.log('🔍 查詢字符:', character)
       const { data, error } = await supabase
         .from('dictionary_characters')
@@ -61,6 +71,11 @@ export class DictionaryService {
   // 添加新字符
   static async addCharacter(characterInfo: CharacterInfo): Promise<boolean> {
     try {
+      if (!supabase) {
+        console.log('⚠️ Supabase 未配置，無法添加字符:', characterInfo.character)
+        return false
+      }
+
       const insertData: DictionaryCharacterInsert = {
         character: characterInfo.character,
         stroke_count: characterInfo.strokeCount,
@@ -88,6 +103,11 @@ export class DictionaryService {
   // 更新字符信息
   static async updateCharacter(characterInfo: CharacterInfo): Promise<boolean> {
     try {
+      if (!supabase) {
+        console.log('⚠️ Supabase 未配置，無法更新字符:', characterInfo.character)
+        return false
+      }
+
       const updateData: DictionaryCharacterUpdate = {
         stroke_count: characterInfo.strokeCount,
         radical: characterInfo.radical,
@@ -112,6 +132,11 @@ export class DictionaryService {
   // 記錄未知字符
   static async recordUnknownCharacter(character: string): Promise<void> {
     try {
+      if (!supabase) {
+        console.log('⚠️ Supabase 未配置，無法記錄未知字符:', character)
+        return
+      }
+
       // 檢查是否已存在
       const { data: existing } = await supabase
         .from('unknown_characters')
@@ -143,6 +168,11 @@ export class DictionaryService {
   // 獲取所有未知字符
   static async getUnknownCharacters(): Promise<UnknownCharacter[]> {
     try {
+      if (!supabase) {
+        console.log('⚠️ Supabase 未配置，返回空数组')
+        return []
+      }
+
       const { data, error } = await supabase
         .from('unknown_characters')
         .select('*')
@@ -160,6 +190,11 @@ export class DictionaryService {
   // 標記未知字符為已解決
   static async markUnknownCharacterResolved(character: string): Promise<void> {
     try {
+      if (!supabase) {
+        console.log('⚠️ Supabase 未配置，無法標記未知字符:', character)
+        return
+      }
+
       await supabase
         .from('unknown_characters')
         .update({ resolved: true } as any)
@@ -172,6 +207,11 @@ export class DictionaryService {
   // 清空所有未知字符
   static async clearUnknownCharacters(): Promise<boolean> {
     try {
+      if (!supabase) {
+        console.log('⚠️ Supabase 未配置，無法清空未知字符')
+        return false
+      }
+
       const { error } = await supabase
         .from('unknown_characters')
         .delete()
@@ -188,6 +228,15 @@ export class DictionaryService {
   // 獲取字典統計
   static async getDictionaryStats(): Promise<{ totalCharacters: number; charactersWithRadicalZhuyin: number; unknownCount: number }> {
     try {
+      if (!supabase) {
+        console.log('⚠️ Supabase 未配置，返回默認統計')
+        return {
+          totalCharacters: 0,
+          charactersWithRadicalZhuyin: 0,
+          unknownCount: 0
+        }
+      }
+
       const [charactersResult, unknownResult] = await Promise.all([
         supabase
           .from('dictionary_characters')
@@ -232,6 +281,11 @@ export class DictionaryService {
   // 批量導入字典數據
   static async importDictionary(characters: CharacterInfo[]): Promise<boolean> {
     try {
+      if (!supabase) {
+        console.log('⚠️ Supabase 未配置，無法導入字典')
+        return false
+      }
+
       const dbCharacters = characters.map(char => ({
         character: char.character,
         stroke_count: char.strokeCount,

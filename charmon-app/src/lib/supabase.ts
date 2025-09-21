@@ -2,14 +2,26 @@ import { createClient } from '@supabase/supabase-js'
 
 // 這些值需要從 Supabase 專案設定中獲取
 // 在生產環境中應該使用環境變量
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'YOUR_SUPABASE_URL'
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'YOUR_SUPABASE_ANON_KEY'
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://placeholder.supabase.co'
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder-key'
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+// 檢查環境變數是否有效
+const isValidConfig = supabaseUrl !== 'https://placeholder.supabase.co' &&
+                      supabaseAnonKey !== 'placeholder-key' &&
+                      supabaseUrl.startsWith('https://') &&
+                      supabaseAnonKey.length > 50
+
+console.log('Supabase 配置檢查:', {
+  url: supabaseUrl,
+  hasValidKey: supabaseAnonKey.length > 50,
+  isValid: isValidConfig
+})
+
+export const supabase = isValidConfig ? createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     persistSession: false, // 我們不需要用戶認證會話
   }
-})
+}) : null
 
 // 數據庫類型定義
 export interface Database {

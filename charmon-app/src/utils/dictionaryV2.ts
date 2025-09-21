@@ -35,17 +35,21 @@ console.log('Supabase 配置狀態:', {
 // 測試 Supabase 連接
 if (useSupabase) {
   import('@/lib/supabase').then(({ supabase }) => {
-    console.log('🔗 測試 Supabase 連接...')
+    if (supabase) {
+      console.log('🔗 測試 Supabase 連接...')
 
-    // 簡單的表格檢查
-    supabase.from('dictionary_characters').select('count', { count: 'exact', head: true })
-      .then(({ error, count }) => {
-        if (error) {
-          console.error('❌ Supabase 連接失敗:', error)
-        } else {
-          console.log('✅ Supabase 連接成功! 字典表格有', count, '筆記錄')
-        }
-      })
+      // 簡單的表格檢查
+      supabase.from('dictionary_characters').select('count', { count: 'exact', head: true })
+        .then(({ error, count }) => {
+          if (error) {
+            console.error('❌ Supabase 連接失敗:', error)
+          } else {
+            console.log('✅ Supabase 連接成功! 字典表格有', count, '筆記錄')
+          }
+        })
+    } else {
+      console.log('⚠️ Supabase 未正確配置')
+    }
   })
 }
 
