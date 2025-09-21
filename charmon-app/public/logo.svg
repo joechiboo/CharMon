@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- 背景圓形 -->
+  <circle cx="256" cy="256" r="240" fill="#4CAF50"/>
+
+  <!-- 字樂園的「字」字 -->
+  <text x="256" y="320"
+        font-family="Noto Sans TC, Microsoft JhengHei, PingFang TC, sans-serif"
+        font-size="200"
+        font-weight="bold"
+        fill="white"
+        text-anchor="middle"
+        dominant-baseline="middle">
+    字
+  </text>
+
+  <!-- 裝飾性星星 -->
+  <g fill="#FFD700">
+    <path d="M150,100 L155,115 L170,115 L158,125 L163,140 L150,130 L137,140 L142,125 L130,115 L145,115 Z"/>
+    <path d="M350,120 L354,132 L366,132 L357,139 L361,151 L350,143 L339,151 L343,139 L334,132 L346,132 Z"/>
+  </g>
+</svg>
