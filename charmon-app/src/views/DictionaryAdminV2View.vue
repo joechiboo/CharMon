@@ -8,6 +8,14 @@
     </div>
 
     <div class="admin-content">
+      <!-- 狀態消息 -->
+      <div v-if="showStatusMessage" class="status-message" :class="statusMessage.includes('成功') ? 'success' : statusMessage.includes('失敗') || statusMessage.includes('錯誤') ? 'error' : 'info'">
+        <div class="status-content">
+          <span class="status-text">{{ statusMessage }}</span>
+          <button @click="showStatusMessage = false" class="close-btn">✕</button>
+        </div>
+      </div>
+
       <!-- 統計信息 -->
       <div class="stats-section">
         <div class="stat-card">
@@ -58,8 +66,33 @@
             <button v-if="isLocalhost" @click="syncData" class="action-btn sync" :disabled="loading">
               🔄 同步數據
             </button>
+            <button v-if="!isLocalhost" @click="cleanupExisting" class="action-btn cleanup" :disabled="loading">
+              🧹 清理已有字符
+            </button>
           </div>
         </div>
+
+      <!-- 同步結果代碼區域 -->
+      <div v-if="showSyncedCode" class="synced-code-section">
+        <h2>📄 同步結果代碼</h2>
+        <div class="code-instructions">
+          <p>請將以下代碼複製並添加到 <code>dictionaryV2.ts</code> 的 <code>fallbackDictionary</code> 物件中：</p>
+        </div>
+        <div class="code-container">
+          <textarea
+            v-model="syncedCode"
+            readonly
+            placeholder="同步的代碼將顯示在這裡..."
+            rows="15"
+            class="code-textarea"
+          ></textarea>
+          <div class="action-buttons">
+            <button @click="copyCode" class="copy-btn">📋 複製代碼</button>
+            <button @click="selectAllCode" class="select-btn">🎯 全選</button>
+            <button @click="clearCode" class="clear-btn">🗑️ 清除</button>
+          </div>
+        </div>
+      </div>
 
         <p v-if="unknownCharacters.length === 0" class="empty-message">
           目前沒有未知字符需要處理
@@ -195,9 +228,11 @@ import {
   updateCharacter,
   isSupabaseEnabled,
   getCharacterInfo,
+  exportDictionary,
   type CharacterInfo
 } from '@/utils/dictionaryV2'
 import { MoedictService } from '@/services/moedictService'
+import { DictionaryService } from '@/services/dictionaryService'
 
 const router = useRouter()
 
@@ -229,6 +264,22 @@ const checkResult = ref<{
 const missingChars = ref<string[]>([])
 const loading = ref(false)
 const saving = ref(false)
+const statusMessage = ref<string>('')
+const showStatusMessage = ref(false)
+const syncedCode = ref<string>('')
+const showSyncedCode = ref(false)
+
+// 顯示狀態消息
+const showStatus = (message: string, autoHide = true) => {
+  statusMessage.value = message
+  showStatusMessage.value = true
+
+  if (autoHide) {
+    setTimeout(() => {
+      showStatusMessage.value = false
+    }, 5000) // 5秒後自動隱藏
+  }
+}
 
 // 計算屬性
 const supabaseEnabled = computed(() => isSupabaseEnabled())
@@ -303,7 +354,7 @@ const cancelEdit = () => {
 
 const saveCharacter = async () => {
   if (!isSupabaseEnabled()) {
-    alert('字典管理功能需要 Supabase 配置')
+    showStatus('⚠️ 字典管理功能需要 Supabase 配置')
     return
   }
 
@@ -320,7 +371,7 @@ const saveCharacter = async () => {
     const success = await addCharacter(characterInfo)
 
     if (success) {
-      alert(`成功保存字符：${editForm.value.character}`)
+      showStatus(`✅ 成功保存字符：${editForm.value.character}`)
 
       // 從未知列表中移除
       unknownCharacters.value = unknownCharacters.value.filter(char => char !== editingChar.value)
@@ -330,11 +381,11 @@ const saveCharacter = async () => {
 
       cancelEdit()
     } else {
-      alert('保存失敗，請檢查網絡連接或數據庫配置')
+      showStatus('❌ 保存失敗，請檢查網絡連接或數據庫配置')
     }
   } catch (error) {
     console.error('保存字符失敗:', error)
-    alert('保存失敗：' + (error as Error).message)
+    showStatus('❌ 保存失敗：' + (error as Error).message)
   } finally {
     saving.value = false
   }
@@ -379,7 +430,7 @@ const checkArticle = async () => {
     })
   } catch (error) {
     console.error('檢查文章失敗:', error)
-    alert('檢查失敗：' + (error as Error).message)
+    showStatus('❌ 檢查失敗：' + (error as Error).message)
   } finally {
     checking.value = false
   }
@@ -387,7 +438,7 @@ const checkArticle = async () => {
 
 const addMissingChars = async () => {
   if (!isSupabaseEnabled()) {
-    alert('批量新增功能需要 Supabase 配置')
+    showStatus('⚠️ 批量新增功能需要 Supabase 配置')
     return
   }
 
@@ -416,18 +467,18 @@ const addMissingChars = async () => {
     if (successCount > 0) {
       await loadStats()
       await loadUnknownCharacters()
-      alert(`成功新增 ${successCount} 個字符到字典！\n這些字符使用預設值，請後續手動修改正確的筆劃、部首和注音。`)
+      showStatus(`✅ 成功新增 ${successCount} 個字符到字典！\n這些字符使用預設值，請後續手動修改正確的筆劃、部首和注音。`)
 
       // 清空檢查結果
       checkResult.value = null
       missingChars.value = []
       articleText.value = ''
     } else {
-      alert('沒有字符被新增，請檢查字符是否已存在')
+      showStatus('⚠️ 沒有字符被新增，請檢查字符是否已存在')
     }
   } catch (error) {
     console.error('批量新增失敗:', error)
-    alert('批量新增失敗：' + (error as Error).message)
+    showStatus('❌ 批量新增失敗：' + (error as Error).message)
   } finally {
     adding.value = false
   }
@@ -444,18 +495,54 @@ const syncData = async () => {
     const charactersToSync = [...unknownCharacters.value]
 
     if (charactersToSync.length === 0) {
-      alert('沒有需要同步的字符')
+      showStatus('⚠️ 沒有需要同步的字符')
       return
     }
 
+    // 取得本地字典資料
+    const localDictionary = await exportDictionary()
+    const localChars = new Set(localDictionary.map(char => char.character))
+    console.log(`📚 本地字典共有 ${localChars.size} 個字符`)
+
     let successCount = 0
     let failCount = 0
+    let deletedCount = 0
     const newCharacters: { [key: string]: CharacterInfo } = {}
+    const toDelete: string[] = []
 
-    // 使用萌典 API 批量取得字符資料
+    // 第一步：檢查哪些字符已經在本地字典中
+    console.log('🔍 檢查本地字典中已有的字符...')
     for (const char of charactersToSync) {
-      try {
-        console.log(`🔍 同步字符: ${char}`)
+      if (localChars.has(char)) {
+        console.log(`✅ 字符 "${char}" 已存在於本地字典，標記為待刪除`)
+        toDelete.push(char)
+      }
+    }
+
+    // 刪除已存在的字符
+    if (toDelete.length > 0) {
+      console.log(`🗑️ 從 Supabase 刪除 ${toDelete.length} 個已存在的字符:`, toDelete)
+      for (const char of toDelete) {
+        try {
+          await DictionaryService.markUnknownCharacterResolved(char)
+          deletedCount++
+          console.log(`✅ 已標記字符 "${char}" 為已解決`)
+        } catch (error) {
+          console.error(`❌ 刪除字符 "${char}" 失敗:`, error)
+        }
+      }
+    }
+
+    // 過濾出需要查詢 API 的字符
+    const charsToQuery = charactersToSync.filter(char => !localChars.has(char))
+    console.log(`🔎 需要查詢萌典 API 的字符 (${charsToQuery.length}/${charactersToSync.length}):`, charsToQuery)
+
+    // 第二步：使用萌典 API 查詢不在本地字典中的字符
+    if (charsToQuery.length > 0) {
+      console.log('🌐 開始查詢萌典 API...')
+      for (const char of charsToQuery) {
+        try {
+          console.log(`🔍 查詢字符: ${char}`)
 
         // 查詢萌典 API 取得字符資料
         const moedictResult = await MoedictService.getCharacterInfo(char)
@@ -469,11 +556,50 @@ const syncData = async () => {
             const radicalZhuyinMap: { [key: string]: string } = {
               '宀': 'ㄇㄧㄢˊ', '木': 'ㄇㄨˋ', '弓': 'ㄍㄨㄥ', '刀': 'ㄉㄠ',
               '阝': 'ㄈㄨˋ', '口': 'ㄎㄡˇ', '日': 'ㄖˋ', '小': 'ㄒㄧㄠˇ',
-              '糸': 'ㄇㄧˋ', '禾': 'ㄏㄜˊ', '王': 'ㄨㄤˊ'
+              '糸': 'ㄇㄧˋ', '禾': 'ㄏㄜˊ', '王': 'ㄨㄤˊ', '人': 'ㄖㄣˊ',
+              '力': 'ㄌㄧˋ', '卜': 'ㄅㄨˇ', '厶': 'ㄙ', '土': 'ㄊㄨˇ',
+              '大': 'ㄉㄚˋ', '山': 'ㄕㄢ', '心': 'ㄒㄧㄣ', '攴': 'ㄆㄨ',
+              '水': 'ㄕㄨㄟˇ', '火': 'ㄏㄨㄛˇ', '白': 'ㄅㄞˊ', '皮': 'ㄆㄧˊ',
+              '色': 'ㄙㄜˋ', '艸': 'ㄘㄠˇ', '衣': 'ㄧ', '足': 'ㄗㄨˊ',
+              '金': 'ㄐㄧㄣ', '門': 'ㄇㄣˊ', '阜': 'ㄈㄨˋ', '黃': 'ㄏㄨㄤˊ',
+              '龍': 'ㄌㄨㄥˊ', '一': 'ㄧ'
             }
+
             if (radicalZhuyinMap[radical]) {
               radicalZhuyin = radicalZhuyinMap[radical]
+              console.log(`🎯 從本地對照表找到部首注音: ${radical} → ${radicalZhuyin}`)
+            } else {
+              // 如果本地對照表沒有，再查萌典 API
+              console.log(`🔎 本地對照表無此部首，查詢萌典 API: ${radical}`)
+              try {
+                const radicalZhuyin_api = await MoedictService.getZhuyin(radical)
+                if (radicalZhuyin_api) {
+                  radicalZhuyin = radicalZhuyin_api
+                  console.log(`✅ 從萌典 API 找到部首注音: ${radical} → ${radicalZhuyin}`)
+                } else {
+                  console.log(`❌ 萌典 API 查無部首注音: ${radical}`)
+                }
+                // 部首查詢延遲，避免 API 過載
+                await new Promise(resolve => setTimeout(resolve, 200))
+              } catch (radicalError) {
+                console.log(`❌ 部首注音查詢錯誤: ${radical}`, radicalError)
+              }
             }
+          }
+
+          // 獲取字符的注音，優先使用更可靠的方法
+          let characterZhuyin = 'ㄅㄆㄇ' // 預設值
+          try {
+            const zhuyinFromService = await MoedictService.getZhuyin(char)
+            if (zhuyinFromService) {
+              characterZhuyin = zhuyinFromService
+            } else {
+              // 降級到直接解析
+              characterZhuyin = moedictResult.heteronyms?.[0]?.b || moedictResult.heteronyms?.[0]?.bopomofo || 'ㄅㄆㄇ'
+            }
+          } catch (zhuyinError) {
+            console.log(`⚠️ 注音查詢失敗，使用原始數據: ${char}`)
+            characterZhuyin = moedictResult.heteronyms?.[0]?.b || moedictResult.heteronyms?.[0]?.bopomofo || 'ㄅㄆㄇ'
           }
 
           const characterInfo: CharacterInfo = {
@@ -481,7 +607,7 @@ const syncData = async () => {
             strokeCount: moedictResult.stroke_count || 10,
             radical: moedictResult.radical || '？',
             radicalZhuyin: radicalZhuyin,
-            zhuyin: moedictResult.heteronyms?.[0]?.b || moedictResult.heteronyms?.[0]?.bopomofo || 'ㄅㄆㄇ'
+            zhuyin: characterZhuyin
           }
 
           newCharacters[char] = characterInfo
@@ -498,6 +624,9 @@ const syncData = async () => {
         console.error(`同步字符 ${char} 失敗:`, error)
         failCount++
       }
+    }
+    } else {
+      console.log('✅ 所有未知字符都已存在於本地字典中')
     }
 
     // 如果有成功獲取的字符，產生手動更新的程式碼
@@ -520,21 +649,111 @@ const syncData = async () => {
         }
       }
 
-      alert(`同步成功取得 ${successCount} 個字符資料！\n\n請將以下程式碼添加到 fallbackDictionary 物件中：\n\n${codeToAdd}\n\n詳細程式碼已輸出到開發者工具控制台。`)
+      // 顯示代碼區域
+      syncedCode.value = codeToAdd
+      showSyncedCode.value = true
+
+      showStatus(`✅ 同步成功取得 ${successCount} 個字符資料！\n請複製下方的代碼並添加到 fallbackDictionary 物件中。`, false)
     }
 
     // 重新載入數據
     await loadStats()
     await loadUnknownCharacters()
 
+    // 更新統計結果，包含刪除的字符
+    const totalProcessed = successCount + failCount + deletedCount
     if (Object.keys(newCharacters).length > 0) {
-      alert(`數據同步完成\n成功: ${successCount} 個字符\n失敗: ${failCount} 個字符\n\n字符資料已準備好寫入源碼檔案`)
+      showStatus(`✅ 數據同步完成\n查詢成功: ${successCount} 個字符\n查詢失敗: ${failCount} 個字符\n已存在刪除: ${deletedCount} 個字符\n總處理: ${totalProcessed} 個字符\n\n新字符資料已準備好寫入源碼檔案`, false)
+    } else if (deletedCount > 0) {
+      showStatus(`✅ 數據同步完成\n查詢成功: ${successCount} 個字符\n查詢失敗: ${failCount} 個字符\n已存在刪除: ${deletedCount} 個字符\n總處理: ${totalProcessed} 個字符\n\n所有未知字符都已存在於本地字典中`)
     } else {
-      alert(`數據同步完成\n成功: ${successCount} 個字符\n失敗: ${failCount} 個字符`)
+      showStatus(`✅ 數據同步完成\n查詢成功: ${successCount} 個字符\n查詢失敗: ${failCount} 個字符\n總處理: ${totalProcessed} 個字符`)
     }
   } catch (error) {
     console.error('同步失敗:', error)
-    alert('同步失敗：' + (error as Error).message)
+    showStatus('❌ 同步失敗：' + (error as Error).message)
+  } finally {
+    loading.value = false
+  }
+}
+
+// 代碼操作函數
+const copyCode = async () => {
+  try {
+    await navigator.clipboard.writeText(syncedCode.value)
+    showStatus('📋 代碼已複製到剪貼板')
+  } catch (error) {
+    console.error('複製失敗:', error)
+    showStatus('❌ 複製失敗，請手動選擇並複製')
+  }
+}
+
+const selectAllCode = () => {
+  const textarea = document.querySelector('.code-textarea') as HTMLTextAreaElement
+  if (textarea) {
+    textarea.select()
+    textarea.setSelectionRange(0, 99999) // 對手機瀏覽器
+    showStatus('🎯 已全選代碼內容')
+  }
+}
+
+const clearCode = () => {
+  syncedCode.value = ''
+  showSyncedCode.value = false
+  showStatus('🗑️ 已清除代碼區域')
+}
+
+// 清理已存在於本地字典的未知字符
+const cleanupExisting = async () => {
+  loading.value = true
+  try {
+    console.log('🧹 開始清理已存在於本地字典的未知字符...')
+
+    // 取得目前的未知字符列表
+    await loadUnknownCharacters()
+    const unknownChars = [...unknownCharacters.value]
+
+    if (unknownChars.length === 0) {
+      showStatus('⚠️ 沒有未知字符需要清理')
+      return
+    }
+
+    // 取得本地字典資料
+    const localDictionary = await exportDictionary()
+    const localChars = new Set(localDictionary.map(char => char.character))
+    console.log(`📚 本地字典共有 ${localChars.size} 個字符`)
+
+    // 找出需要清理的字符
+    const toCleanup = unknownChars.filter(char => localChars.has(char))
+    console.log(`🔍 找到 ${toCleanup.length} 個需要清理的字符:`, toCleanup)
+
+    if (toCleanup.length === 0) {
+      showStatus('✅ 沒有需要清理的字符，所有未知字符都不在本地字典中')
+      return
+    }
+
+    let cleanedCount = 0
+
+    // 標記已存在的字符為已解決
+    for (const char of toCleanup) {
+      try {
+        await DictionaryService.markUnknownCharacterResolved(char)
+        cleanedCount++
+        console.log(`✅ 已清理字符: ${char}`)
+      } catch (error) {
+        console.error(`❌ 清理字符 "${char}" 失敗:`, error)
+      }
+    }
+
+    // 重新載入數據
+    await loadStats()
+    await loadUnknownCharacters()
+
+    showStatus(`✅ 清理完成\n已清理: ${cleanedCount} 個字符\n剩餘未知字符: ${unknownCharacters.value.length} 個`, false)
+
+  } catch (error) {
+    console.error('清理失敗:', error)
+    showStatus('❌ 清理失敗：' + (error as Error).message)
   } finally {
     loading.value = false
   }
@@ -552,6 +771,82 @@ onMounted(async () => {
   min-height: 100vh;
   background: #f5f7fa;
   padding: 20px;
+}
+
+/* 狀態消息 */
+.status-message {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.3s ease-out;
+}
+
+.status-message.success {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+.status-message.error {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+
+.status-message.info {
+  background: #d1ecf1;
+  border: 1px solid #bee5eb;
+}
+
+.status-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 15px 20px;
+}
+
+.status-text {
+  flex: 1;
+  white-space: pre-line;
+  line-height: 1.5;
+}
+
+.status-message.success .status-text {
+  color: #155724;
+}
+
+.status-message.error .status-text {
+  color: #721c24;
+}
+
+.status-message.info .status-text {
+  color: #0c5460;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+  padding: 0;
+  margin-left: 15px;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  opacity: 1;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .page-header {
@@ -579,6 +874,100 @@ onMounted(async () => {
   color: #2c3e50;
   font-size: 2rem;
   margin: 0;
+}
+
+/* 同步代碼區域 */
+.synced-code-section {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.synced-code-section h2 {
+  margin: 0 0 20px 0;
+  color: #2c3e50;
+}
+
+.code-instructions {
+  margin-bottom: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border-left: 4px solid #17a2b8;
+}
+
+.code-instructions p {
+  margin: 0;
+  color: #666;
+}
+
+.code-instructions code {
+  background: #e9ecef;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+}
+
+.code-container {
+  position: relative;
+}
+
+.code-textarea {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  background: #2d3748;
+  color: #e2e8f0;
+  resize: vertical;
+  margin-bottom: 15px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.copy-btn, .select-btn, .clear-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+
+.copy-btn {
+  background: #4CAF50;
+  color: white;
+}
+
+.copy-btn:hover {
+  background: #45a049;
+}
+
+.select-btn {
+  background: #17a2b8;
+  color: white;
+}
+
+.select-btn:hover {
+  background: #138496;
+}
+
+.clear-btn {
+  background: #6c757d;
+  color: white;
+}
+
+.clear-btn:hover {
+  background: #5a6268;
 }
 
 .admin-content {
@@ -880,6 +1269,15 @@ onMounted(async () => {
 
 .action-btn.sync:hover:not(:disabled) {
   background: #218838;
+}
+
+.action-btn.cleanup {
+  background: #6f42c1;
+  color: white;
+}
+
+.action-btn.cleanup:hover:not(:disabled) {
+  background: #5a32a3;
 }
 
 @media (max-width: 768px) {

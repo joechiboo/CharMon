@@ -9,124 +9,34 @@ type UnknownCharacterInsert = Database['public']['Tables']['unknown_characters']
 type UnknownCharacterUpdate = Database['public']['Tables']['unknown_characters']['Update']
 
 export class DictionaryService {
-  // 獲取所有字典字符
+  // 獲取所有字典字符 - 現在只返回空數組，因為我們不使用 Supabase 字典表
   static async getAllCharacters(): Promise<CharacterInfo[]> {
-    try {
-      if (!supabase) {
-        console.log('⚠️ Supabase 未配置，返回空數組')
-        return []
-      }
-
-      const { data, error } = await supabase
-        .from('dictionary_characters')
-        .select('*')
-        .order('character')
-
-      if (error) throw error
-
-      return data.map(this.mapDbToCharacterInfo)
-    } catch (error) {
-      console.error('獲取字典字符失敗:', error)
-      return []
-    }
+    console.log('⚠️ 已停用 Supabase 字典表功能，返回空數組')
+    return []
   }
 
-  // 獲取單個字符信息
+  // 獲取單個字符信息 - 已停用，因為我們不使用 Supabase 字典表
   static async getCharacter(character: string): Promise<CharacterInfo | null> {
-    try {
-      if (!supabase) {
-        console.log('⚠️ Supabase 未配置，無法查詢字符:', character)
-        return null
-      }
-
-      console.log('🔍 查詢字符:', character)
-      const { data, error } = await supabase
-        .from('dictionary_characters')
-        .select('*')
-        .eq('character', character)
-        .single()
-
-      console.log('📊 查詢結果:', { data, error })
-
-      if (error) {
-        console.log('❌ 查詢錯誤:', error.code, error.message)
-        if (error.code === 'PGRST116') {
-          // 字符不存在，記錄為未知字符
-          console.log('📝 記錄未知字符:', character)
-          await this.recordUnknownCharacter(character)
-          return null
-        }
-        throw error
-      }
-
-      const result = this.mapDbToCharacterInfo(data)
-      console.log('✅ 找到字符:', result)
-      return result
-    } catch (error) {
-      console.error('💥 獲取字符信息失敗:', error)
-      return null
-    }
+    console.log('⚠️ 已停用 Supabase 字典表功能，無法查詢字符:', character)
+    return null
   }
 
-  // 添加新字符
+  // 添加新字符 - 已停用，因為我們不使用 Supabase 字典表
   static async addCharacter(characterInfo: CharacterInfo): Promise<boolean> {
-    try {
-      if (!supabase) {
-        console.log('⚠️ Supabase 未配置，無法添加字符:', characterInfo.character)
-        return false
-      }
+    console.log('⚠️ 已停用 Supabase 字典表功能，無法添加字符:', characterInfo.character)
+    console.log('💡 請將字符添加到本地字典文件中')
 
-      const insertData: DictionaryCharacterInsert = {
-        character: characterInfo.character,
-        stroke_count: characterInfo.strokeCount,
-        radical: characterInfo.radical,
-        radical_zhuyin: characterInfo.radicalZhuyin || null,
-        zhuyin: characterInfo.zhuyin
-      }
+    // 仍然標記未知字符為已解決
+    await this.markUnknownCharacterResolved(characterInfo.character)
 
-      const { error } = await supabase
-        .from('dictionary_characters')
-        .insert(insertData as any)
-
-      if (error) throw error
-
-      // 如果添加成功，將未知字符標記為已解決
-      await this.markUnknownCharacterResolved(characterInfo.character)
-
-      return true
-    } catch (error) {
-      console.error('添加字符失敗:', error)
-      return false
-    }
+    return false
   }
 
-  // 更新字符信息
+  // 更新字符信息 - 已停用，因為我們不使用 Supabase 字典表
   static async updateCharacter(characterInfo: CharacterInfo): Promise<boolean> {
-    try {
-      if (!supabase) {
-        console.log('⚠️ Supabase 未配置，無法更新字符:', characterInfo.character)
-        return false
-      }
-
-      const updateData: DictionaryCharacterUpdate = {
-        stroke_count: characterInfo.strokeCount,
-        radical: characterInfo.radical,
-        radical_zhuyin: characterInfo.radicalZhuyin || null,
-        zhuyin: characterInfo.zhuyin,
-        updated_at: new Date().toISOString()
-      }
-
-      const { error } = await supabase
-        .from('dictionary_characters')
-        .update(updateData as any)
-        .eq('character', characterInfo.character)
-
-      if (error) throw error
-      return true
-    } catch (error) {
-      console.error('更新字符失敗:', error)
-      return false
-    }
+    console.log('⚠️ 已停用 Supabase 字典表功能，無法更新字符:', characterInfo.character)
+    console.log('💡 請在本地字典文件中更新字符信息')
+    return false
   }
 
   // 記錄未知字符
@@ -206,12 +116,27 @@ export class DictionaryService {
         return
       }
 
-      await supabase
+      console.log(`🔄 正在標記字符 "${character}" 為已解決...`)
+
+      const { data, error } = await supabase
         .from('unknown_characters')
         .update({ resolved: true } as any)
         .eq('character', character)
+        .select()
+
+      if (error) {
+        console.error(`❌ 標記字符 "${character}" 失敗:`, error)
+        throw error
+      }
+
+      console.log(`✅ 成功標記字符 "${character}" 為已解決，影響行數:`, data?.length || 0)
+
+      if (!data || data.length === 0) {
+        console.warn(`⚠️ 字符 "${character}" 在 Supabase 中未找到或已解決`)
+      }
     } catch (error) {
       console.error('標記未知字符已解決失敗:', error)
+      throw error
     }
   }
 
@@ -236,7 +161,7 @@ export class DictionaryService {
     }
   }
 
-  // 獲取字典統計
+  // 獲取字典統計 - 只統計未知字符，字典統計由本地處理
   static async getDictionaryStats(): Promise<{ totalCharacters: number; charactersWithRadicalZhuyin: number; unknownCount: number }> {
     try {
       if (!supabase) {
@@ -248,98 +173,47 @@ export class DictionaryService {
         }
       }
 
-      const [charactersResult, unknownResult] = await Promise.all([
-        supabase
-          .from('dictionary_characters')
-          .select('radical_zhuyin', { count: 'exact' }),
-        supabase
-          .from('unknown_characters')
-          .select('*', { count: 'exact' })
-          .eq('resolved', false)
-      ])
+      // 只查詢未知字符數量
+      const { count: unknownCount, error } = await supabase
+        .from('unknown_characters')
+        .select('*', { count: 'exact' })
+        .eq('resolved', false)
 
-      // 檢查是否有錯誤
-      if (charactersResult.error) {
-        console.error('字典字符查詢錯誤:', charactersResult.error)
-        throw charactersResult.error
+      if (error) {
+        console.error('未知字符查詢錯誤:', error)
+        throw error
       }
-      if (unknownResult.error) {
-        console.error('未知字符查詢錯誤:', unknownResult.error)
-        throw unknownResult.error
-      }
-
-      const totalCharacters = charactersResult.count || 0
-      const charactersWithRadicalZhuyin = charactersResult.data?.filter((item: any) => item.radical_zhuyin).length || 0
-      const unknownCount = unknownResult.count || 0
 
       return {
-        totalCharacters,
-        charactersWithRadicalZhuyin,
-        unknownCount
+        totalCharacters: 0, // 由本地字典處理
+        charactersWithRadicalZhuyin: 0, // 由本地字典處理
+        unknownCount: unknownCount || 0
       }
     } catch (error) {
-      console.error('獲取字典統計失敗:', error)
+      console.error('獲取未知字符統計失敗:', error)
       // 重新拋出錯誤，讓上層函數可以降級到本地統計
       throw error
     }
   }
 
-  // 匯出字典數據
+  // 匯出字典數據 - 已停用，因為我們不使用 Supabase 字典表
   static async exportDictionary(): Promise<CharacterInfo[]> {
-    return await this.getAllCharacters()
+    console.log('⚠️ 已停用 Supabase 字典表功能，無法匯出')
+    console.log('💡 請直接使用本地字典文件')
+    return []
   }
 
-  // 清空字典表（危險操作！）
+  // 清空字典表 - 已停用，因為我們不使用 Supabase 字典表
   static async clearDictionary(): Promise<boolean> {
-    try {
-      if (!supabase) {
-        console.log('⚠️ Supabase 未配置，無法清空字典')
-        return false
-      }
-
-      const { error } = await supabase
-        .from('dictionary_characters')
-        .delete()
-        .neq('id', '') // 刪除所有記錄
-
-      if (error) throw error
-      console.log('✅ 字典表已清空')
-      return true
-    } catch (error) {
-      console.error('清空字典失敗:', error)
-      return false
-    }
+    console.log('⚠️ 已停用 Supabase 字典表功能，無法清空字典')
+    return false
   }
 
-  // 批量導入字典數據
+  // 批量導入字典數據 - 已停用，因為我們不使用 Supabase 字典表
   static async importDictionary(characters: CharacterInfo[]): Promise<boolean> {
-    try {
-      if (!supabase) {
-        console.log('⚠️ Supabase 未配置，無法導入字典')
-        return false
-      }
-
-      const dbCharacters = characters.map(char => ({
-        character: char.character,
-        stroke_count: char.strokeCount,
-        radical: char.radical,
-        radical_zhuyin: char.radicalZhuyin || null,
-        zhuyin: char.zhuyin
-      }))
-
-      const { error } = await supabase
-        .from('dictionary_characters')
-        .upsert(dbCharacters as any, {
-          onConflict: 'character',
-          ignoreDuplicates: false
-        })
-
-      if (error) throw error
-      return true
-    } catch (error) {
-      console.error('導入字典失敗:', error)
-      return false
-    }
+    console.log('⚠️ 已停用 Supabase 字典表功能，無法導入字典')
+    console.log('💡 請更新本地字典文件')
+    return false
   }
 
   // 數據庫記錄轉換為 CharacterInfo
