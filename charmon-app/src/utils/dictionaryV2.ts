@@ -41,7 +41,7 @@ if (useSupabase) {
 
       // 只檢查未知字符表
       supabase.from('unknown_characters').select('count', { count: 'exact', head: true })
-        .then(({ error, count }: { error: unknown, count: unknown }) => {
+        .then(({ error, count }: { error: object | null, count: number | null }) => {
           if (error) {
             console.error('❌ Supabase 未知字符表連接失敗:', error)
           } else {

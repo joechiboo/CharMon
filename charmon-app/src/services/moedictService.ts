@@ -92,7 +92,7 @@ export class MoedictService {
   /**
    * 轉換萌典 API 資料格式
    */
-  private static mapMoedictData(data: unknown): MoedictResult | null {
+  private static mapMoedictData(data: object): MoedictResult | null {
     if (!data || typeof data !== 'object') {
       console.log('❌ 萌典資料為空')
       return null

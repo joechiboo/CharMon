@@ -150,7 +150,7 @@ const currentCharInfo = ref({
 })
 
 // 所有字符的注音部件緩存
-const zhuyinPartsCache = ref<Map<string, unknown[]>>(new Map())
+const zhuyinPartsCache = ref<Map<string, object[]>>(new Map())
 
 // 取得字符的注音部件（有緩存）
 const getCharZhuyinParts = (char: string) => {

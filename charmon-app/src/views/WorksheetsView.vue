@@ -533,7 +533,7 @@ onMounted(() => {
       pokemonTheme.value = pokemonName
 
       // 遊戲模式：每個文學變化換一行
-      const practiceLines = variations.map((v: { description: string }) => v.description)
+      const practiceLines = variations.map((v: {description: string}) => v.description)
       inputText.value = practiceLines.join('\n')
 
       // 設定遊戲模式專用設定 - 仿照demo.jpg

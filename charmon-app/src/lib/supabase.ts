@@ -24,7 +24,7 @@ console.log('Supabase 配置檢查:', {
 })
 
 // 嘗試創建 supabase 客戶端並測試
-let supabaseClient: SupabaseClient<Database> | null = null
+let supabaseClient: SupabaseClient | null = null
 if (isValidConfig) {
   try {
     supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {

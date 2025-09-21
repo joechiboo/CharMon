@@ -170,10 +170,10 @@ const startQuiz = () => {
   if (!writer) return
   isLooping.value = false
   writer.quiz({
-    onMistake: (strokeData: unknown) => {
+    onMistake: (strokeData: object) => {
       console.log('筆畫錯誤:', strokeData)
     },
-    onCorrectStroke: (strokeData: unknown) => {
+    onCorrectStroke: (strokeData: object) => {
       console.log('筆畫正確:', strokeData)
     },
     onComplete: () => {
