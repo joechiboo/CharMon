@@ -18,9 +18,9 @@ export interface ZhuyinPart {
   text: string
 }
 
-// 本地緩存
-const localCache = new Map<string, CharacterInfo>()
-const unknownCharactersCache = new Set<string>()
+// 未知字符記錄限制
+const MAX_UNKNOWN_CHARS_PER_SESSION = 3
+let unknownCharsRecordedInSession = 0
 
 // 是否使用 Supabase（可以通過環境變量控制）
 const useSupabase = !!(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY)
@@ -32,19 +32,19 @@ console.log('Supabase 配置狀態:', {
   useSupabase
 })
 
-// 測試 Supabase 連接
+// 測試 Supabase 連接 - 僅測試未知字符表
 if (useSupabase) {
   import('@/lib/supabase').then(({ supabase }) => {
     if (supabase) {
       console.log('🔗 測試 Supabase 連接...')
 
-      // 簡單的表格檢查
-      supabase.from('dictionary_characters').select('count', { count: 'exact', head: true })
+      // 只檢查未知字符表
+      supabase.from('unknown_characters').select('count', { count: 'exact', head: true })
         .then(({ error, count }: { error: any, count: any }) => {
           if (error) {
-            console.error('❌ Supabase 連接失敗:', error)
+            console.error('❌ Supabase 未知字符表連接失敗:', error)
           } else {
-            console.log('✅ Supabase 連接成功! 字典表格有', count, '筆記錄')
+            console.log('✅ Supabase 未知字符表連接成功! 有', count, '筆未知字符記錄')
           }
         })
     } else {
@@ -217,7 +217,46 @@ const fallbackDictionary: { [key: string]: CharacterInfo } = {
   '明': { character: '明', strokeCount: 8, radical: '日', radicalZhuyin: 'ㄖˋ', zhuyin: 'ㄇㄧㄥˊ' },
   '家': { character: '家', strokeCount: 10, radical: '宀', radicalZhuyin: 'ㄇㄧㄢˊ', zhuyin: 'ㄐㄧㄚ' },
   '紀': { character: '紀', strokeCount: 9, radical: '糸', radicalZhuyin: 'ㄇㄧˋ', zhuyin: 'ㄐㄧˋ' },
-  '禾': { character: '禾', strokeCount: 5, radical: '禾', radicalZhuyin: 'ㄏㄜˊ', zhuyin: 'ㄏㄜˊ' }
+  '禾': { character: '禾', strokeCount: 5, radical: '禾', radicalZhuyin: 'ㄏㄜˊ', zhuyin: 'ㄏㄜˊ' },
+  '一': { character: '一', strokeCount: 1, radical: '一', radicalZhuyin: 'ㄧ', zhuyin: 'ㄧ' },
+  '上': { character: '上', strokeCount: 3, radical: '一', radicalZhuyin: 'ㄧ', zhuyin: 'ㄕㄤˋ' },
+  '丘': { character: '丘', strokeCount: 5, radical: '一', radicalZhuyin: 'ㄧ', zhuyin: 'ㄑㄧㄡ' },
+  '來': { character: '來', strokeCount: 8, radical: '人', radicalZhuyin: 'ㄖㄣˊ', zhuyin: 'ㄌㄞˊ' },
+  '像': { character: '像', strokeCount: 14, radical: '人', radicalZhuyin: 'ㄖㄣˊ', zhuyin: 'ㄒㄧㄤˋ' },
+  '勇': { character: '勇', strokeCount: 9, radical: '力', radicalZhuyin: 'ㄌㄧˋ', zhuyin: 'ㄩㄥˇ' },
+  '卡': { character: '卡', strokeCount: 5, radical: '卜', radicalZhuyin: 'ㄅㄨˇ', zhuyin: 'ㄎㄚˇ' },
+  '去': { character: '去', strokeCount: 5, radical: '厶', radicalZhuyin: 'ㄙ', zhuyin: 'ㄑㄩˋ' },
+  '噴': { character: '噴', strokeCount: 15, radical: '口', radicalZhuyin: 'ㄎㄡˇ', zhuyin: 'ㄆㄣ' },
+  '在': { character: '在', strokeCount: 6, radical: '土', radicalZhuyin: 'ㄊㄨˇ', zhuyin: 'ㄗㄞˋ' },
+  '地': { character: '地', strokeCount: 6, radical: '土', radicalZhuyin: 'ㄊㄨˇ', zhuyin: 'ㄉㄧˋ' },
+  '太': { character: '太', strokeCount: 4, radical: '大', radicalZhuyin: 'ㄉㄚˋ', zhuyin: 'ㄊㄞˋ' },
+  '山': { character: '山', strokeCount: 3, radical: '山', radicalZhuyin: 'ㄕㄢ', zhuyin: 'ㄕㄢ' },
+  '心': { character: '心', strokeCount: 4, radical: '心', radicalZhuyin: 'ㄒㄧㄣ', zhuyin: 'ㄒㄧㄣ' },
+  '快': { character: '快', strokeCount: 7, radical: '心', radicalZhuyin: 'ㄒㄧㄣ', zhuyin: 'ㄎㄨㄞˋ' },
+  '情': { character: '情', strokeCount: 11, radical: '心', radicalZhuyin: 'ㄒㄧㄣ', zhuyin: 'ㄑㄧㄥˊ' },
+  '敢': { character: '敢', strokeCount: 12, radical: '攴', radicalZhuyin: 'ㄆㄨ', zhuyin: 'ㄍㄢˇ' },
+  '樂': { character: '樂', strokeCount: 15, radical: '木', radicalZhuyin: 'ㄇㄨˋ', zhuyin: 'ㄩㄝˋ' },
+  '樣': { character: '樣', strokeCount: 15, radical: '木', radicalZhuyin: 'ㄇㄨˋ', zhuyin: 'ㄧㄤˋ' },
+  '橘': { character: '橘', strokeCount: 16, radical: '木', radicalZhuyin: 'ㄇㄨˋ', zhuyin: 'ㄐㄩˊ' },
+  '洞': { character: '洞', strokeCount: 9, radical: '水', radicalZhuyin: 'ㄕㄨㄟˇ', zhuyin: 'ㄉㄨㄥˋ' },
+  '活': { character: '活', strokeCount: 9, radical: '水', radicalZhuyin: 'ㄕㄨㄟˇ', zhuyin: 'ㄏㄨㄛˊ' },
+  '潑': { character: '潑', strokeCount: 15, radical: '水', radicalZhuyin: 'ㄕㄨㄟˇ', zhuyin: 'ㄆㄛ' },
+  '火': { character: '火', strokeCount: 4, radical: '火', radicalZhuyin: 'ㄏㄨㄛˇ', zhuyin: 'ㄏㄨㄛˇ' },
+  '熱': { character: '熱', strokeCount: 15, radical: '火', radicalZhuyin: 'ㄏㄨㄛˇ', zhuyin: 'ㄖㄜˋ' },
+  '的': { character: '的', strokeCount: 8, radical: '白', radicalZhuyin: 'ㄅㄞˊ', zhuyin: 'ㄉㄧˋ' },
+  '皮': { character: '皮', strokeCount: 5, radical: '皮', radicalZhuyin: 'ㄆㄧˊ', zhuyin: 'ㄆㄧˊ' },
+  '紅': { character: '紅', strokeCount: 9, radical: '糸', radicalZhuyin: 'ㄇㄧˋ', zhuyin: 'ㄏㄨㄥˊ' },
+  '綠': { character: '綠', strokeCount: 14, radical: '糸', radicalZhuyin: 'ㄇㄧˋ', zhuyin: 'ㄌㄩˋ' },
+  '色': { character: '色', strokeCount: 6, radical: '色', radicalZhuyin: 'ㄙㄜˋ', zhuyin: 'ㄙㄜˋ' },
+  '草': { character: '草', strokeCount: 10, radical: '艸', radicalZhuyin: 'ㄘㄠˇ', zhuyin: 'ㄘㄠˇ' },
+  '藍': { character: '藍', strokeCount: 18, radical: '艸', radicalZhuyin: 'ㄘㄠˇ', zhuyin: 'ㄌㄢˊ' },
+  '裡': { character: '裡', strokeCount: 13, radical: '衣', radicalZhuyin: 'ㄧ', zhuyin: 'ㄌㄧˇ' },
+  '跑': { character: '跑', strokeCount: 12, radical: '足', radicalZhuyin: 'ㄗㄨˊ', zhuyin: 'ㄆㄠˇ' },
+  '金': { character: '金', strokeCount: 8, radical: '金', radicalZhuyin: 'ㄐㄧㄣ', zhuyin: 'ㄐㄧㄣ' },
+  '開': { character: '開', strokeCount: 12, radical: '門', radicalZhuyin: 'ㄇㄣˊ', zhuyin: 'ㄎㄞ' },
+  '陽': { character: '陽', strokeCount: 12, radical: '阜', radicalZhuyin: 'ㄈㄨˋ', zhuyin: 'ㄧㄤˊ' },
+  '黃': { character: '黃', strokeCount: 12, radical: '黃', radicalZhuyin: 'ㄏㄨㄤˊ', zhuyin: 'ㄏㄨㄤˊ' },
+  '龍': { character: '龍', strokeCount: 16, radical: '龍', radicalZhuyin: 'ㄌㄨㄥˊ', zhuyin: 'ㄌㄨㄥˊ' },
 }
 
 // 工具函數
@@ -232,23 +271,26 @@ export async function getCharacterInfo(char: string): Promise<CharacterInfo | nu
       console.log('✅ 使用本地字典檔:', char, localInfo)
       info = localInfo
     } else {
-      // 步驟 2: 不在本地字典檔中，直接記錄到 Supabase 並嘗試萌典 API
+      // 步驟 2: 不在本地字典檔中，檢查限制後記錄到 Supabase 並嘗試萌典 API
       if (char.trim() && /[\u4e00-\u9fff]/.test(char)) {
-        console.log('📝 不在本地字典檔，記錄到 Supabase:', char)
+        console.log('📝 不在本地字典檔，檢查是否需要記錄:', char)
 
-        // 直接寫入 Supabase，不使用本地緩存
-        if (useSupabase) {
-          try {
-            await DictionaryService.recordUnknownCharacter(char)
-            console.log('✅ 已記錄到 Supabase:', char)
-          } catch (error) {
-            console.error('❌ 記錄到 Supabase 失敗，降級使用本地緩存:', error)
-            unknownCharactersCache.add(char)
-          }
+        // 檢查是否已達到會話記錄上限
+        if (unknownCharsRecordedInSession >= MAX_UNKNOWN_CHARS_PER_SESSION) {
+          console.log('⚠️ 已達到會話記錄上限 (', MAX_UNKNOWN_CHARS_PER_SESSION, ')，跳過記錄:', char)
         } else {
-          // 沒有 Supabase 時使用本地緩存
-          unknownCharactersCache.add(char)
-          console.log('📝 已加入本地緩存，當前大小:', unknownCharactersCache.size)
+          // 直接寫入 Supabase
+          if (useSupabase) {
+            try {
+              await DictionaryService.recordUnknownCharacter(char)
+              unknownCharsRecordedInSession++
+              console.log('✅ 已記錄到 Supabase:', char, '(', unknownCharsRecordedInSession, '/', MAX_UNKNOWN_CHARS_PER_SESSION, ')')
+            } catch (error) {
+              console.error('❌ 記錄到 Supabase 失敗:', error)
+            }
+          } else {
+            console.log('⚠️ Supabase 未配置，跳過記錄:', char)
+          }
         }
 
         console.log('🔍 嘗試萌典 API 獲取資料:', char)
@@ -392,22 +434,21 @@ export async function getUnknownCharacters(): Promise<string[]> {
       console.log('📋 從 Supabase 獲取未知字符列表:', result, '總數:', result.length)
       return result
     } catch (error) {
-      console.error('從 Supabase 獲取未知字符失敗，使用本地緩存:', error)
+      console.error('從 Supabase 獲取未知字符失敗:', error)
+      return []
     }
   }
 
-  // 降級使用本地緩存
-  const result = Array.from(unknownCharactersCache).sort()
-  console.log('📋 使用本地緩存未知字符列表:', result, '總數:', result.length)
-  return result
+  console.log('📋 Supabase 未配置，返回空列表')
+  return []
 }
 
 export async function clearUnknownCharacters(): Promise<boolean> {
   if (useSupabase) {
     return await DictionaryService.clearUnknownCharacters()
   } else {
-    unknownCharactersCache.clear()
-    return true
+    console.log('⚠️ Supabase 未配置，無法清空未知字符')
+    return false
   }
 }
 
@@ -420,14 +461,14 @@ export async function getDictionaryStats(): Promise<{ totalCharacters: number; c
   const charactersWithRadicalZhuyin = localCharacters.filter(char => char.radicalZhuyin).length
 
   // 從 Supabase 獲取未知字符數量（如果可用）
-  let unknownCount = unknownCharactersCache.size
+  let unknownCount = 0
   if (useSupabase) {
     try {
       const unknownChars = await DictionaryService.getUnknownCharacters()
       unknownCount = unknownChars.length
       console.log('📊 Supabase 未知字符數量:', unknownCount)
     } catch (error) {
-      console.error('獲取 Supabase 未知字符失敗，使用本地緩存:', error)
+      console.error('獲取 Supabase 未知字符失敗:', error)
     }
   }
 
@@ -455,9 +496,6 @@ export async function addCharacter(characterInfo: CharacterInfo): Promise<boolea
     } catch (error) {
       console.error('標記 Supabase 未知字符失敗:', error)
     }
-  } else {
-    // 沒有 Supabase 時才操作本地緩存
-    unknownCharactersCache.delete(characterInfo.character)
   }
 
   console.log('✅ 字符已新增到本地字典:', characterInfo.character)
@@ -487,4 +525,19 @@ export function isSupabaseEnabled(): boolean {
 export function clearCache(): void {
   localCache.clear()
   console.log('🧹 已清除本地緩存')
+}
+
+// 重置會話未知字符記錄計數器
+export function resetSessionUnknownCounter(): void {
+  unknownCharsRecordedInSession = 0
+  console.log('🔄 已重置會話未知字符計數器')
+}
+
+// 獲取當前會話狀態
+export function getSessionStatus(): { recorded: number; max: number; remaining: number } {
+  return {
+    recorded: unknownCharsRecordedInSession,
+    max: MAX_UNKNOWN_CHARS_PER_SESSION,
+    remaining: MAX_UNKNOWN_CHARS_PER_SESSION - unknownCharsRecordedInSession
+  }
 }
