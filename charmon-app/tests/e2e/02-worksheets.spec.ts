@@ -1,33 +1,74 @@
 import { test, expect } from '@playwright/test'
 
+// 輔助函數：模擬用戶登入
+async function loginAsTestUser(page) {
+  // 正確的 URL 應該包含 base path
+  await page.goto('http://localhost:5178/CharMon/login')
+  await page.waitForLoadState('domcontentloaded')
+
+  // 等待登入表單出現
+  await page.waitForSelector('#name', { timeout: 5000 })
+
+  // 填寫表單
+  await page.fill('#name', '測試用戶')
+
+  // 點擊幼稚園按鈕
+  await page.locator('.grade-btn').filter({ hasText: '幼稚園' }).click()
+
+  // 點擊登入按鈕
+  await page.click('button:has-text("開始學習！")')
+
+  // 等待重定向到 dashboard
+  await page.waitForURL('**/CharMon/dashboard', { timeout: 10000 })
+}
+
 test.describe('練習表生成器測試', () => {
   test.beforeEach(async ({ page }) => {
-    // 先模擬登入流程，因為 worksheets 需要認證
-    await page.goto('/login')
+    // 先登入
+    await loginAsTestUser(page)
 
-    // 等待頁面載入
-    await page.waitForLoadState('domcontentloaded')
+    // 確認我們在 dashboard 頁面，等待歡迎訊息出現
+    await page.waitForSelector('h2:has-text("你好"), h1:has-text("你好")', { timeout: 5000 })
 
-    // 檢查是否有登入表單，如果有就填入測試資料
-    const nameInput = page.locator('#name')
-    if (await nameInput.isVisible({ timeout: 3000 })) {
-      await nameInput.fill('測試用戶')
+    // 透過側邊欄導航到 worksheets 頁面以保持認證狀態
+    const worksheetsNavLink = page.locator('.sidebar a[href*="worksheets"], nav a[href*="worksheets"]')
 
-      // 選擇年級（幼稚園）
-      const gradeBtn = page.locator('.grade-btn').filter({ hasText: '幼稚園' })
-      await gradeBtn.click()
-
-      // 點擊開始學習按鈕
-      const loginBtn = page.locator('button:has-text("開始學習")')
-      await loginBtn.click()
-
-      // 等待導航完成
-      await page.waitForLoadState('networkidle')
+    if (await worksheetsNavLink.isVisible({ timeout: 2000 })) {
+      await worksheetsNavLink.click()
+    } else {
+      // 如果側邊欄沒有連結，嘗試點擊練習表格卡片
+      const worksheetsCard = page.locator('text=練習表格').first()
+      if (await worksheetsCard.isVisible({ timeout: 2000 })) {
+        await worksheetsCard.click()
+      } else {
+        // 最後選項：直接導航
+        await page.waitForTimeout(1000)
+        await page.goto('http://localhost:5178/CharMon/worksheets')
+      }
     }
 
-    // 直接導航到 worksheets 頁面
-    await page.goto('/worksheets')
     await page.waitForLoadState('domcontentloaded')
+
+    // 等待頁面完全載入，如果還是被重定向，我們需要重新檢查
+    try {
+      await page.waitForSelector('h1', { timeout: 5000 })
+
+      // 檢查我們是否在正確的頁面
+      const currentUrl = page.url()
+      const h1Text = await page.locator('h1').first().textContent()
+
+      if (currentUrl.includes('/login') || h1Text?.includes('字樂園')) {
+        // 如果被重定向回登入頁面，說明認證失效了
+        throw new Error('認證狀態失效，被重定向到登入頁面')
+      }
+    } catch (error) {
+      // 如果出現問題，再次嘗試登入
+      console.log('重新嘗試登入...')
+      await loginAsTestUser(page)
+      await page.goto('http://localhost:5178/CharMon/worksheets')
+      await page.waitForLoadState('domcontentloaded')
+      await page.waitForSelector('h1', { timeout: 10000 })
+    }
   })
 
   test('基本練習表生成功能', async ({ page }) => {
@@ -102,8 +143,13 @@ test.describe('練習表生成器測試', () => {
       ])
     }
 
-    const url = `/worksheets?pokemonTheme=${encodeURIComponent(pokemonParams.pokemonTheme)}&variations=${encodeURIComponent(pokemonParams.variations)}`
+    // 使用完整 URL 包含 base path
+    const url = `http://localhost:5178/CharMon/worksheets?pokemonTheme=${encodeURIComponent(pokemonParams.pokemonTheme)}&variations=${encodeURIComponent(pokemonParams.variations)}`
     await page.goto(url)
+    await page.waitForLoadState('domcontentloaded')
+
+    // 等待頁面載入，並檢查是否進入遊戲模式
+    await page.waitForSelector('h1', { timeout: 10000 })
 
     // 檢查是否進入遊戲模式
     await expect(page.locator('h1')).toContainText('皮卡丘 文學練習表')
