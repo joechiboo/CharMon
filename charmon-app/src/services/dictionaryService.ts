@@ -269,7 +269,7 @@ export class DictionaryService {
       }
 
       const totalCharacters = charactersResult.count || 0
-      const charactersWithRadicalZhuyin = charactersResult.data?.filter(item => item.radical_zhuyin).length || 0
+      const charactersWithRadicalZhuyin = charactersResult.data?.filter((item: any) => item.radical_zhuyin).length || 0
       const unknownCount = unknownResult.count || 0
 
       return {

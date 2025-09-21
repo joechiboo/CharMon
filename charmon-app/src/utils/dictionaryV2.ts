@@ -40,7 +40,7 @@ if (useSupabase) {
 
       // 簡單的表格檢查
       supabase.from('dictionary_characters').select('count', { count: 'exact', head: true })
-        .then(({ error, count }) => {
+        .then(({ error, count }: { error: any, count: any }) => {
           if (error) {
             console.error('❌ Supabase 連接失敗:', error)
           } else {
