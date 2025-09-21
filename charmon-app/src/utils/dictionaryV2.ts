@@ -523,7 +523,7 @@ export function isSupabaseEnabled(): boolean {
 
 // 清除本地緩存
 export function clearCache(): void {
-  localCache.clear()
+  // 目前沒有實現本地緩存，預留接口
   console.log('🧹 已清除本地緩存')
 }
 
