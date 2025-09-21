@@ -23,11 +23,25 @@ console.log('Supabase 配置檢查:', {
   }
 })
 
-export const supabase = isValidConfig ? createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    persistSession: false, // 我們不需要用戶認證會話
+// 嘗試創建 supabase 客戶端並測試
+let supabaseClient: any = null
+if (isValidConfig) {
+  try {
+    supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        persistSession: false, // 我們不需要用戶認證會話
+      }
+    })
+    console.log('✅ Supabase 客戶端創建成功')
+  } catch (error) {
+    console.error('❌ Supabase 客戶端創建失敗:', error)
+    supabaseClient = null
   }
-}) : null
+} else {
+  console.log('⚠️ Supabase 配置無效，跳過客戶端創建')
+}
+
+export const supabase = supabaseClient
 
 // 數據庫類型定義
 export interface Database {

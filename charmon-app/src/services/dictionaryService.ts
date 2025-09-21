@@ -173,13 +173,24 @@ export class DictionaryService {
         return []
       }
 
+      console.log('🔍 開始查詢 unknown_characters 表...')
       const { data, error } = await supabase
         .from('unknown_characters')
         .select('*')
         .eq('resolved', false)
         .order('occurrence_count', { ascending: false })
 
-      if (error) throw error
+      if (error) {
+        console.error('❌ Supabase 查詢錯誤:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        })
+        throw error
+      }
+
+      console.log('✅ Supabase 查詢成功，返回數據:', data?.length, '筆')
       return data || []
     } catch (error) {
       console.error('獲取未知字符失敗:', error)
