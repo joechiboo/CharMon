@@ -1,0 +1,56 @@
+{
+  "pokemonName": "ConcurrentTest3",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "閃亮的黑色Concur…",
+      "characterCount": 12,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "聰明伶俐又友善",
+      "characterCount": 7,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "在美麗的公園裡",
+      "characterCount": 7,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "開心地跳躍",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "好比小鳥一樣優雅",
+      "characterCount": 8,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 39,
+  "ageGroup": "kindergarten",
+  "generatedAt": "2025-09-21T23:55:04.032Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "閃亮的黑色Concur…"
+    },
+    {
+      "description": "聰明伶俐又友善"
+    },
+    {
+      "description": "在美麗的公園裡"
+    },
+    {
+      "description": "開心地跳躍"
+    },
+    {
+      "description": "好比小鳥一樣優雅"
+    }
+  ]
+}

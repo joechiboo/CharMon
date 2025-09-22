@@ -1,0 +1,56 @@
+{
+  "pokemonName": "ConcurrentTest1",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "閃亮的橙色Concur…",
+      "characterCount": 12,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "溫柔善良的小夥伴",
+      "characterCount": 8,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "在森林裡玩耍",
+      "characterCount": 6,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "愉快地玩耍",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "就像彩虹那麼可愛",
+      "characterCount": 8,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 39,
+  "ageGroup": "kindergarten",
+  "generatedAt": "2025-09-21T14:30:58.281Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "閃亮的橙色Concur…"
+    },
+    {
+      "description": "溫柔善良的小夥伴"
+    },
+    {
+      "description": "在森林裡玩耍"
+    },
+    {
+      "description": "愉快地玩耍"
+    },
+    {
+      "description": "就像彩虹那麼可愛"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "pokemonName": "ConcurrentTest0",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "白色的Concurre…",
+      "characterCount": 12,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "溫柔善良的小夥伴",
+      "characterCount": 8,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "生活在海邊",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "自由自在地探險",
+      "characterCount": 7,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "好比星星一樣閃亮",
+      "characterCount": 8,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 40,
+  "ageGroup": "kindergarten",
+  "generatedAt": "2025-09-21T23:54:22.989Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "白色的Concurre…"
+    },
+    {
+      "description": "溫柔善良的小夥伴"
+    },
+    {
+      "description": "生活在海邊"
+    },
+    {
+      "description": "自由自在地探險"
+    },
+    {
+      "description": "好比星星一樣閃亮"
+    }
+  ]
+}

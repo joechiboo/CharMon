@@ -1,0 +1,56 @@
+{
+  "pokemonName": "ConcurrentTest1",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "可愛的綠色小Concu…",
+      "characterCount": 12,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "活潑可愛的ConcurrentTe…",
+      "characterCount": 18,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "在美麗的森林裡",
+      "characterCount": 7,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "自由自在地舞蹈",
+      "characterCount": 7,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "像寶石一樣珍貴",
+      "characterCount": 7,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 51,
+  "ageGroup": "kindergarten",
+  "generatedAt": "2025-09-21T23:54:22.988Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "可愛的綠色小Concu…"
+    },
+    {
+      "description": "活潑可愛的ConcurrentTe…"
+    },
+    {
+      "description": "在美麗的森林裡"
+    },
+    {
+      "description": "自由自在地舞蹈"
+    },
+    {
+      "description": "像寶石一樣珍貴"
+    }
+  ]
+}

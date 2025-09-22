@@ -1,0 +1,56 @@
+{
+  "pokemonName": "ConcurrentTest4",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "溫暖的橙色Concur…",
+      "characterCount": 12,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "充滿活力的ConcurrentTe…",
+      "characterCount": 18,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "在草原裡玩耍",
+      "characterCount": 6,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "自由自在地探險",
+      "characterCount": 7,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "像星星一樣珍貴",
+      "characterCount": 7,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 50,
+  "ageGroup": "kindergarten",
+  "generatedAt": "2025-09-21T14:33:05.992Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "溫暖的橙色Concur…"
+    },
+    {
+      "description": "充滿活力的ConcurrentTe…"
+    },
+    {
+      "description": "在草原裡玩耍"
+    },
+    {
+      "description": "自由自在地探險"
+    },
+    {
+      "description": "像星星一樣珍貴"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "pokemonName": "小火龍",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "閃亮的溫暖橙小火龍",
+      "characterCount": 9,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "溫柔善良的小夥伴",
+      "characterCount": 8,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "在海邊裡玩耍",
+      "characterCount": 6,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "開心地飛行",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "好比勇士一樣強大",
+      "characterCount": 8,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 36,
+  "ageGroup": "elementary-low",
+  "generatedAt": "2025-09-21T14:33:01.748Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "閃亮的溫暖橙小火龍"
+    },
+    {
+      "description": "溫柔善良的小夥伴"
+    },
+    {
+      "description": "在海邊裡玩耍"
+    },
+    {
+      "description": "開心地飛行"
+    },
+    {
+      "description": "好比勇士一樣強大"
+    }
+  ]
+}

@@ -1,146 +1,20 @@
 [
   {
-    "id": "1b140d85-4da5-40a1-80ed-2702197e4745",
+    "id": "bcea9a5f-26f6-4d89-b6b1-11da9f1d6aff",
     "pokemonName": "ConcurrentTest4",
     "theme": {
       "pokemonName": "ConcurrentTest4",
       "elements": [
         {
           "type": "顏色",
-          "content": "綠色的Concurre…",
+          "content": "白色的Concurre…",
           "characterCount": 12,
           "ageAppropriate": true
         },
         {
           "type": "形容",
-          "content": "機靈活潑的ConcurrentTe…",
+          "content": "活潑可愛的ConcurrentTe…",
           "characterCount": 18,
-          "ageAppropriate": true
-        },
-        {
-          "type": "地點",
-          "content": "在海邊裡玩耍",
-          "characterCount": 6,
-          "ageAppropriate": true
-        },
-        {
-          "type": "動態",
-          "content": "開心地探險",
-          "characterCount": 5,
-          "ageAppropriate": true
-        },
-        {
-          "type": "修辭",
-          "content": "好比小鳥一樣優雅",
-          "characterCount": 8,
-          "ageAppropriate": true
-        }
-      ],
-      "totalCharacterCount": 49,
-      "ageGroup": "kindergarten",
-      "generatedAt": "2025-09-21T11:51:37.225Z",
-      "generationType": "template",
-      "variations": [
-        {
-          "description": "綠色的Concurre…"
-        },
-        {
-          "description": "機靈活潑的ConcurrentTe…"
-        },
-        {
-          "description": "在海邊裡玩耍"
-        },
-        {
-          "description": "開心地探險"
-        },
-        {
-          "description": "好比小鳥一樣優雅"
-        }
-      ]
-    },
-    "filePath": "ConcurrentTest4-20250921-g18.json",
-    "createdAt": "2025-09-21T11:51:37.227Z",
-    "updatedAt": "2025-09-21T11:51:37.227Z"
-  },
-  {
-    "id": "aae641ee-879a-44ca-ae28-470d5d52fa6a",
-    "pokemonName": "Pikachu",
-    "theme": {
-      "pokemonName": "Pikachu",
-      "elements": [
-        {
-          "type": "顏色",
-          "content": "閃亮的橙色Pikachu",
-          "characterCount": 12,
-          "ageAppropriate": true
-        },
-        {
-          "type": "形容",
-          "content": "機靈活潑的Pikachu",
-          "characterCount": 12,
-          "ageAppropriate": true
-        },
-        {
-          "type": "地點",
-          "content": "在美麗的森林裡",
-          "characterCount": 7,
-          "ageAppropriate": true
-        },
-        {
-          "type": "動態",
-          "content": "輕鬆地探險",
-          "characterCount": 5,
-          "ageAppropriate": true
-        },
-        {
-          "type": "修辭",
-          "content": "像花朵一樣閃亮",
-          "characterCount": 7,
-          "ageAppropriate": true
-        }
-      ],
-      "totalCharacterCount": 43,
-      "ageGroup": "kindergarten",
-      "generatedAt": "2025-09-21T11:55:50.515Z",
-      "generationType": "template",
-      "variations": [
-        {
-          "description": "閃亮的橙色Pikachu"
-        },
-        {
-          "description": "機靈活潑的Pikachu"
-        },
-        {
-          "description": "在美麗的森林裡"
-        },
-        {
-          "description": "輕鬆地探險"
-        },
-        {
-          "description": "像花朵一樣閃亮"
-        }
-      ]
-    },
-    "filePath": "Pikachu-20250921-fqb.json",
-    "createdAt": "2025-09-21T11:55:50.515Z",
-    "updatedAt": "2025-09-21T11:55:50.515Z"
-  },
-  {
-    "id": "d986bbf2-909c-4d6e-b07d-4d6cf2c129a7",
-    "pokemonName": "Charizard",
-    "theme": {
-      "pokemonName": "Charizard",
-      "elements": [
-        {
-          "type": "顏色",
-          "content": "閃亮的金黃色Charizard",
-          "characterCount": 15,
-          "ageAppropriate": true
-        },
-        {
-          "type": "形容",
-          "content": "活潑可愛的Charizard",
-          "characterCount": 14,
           "ageAppropriate": true
         },
         {
@@ -151,167 +25,41 @@
         },
         {
           "type": "動態",
-          "content": "愉快地探險",
+          "content": "快樂地歌唱",
           "characterCount": 5,
           "ageAppropriate": true
         },
         {
           "type": "修辭",
-          "content": "如同小鳥般珍貴",
+          "content": "像星星一樣珍貴",
           "characterCount": 7,
           "ageAppropriate": true
         }
       ],
-      "totalCharacterCount": 48,
-      "ageGroup": "elementary-low",
-      "generatedAt": "2025-09-21T11:56:10.817Z",
+      "totalCharacterCount": 49,
+      "ageGroup": "kindergarten",
+      "generatedAt": "2025-09-21T23:55:04.032Z",
       "generationType": "template",
       "variations": [
         {
-          "description": "閃亮的金黃色Charizard"
+          "description": "白色的Concurre…"
         },
         {
-          "description": "活潑可愛的Charizard"
+          "description": "活潑可愛的ConcurrentTe…"
         },
         {
           "description": "在美麗的草原裡"
         },
         {
-          "description": "愉快地探險"
+          "description": "快樂地歌唱"
         },
         {
-          "description": "如同小鳥般珍貴"
+          "description": "像星星一樣珍貴"
         }
       ]
     },
-    "filePath": "Charizard-20250921-9j1.json",
-    "createdAt": "2025-09-21T11:56:10.817Z",
-    "updatedAt": "2025-09-21T11:56:10.817Z"
-  },
-  {
-    "id": "406b2576-5418-44df-bed6-982d6789cc7c",
-    "pokemonName": "Pikachu",
-    "theme": {
-      "pokemonName": "Pikachu",
-      "elements": [
-        {
-          "type": "顏色",
-          "content": "金黃色的Pikachu",
-          "characterCount": 11,
-          "ageAppropriate": true
-        },
-        {
-          "type": "形容",
-          "content": "友善可愛又機靈",
-          "characterCount": 7,
-          "ageAppropriate": true
-        },
-        {
-          "type": "地點",
-          "content": "在美麗的海邊裡",
-          "characterCount": 7,
-          "ageAppropriate": true
-        },
-        {
-          "type": "動態",
-          "content": "自由自在地游泳",
-          "characterCount": 7,
-          "ageAppropriate": true
-        },
-        {
-          "type": "修辭",
-          "content": "好比小鳥一樣閃亮",
-          "characterCount": 8,
-          "ageAppropriate": true
-        }
-      ],
-      "totalCharacterCount": 40,
-      "ageGroup": "kindergarten",
-      "generatedAt": "2025-09-21T12:16:18.682Z",
-      "generationType": "template",
-      "variations": [
-        {
-          "description": "金黃色的Pikachu"
-        },
-        {
-          "description": "友善可愛又機靈"
-        },
-        {
-          "description": "在美麗的海邊裡"
-        },
-        {
-          "description": "自由自在地游泳"
-        },
-        {
-          "description": "好比小鳥一樣閃亮"
-        }
-      ]
-    },
-    "filePath": "Pikachu-20250921-4fq.json",
-    "createdAt": "2025-09-21T12:16:18.682Z",
-    "updatedAt": "2025-09-21T12:16:18.682Z"
-  },
-  {
-    "id": "85b7514c-8c31-435b-bcca-fe9f2cb75938",
-    "pokemonName": "Charmander",
-    "theme": {
-      "pokemonName": "Charmander",
-      "elements": [
-        {
-          "type": "顏色",
-          "content": "白色的Charmand…",
-          "characterCount": 12,
-          "ageAppropriate": true
-        },
-        {
-          "type": "形容",
-          "content": "聰明伶俐又友善",
-          "characterCount": 7,
-          "ageAppropriate": true
-        },
-        {
-          "type": "地點",
-          "content": "在公園裡玩耍",
-          "characterCount": 6,
-          "ageAppropriate": true
-        },
-        {
-          "type": "動態",
-          "content": "自由自在地舞蹈",
-          "characterCount": 7,
-          "ageAppropriate": true
-        },
-        {
-          "type": "修辭",
-          "content": "宛如花朵",
-          "characterCount": 4,
-          "ageAppropriate": true
-        }
-      ],
-      "totalCharacterCount": 36,
-      "ageGroup": "kindergarten",
-      "generatedAt": "2025-09-21T12:17:27.236Z",
-      "generationType": "template",
-      "variations": [
-        {
-          "description": "白色的Charmand…"
-        },
-        {
-          "description": "聰明伶俐又友善"
-        },
-        {
-          "description": "在公園裡玩耍"
-        },
-        {
-          "description": "自由自在地舞蹈"
-        },
-        {
-          "description": "宛如花朵"
-        }
-      ]
-    },
-    "filePath": "Charmander-20250921-g5o.json",
-    "createdAt": "2025-09-21T12:17:27.236Z",
-    "updatedAt": "2025-09-21T12:17:27.236Z"
+    "filePath": "ConcurrentTest4-20250921-ctb.json",
+    "createdAt": "2025-09-21T23:55:04.033Z",
+    "updatedAt": "2025-09-21T23:55:04.033Z"
   }
 ]

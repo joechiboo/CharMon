@@ -1,0 +1,56 @@
+{
+  "pokemonName": "TestPokemon",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "可愛的粉紅色小Test…",
+      "characterCount": 12,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "聰明伶俐又機靈",
+      "characterCount": 7,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "快樂地住在山谷",
+      "characterCount": 7,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "輕鬆地歌唱",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "好比小鳥一樣閃亮",
+      "characterCount": 8,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 39,
+  "ageGroup": "kindergarten",
+  "generatedAt": "2025-09-21T23:55:00.297Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "可愛的粉紅色小Test…"
+    },
+    {
+      "description": "聰明伶俐又機靈"
+    },
+    {
+      "description": "快樂地住在山谷"
+    },
+    {
+      "description": "輕鬆地歌唱"
+    },
+    {
+      "description": "好比小鳥一樣閃亮"
+    }
+  ]
+}

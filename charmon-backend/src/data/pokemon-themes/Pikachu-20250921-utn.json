@@ -1,0 +1,56 @@
+{
+  "pokemonName": "Pikachu",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "閃亮的白色Pikachu",
+      "characterCount": 12,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "活潑可愛的Pikachu",
+      "characterCount": 12,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "在花園裡玩耍",
+      "characterCount": 6,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "愉快地游泳",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "如同寶石般優雅",
+      "characterCount": 7,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 42,
+  "ageGroup": "kindergarten",
+  "generatedAt": "2025-09-21T23:55:00.176Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "閃亮的白色Pikachu"
+    },
+    {
+      "description": "活潑可愛的Pikachu"
+    },
+    {
+      "description": "在花園裡玩耍"
+    },
+    {
+      "description": "愉快地游泳"
+    },
+    {
+      "description": "如同寶石般優雅"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "pokemonName": "Pikachu",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "紅色的Pikachu",
+      "characterCount": 10,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "充滿活力的Pikachu",
+      "characterCount": 12,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "生活在森林",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "愉快地飛翔",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "宛如彩虹",
+      "characterCount": 4,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 36,
+  "ageGroup": "kindergarten",
+  "generatedAt": "2025-09-21T23:54:20.139Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "紅色的Pikachu"
+    },
+    {
+      "description": "充滿活力的Pikachu"
+    },
+    {
+      "description": "生活在森林"
+    },
+    {
+      "description": "愉快地飛翔"
+    },
+    {
+      "description": "宛如彩虹"
+    }
+  ]
+}

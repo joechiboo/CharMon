@@ -1,0 +1,56 @@
+{
+  "pokemonName": "ConcurrentTest2",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "溫暖的銀色Concur…",
+      "characterCount": 12,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "活潑可愛的ConcurrentTe…",
+      "characterCount": 18,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "在小屋裡玩耍",
+      "characterCount": 6,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "愉快地跳躍",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "宛如寶石",
+      "characterCount": 4,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 45,
+  "ageGroup": "kindergarten",
+  "generatedAt": "2025-09-21T23:54:22.989Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "溫暖的銀色Concur…"
+    },
+    {
+      "description": "活潑可愛的ConcurrentTe…"
+    },
+    {
+      "description": "在小屋裡玩耍"
+    },
+    {
+      "description": "愉快地跳躍"
+    },
+    {
+      "description": "宛如寶石"
+    }
+  ]
+}

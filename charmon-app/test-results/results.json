@@ -53,70 +53,6 @@
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
         "timeout": 30000
-      },
-      {
-        "outputDir": "C:/Personal/Project/CharMon/charmon-app/test-results",
-        "repeatEach": 1,
-        "retries": 0,
-        "metadata": {
-          "actualWorkers": 12
-        },
-        "id": "firefox",
-        "name": "firefox",
-        "testDir": "C:/Personal/Project/CharMon/charmon-app/tests/e2e",
-        "testIgnore": [],
-        "testMatch": [
-          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
-        ],
-        "timeout": 30000
-      },
-      {
-        "outputDir": "C:/Personal/Project/CharMon/charmon-app/test-results",
-        "repeatEach": 1,
-        "retries": 0,
-        "metadata": {
-          "actualWorkers": 12
-        },
-        "id": "webkit",
-        "name": "webkit",
-        "testDir": "C:/Personal/Project/CharMon/charmon-app/tests/e2e",
-        "testIgnore": [],
-        "testMatch": [
-          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
-        ],
-        "timeout": 30000
-      },
-      {
-        "outputDir": "C:/Personal/Project/CharMon/charmon-app/test-results",
-        "repeatEach": 1,
-        "retries": 0,
-        "metadata": {
-          "actualWorkers": 12
-        },
-        "id": "Mobile Chrome",
-        "name": "Mobile Chrome",
-        "testDir": "C:/Personal/Project/CharMon/charmon-app/tests/e2e",
-        "testIgnore": [],
-        "testMatch": [
-          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
-        ],
-        "timeout": 30000
-      },
-      {
-        "outputDir": "C:/Personal/Project/CharMon/charmon-app/test-results",
-        "repeatEach": 1,
-        "retries": 0,
-        "metadata": {
-          "actualWorkers": 12
-        },
-        "id": "Mobile Safari",
-        "name": "Mobile Safari",
-        "testDir": "C:/Personal/Project/CharMon/charmon-app/tests/e2e",
-        "testIgnore": [],
-        "testMatch": [
-          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
-        ],
-        "timeout": 30000
       }
     ],
     "shard": null,
@@ -142,7 +78,7 @@
           "specs": [
             {
               "title": "首頁載入正常",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -155,24 +91,53 @@
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 3026,
-                      "errors": [],
+                      "status": "failed",
+                      "duration": 4303,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/\", waiting until \"load\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\01-navigation.spec.ts:5:16",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\01-navigation.spec.ts",
+                          "column": 16,
+                          "line": 5
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 3 |\u001b[39m test\u001b[33m.\u001b[39mdescribe(\u001b[32m'應用導航測試'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\n \u001b[90m 4 |\u001b[39m   test(\u001b[32m'首頁載入正常'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 5 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\n \u001b[90m   |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 6 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page)\u001b[33m.\u001b[39mtoHaveTitle(\u001b[35m/字樂園|CharMon/\u001b[39m)\n \u001b[90m 7 |\u001b[39m\n \u001b[90m 8 |\u001b[39m     \u001b[90m// 檢查首頁主要元素（未登入狀態）\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\01-navigation.spec.ts",
+                            "column": 16,
+                            "line": 5
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 3 |\u001b[39m test\u001b[33m.\u001b[39mdescribe(\u001b[32m'應用導航測試'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\n \u001b[90m 4 |\u001b[39m   test(\u001b[32m'首頁載入正常'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 5 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\n \u001b[90m   |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 6 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page)\u001b[33m.\u001b[39mtoHaveTitle(\u001b[35m/字樂園|CharMon/\u001b[39m)\n \u001b[90m 7 |\u001b[39m\n \u001b[90m 8 |\u001b[39m     \u001b[90m// 檢查首頁主要元素（未登入狀態）\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\01-navigation.spec.ts:5:16\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:30.245Z",
+                      "startTime": "2025-09-22T00:04:58.933Z",
                       "annotations": [],
                       "attachments": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\01-navigation-應用導航測試-首頁載入正常-chromium\\trace.zip"
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\01-navigation-應用導航測試-首頁載入正常-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\01-navigation-應用導航測試-首頁載入正常-chromium\\video.webm"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\01-navigation.spec.ts",
+                        "column": 16,
+                        "line": 5
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "957431cae479accf8a10-d4c5bb8e9557bc6ef21d",
@@ -182,7 +147,7 @@
             },
             {
               "title": "主選單導航功能",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -195,24 +160,53 @@
                     {
                       "workerIndex": 1,
                       "parallelIndex": 1,
-                      "status": "passed",
-                      "duration": 1602,
-                      "errors": [],
+                      "status": "failed",
+                      "duration": 4384,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/\", waiting until \"load\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\01-navigation.spec.ts:15:16",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\01-navigation.spec.ts",
+                          "column": 16,
+                          "line": 15
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 13 |\u001b[39m\n \u001b[90m 14 |\u001b[39m   test(\u001b[32m'主選單導航功能'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 15 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 16 |\u001b[39m\n \u001b[90m 17 |\u001b[39m     \u001b[90m// 檢查主要頁面連結\u001b[39m\n \u001b[90m 18 |\u001b[39m     \u001b[36mconst\u001b[39m dashboardLink \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'a[href=\"/dashboard\"]'\u001b[39m)\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\01-navigation.spec.ts",
+                            "column": 16,
+                            "line": 15
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 13 |\u001b[39m\n \u001b[90m 14 |\u001b[39m   test(\u001b[32m'主選單導航功能'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 15 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 16 |\u001b[39m\n \u001b[90m 17 |\u001b[39m     \u001b[90m// 檢查主要頁面連結\u001b[39m\n \u001b[90m 18 |\u001b[39m     \u001b[36mconst\u001b[39m dashboardLink \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'a[href=\"/dashboard\"]'\u001b[39m)\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\01-navigation.spec.ts:15:16\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:30.353Z",
+                      "startTime": "2025-09-22T00:04:58.962Z",
                       "annotations": [],
                       "attachments": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\01-navigation-應用導航測試-主選單導航功能-chromium\\trace.zip"
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\01-navigation-應用導航測試-主選單導航功能-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\01-navigation-應用導航測試-主選單導航功能-chromium\\video.webm"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\01-navigation.spec.ts",
+                        "column": 16,
+                        "line": 15
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "957431cae479accf8a10-fd7bc0c4e63432cfb8e9",
@@ -222,7 +216,7 @@
             },
             {
               "title": "響應式設計測試",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -235,24 +229,53 @@
                     {
                       "workerIndex": 2,
                       "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 1968,
-                      "errors": [],
+                      "status": "failed",
+                      "duration": 8052,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/\", waiting until \"load\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\01-navigation.spec.ts:36:16",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\01-navigation.spec.ts",
+                          "column": 16,
+                          "line": 36
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 34 |\u001b[39m     \u001b[90m// 桌面版本\u001b[39m\n \u001b[90m 35 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39msetViewportSize({ width\u001b[33m:\u001b[39m \u001b[35m1200\u001b[39m\u001b[33m,\u001b[39m height\u001b[33m:\u001b[39m \u001b[35m800\u001b[39m })\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 36 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 37 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.hero'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m 38 |\u001b[39m\n \u001b[90m 39 |\u001b[39m     \u001b[90m// 平板版本\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\01-navigation.spec.ts",
+                            "column": 16,
+                            "line": 36
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 34 |\u001b[39m     \u001b[90m// 桌面版本\u001b[39m\n \u001b[90m 35 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39msetViewportSize({ width\u001b[33m:\u001b[39m \u001b[35m1200\u001b[39m\u001b[33m,\u001b[39m height\u001b[33m:\u001b[39m \u001b[35m800\u001b[39m })\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 36 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 37 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.hero'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m 38 |\u001b[39m\n \u001b[90m 39 |\u001b[39m     \u001b[90m// 平板版本\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\01-navigation.spec.ts:36:16\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:30.249Z",
+                      "startTime": "2025-09-22T00:04:58.910Z",
                       "annotations": [],
                       "attachments": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\01-navigation-應用導航測試-響應式設計測試-chromium\\trace.zip"
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\01-navigation-應用導航測試-響應式設計測試-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\01-navigation-應用導航測試-響應式設計測試-chromium\\video.webm"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\01-navigation.spec.ts",
+                        "column": 16,
+                        "line": 36
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "957431cae479accf8a10-8dde2b5080c89b6dab6b",
@@ -274,7 +297,7 @@
         {
           "title": "練習表生成器測試",
           "file": "02-worksheets.spec.ts",
-          "line": 3,
+          "line": 25,
           "column": 6,
           "specs": [
             {
@@ -293,31 +316,31 @@
                       "workerIndex": 3,
                       "parallelIndex": 3,
                       "status": "failed",
-                      "duration": 7248,
+                      "duration": 3930,
                       "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"練習表格生成器\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"練習表格生成器\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:35:38",
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/CharMon/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/CharMon/login\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/CharMon/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/CharMon/login\", waiting until \"load\"\u001b[22m\n\n    at loginAsTestUser (C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:6:14)\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:28:11",
                         "location": {
                           "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
-                          "column": 38,
-                          "line": 35
+                          "column": 14,
+                          "line": 6
                         },
-                        "snippet": "\u001b[0m \u001b[90m 33 |\u001b[39m   test(\u001b[32m'基本練習表生成功能'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 34 |\u001b[39m     \u001b[90m// 檢查頁面標題\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 35 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'練習表格生成器'\u001b[39m)\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 36 |\u001b[39m\n \u001b[90m 37 |\u001b[39m     \u001b[90m// 輸入要練習的字\u001b[39m\n \u001b[90m 38 |\u001b[39m     \u001b[36mconst\u001b[39m textInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#characters'\u001b[39m)\u001b[0m"
+                        "snippet": "\u001b[0m \u001b[90m 4 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m loginAsTestUser(page) {\n \u001b[90m 5 |\u001b[39m   \u001b[90m// 正確的 URL 應該包含 base path\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'http://localhost:5178/CharMon/login'\u001b[39m)\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'domcontentloaded'\u001b[39m)\n \u001b[90m 8 |\u001b[39m\n \u001b[90m 9 |\u001b[39m   \u001b[90m// 等待登入表單出現\u001b[39m\u001b[0m"
                       },
                       "errors": [
                         {
                           "location": {
                             "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
-                            "column": 38,
-                            "line": 35
+                            "column": 14,
+                            "line": 6
                           },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"練習表格生成器\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n\n  33 |   test('基本練習表生成功能', async ({ page }) => {\n  34 |     // 檢查頁面標題\n> 35 |     await expect(page.locator('h1')).toContainText('練習表格生成器')\n     |                                      ^\n  36 |\n  37 |     // 輸入要練習的字\n  38 |     const textInput = page.locator('#characters')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:35:38"
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/CharMon/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/CharMon/login\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 4 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m loginAsTestUser(page) {\n \u001b[90m 5 |\u001b[39m   \u001b[90m// 正確的 URL 應該包含 base path\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'http://localhost:5178/CharMon/login'\u001b[39m)\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'domcontentloaded'\u001b[39m)\n \u001b[90m 8 |\u001b[39m\n \u001b[90m 9 |\u001b[39m   \u001b[90m// 等待登入表單出現\u001b[39m\u001b[0m\n\u001b[2m    at loginAsTestUser (C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:6:14)\u001b[22m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:28:11\u001b[22m"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:30.299Z",
+                      "startTime": "2025-09-22T00:04:59.006Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -329,22 +352,12 @@
                           "name": "video",
                           "contentType": "video/webm",
                           "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\\error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-基本練習表生成功能-chromium\\trace.zip"
                         }
                       ],
                       "errorLocation": {
                         "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
-                        "column": 38,
-                        "line": 35
+                        "column": 14,
+                        "line": 6
                       }
                     }
                   ],
@@ -353,7 +366,7 @@
               ],
               "id": "3f1f01fc046cb202350c-7568964291339e862cff",
               "file": "02-worksheets.spec.ts",
-              "line": 33,
+              "line": 74,
               "column": 3
             },
             {
@@ -371,29 +384,32 @@
                     {
                       "workerIndex": 4,
                       "parallelIndex": 4,
-                      "status": "timedOut",
-                      "duration": 30690,
+                      "status": "failed",
+                      "duration": 4321,
                       "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/CharMon/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/CharMon/login\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/CharMon/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/CharMon/login\", waiting until \"load\"\u001b[22m\n\n    at loginAsTestUser (C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:6:14)\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:28:11",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
+                          "column": 14,
+                          "line": 6
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 4 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m loginAsTestUser(page) {\n \u001b[90m 5 |\u001b[39m   \u001b[90m// 正確的 URL 應該包含 base path\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'http://localhost:5178/CharMon/login'\u001b[39m)\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'domcontentloaded'\u001b[39m)\n \u001b[90m 8 |\u001b[39m\n \u001b[90m 9 |\u001b[39m   \u001b[90m// 等待登入表單出現\u001b[39m\u001b[0m"
                       },
                       "errors": [
                         {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
                           "location": {
                             "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
-                            "column": 21,
-                            "line": 62
+                            "column": 14,
+                            "line": 6
                           },
-                          "message": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#characters')\u001b[22m\n\n\n  60 |   test('不同格式選項測試', async ({ page }) => {\n  61 |     const textInput = page.locator('#characters')\n> 62 |     await textInput.fill('測試')\n     |                     ^\n  63 |\n  64 |     // 測試田字格\n  65 |     await page.locator('select').first().selectOption('tian')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:62:21"
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/CharMon/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/CharMon/login\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 4 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m loginAsTestUser(page) {\n \u001b[90m 5 |\u001b[39m   \u001b[90m// 正確的 URL 應該包含 base path\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'http://localhost:5178/CharMon/login'\u001b[39m)\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'domcontentloaded'\u001b[39m)\n \u001b[90m 8 |\u001b[39m\n \u001b[90m 9 |\u001b[39m   \u001b[90m// 等待登入表單出現\u001b[39m\u001b[0m\n\u001b[2m    at loginAsTestUser (C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:6:14)\u001b[22m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:28:11\u001b[22m"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:30.379Z",
+                      "startTime": "2025-09-22T00:04:58.981Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -405,18 +421,13 @@
                           "name": "video",
                           "contentType": "video/webm",
                           "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-不同格式選項測試-chromium\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-不同格式選項測試-chromium\\error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-不同格式選項測試-chromium\\trace.zip"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
+                        "column": 14,
+                        "line": 6
+                      }
                     }
                   ],
                   "status": "unexpected"
@@ -424,7 +435,7 @@
               ],
               "id": "3f1f01fc046cb202350c-31a3b94e251d7637edd9",
               "file": "02-worksheets.spec.ts",
-              "line": 60,
+              "line": 101,
               "column": 3
             },
             {
@@ -442,29 +453,32 @@
                     {
                       "workerIndex": 5,
                       "parallelIndex": 5,
-                      "status": "timedOut",
-                      "duration": 30740,
+                      "status": "failed",
+                      "duration": 5438,
                       "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/CharMon/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/CharMon/login\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/CharMon/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/CharMon/login\", waiting until \"load\"\u001b[22m\n\n    at loginAsTestUser (C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:6:14)\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:28:11",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
+                          "column": 14,
+                          "line": 6
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 4 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m loginAsTestUser(page) {\n \u001b[90m 5 |\u001b[39m   \u001b[90m// 正確的 URL 應該包含 base path\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'http://localhost:5178/CharMon/login'\u001b[39m)\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'domcontentloaded'\u001b[39m)\n \u001b[90m 8 |\u001b[39m\n \u001b[90m 9 |\u001b[39m   \u001b[90m// 等待登入表單出現\u001b[39m\u001b[0m"
                       },
                       "errors": [
                         {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
                           "location": {
                             "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
-                            "column": 21,
-                            "line": 85
+                            "column": 14,
+                            "line": 6
                           },
-                          "message": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#characters')\u001b[22m\n\n\n  83 |     // 測試最大字數限制 (100字)\n  84 |     const longText = '一'.repeat(101)\n> 85 |     await textInput.fill(longText)\n     |                     ^\n  86 |\n  87 |     // 檢查是否有字數限制提示\n  88 |     const charCount = page.locator('.char-count')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:85:21"
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/CharMon/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/CharMon/login\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 4 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m loginAsTestUser(page) {\n \u001b[90m 5 |\u001b[39m   \u001b[90m// 正確的 URL 應該包含 base path\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'http://localhost:5178/CharMon/login'\u001b[39m)\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'domcontentloaded'\u001b[39m)\n \u001b[90m 8 |\u001b[39m\n \u001b[90m 9 |\u001b[39m   \u001b[90m// 等待登入表單出現\u001b[39m\u001b[0m\n\u001b[2m    at loginAsTestUser (C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:6:14)\u001b[22m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:28:11\u001b[22m"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:30.337Z",
+                      "startTime": "2025-09-22T00:04:59.118Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -476,18 +490,13 @@
                           "name": "video",
                           "contentType": "video/webm",
                           "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-字數限制測試-chromium\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-字數限制測試-chromium\\error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-字數限制測試-chromium\\trace.zip"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
+                        "column": 14,
+                        "line": 6
+                      }
                     }
                   ],
                   "status": "unexpected"
@@ -495,7 +504,7 @@
               ],
               "id": "3f1f01fc046cb202350c-f1e6e4aba6018e62ade3",
               "file": "02-worksheets.spec.ts",
-              "line": 80,
+              "line": 121,
               "column": 3
             },
             {
@@ -514,31 +523,31 @@
                       "workerIndex": 6,
                       "parallelIndex": 6,
                       "status": "failed",
-                      "duration": 5670,
+                      "duration": 5134,
                       "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"皮卡丘 文學練習表\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"皮卡丘 文學練習表\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:109:38",
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/CharMon/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/CharMon/login\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/CharMon/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/CharMon/login\", waiting until \"load\"\u001b[22m\n\n    at loginAsTestUser (C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:6:14)\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:28:11",
                         "location": {
                           "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
-                          "column": 38,
-                          "line": 109
+                          "column": 14,
+                          "line": 6
                         },
-                        "snippet": "\u001b[0m \u001b[90m 107 |\u001b[39m\n \u001b[90m 108 |\u001b[39m     \u001b[90m// 檢查是否進入遊戲模式\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 109 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'皮卡丘 文學練習表'\u001b[39m)\n \u001b[90m     |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 110 |\u001b[39m\n \u001b[90m 111 |\u001b[39m     \u001b[90m// 檢查文學內容是否正確填入\u001b[39m\n \u001b[90m 112 |\u001b[39m     \u001b[36mconst\u001b[39m textInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#characters'\u001b[39m)\u001b[0m"
+                        "snippet": "\u001b[0m \u001b[90m 4 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m loginAsTestUser(page) {\n \u001b[90m 5 |\u001b[39m   \u001b[90m// 正確的 URL 應該包含 base path\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'http://localhost:5178/CharMon/login'\u001b[39m)\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'domcontentloaded'\u001b[39m)\n \u001b[90m 8 |\u001b[39m\n \u001b[90m 9 |\u001b[39m   \u001b[90m// 等待登入表單出現\u001b[39m\u001b[0m"
                       },
                       "errors": [
                         {
                           "location": {
                             "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
-                            "column": 38,
-                            "line": 109
+                            "column": 14,
+                            "line": 6
                           },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"皮卡丘 文學練習表\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n\n  107 |\n  108 |     // 檢查是否進入遊戲模式\n> 109 |     await expect(page.locator('h1')).toContainText('皮卡丘 文學練習表')\n      |                                      ^\n  110 |\n  111 |     // 檢查文學內容是否正確填入\n  112 |     const textInput = page.locator('#characters')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:109:38"
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/CharMon/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/CharMon/login\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 4 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m loginAsTestUser(page) {\n \u001b[90m 5 |\u001b[39m   \u001b[90m// 正確的 URL 應該包含 base path\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'http://localhost:5178/CharMon/login'\u001b[39m)\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'domcontentloaded'\u001b[39m)\n \u001b[90m 8 |\u001b[39m\n \u001b[90m 9 |\u001b[39m   \u001b[90m// 等待登入表單出現\u001b[39m\u001b[0m\n\u001b[2m    at loginAsTestUser (C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:6:14)\u001b[22m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:28:11\u001b[22m"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:30.451Z",
+                      "startTime": "2025-09-22T00:04:59.072Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -550,22 +559,12 @@
                           "name": "video",
                           "contentType": "video/webm",
                           "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\\error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-寶可夢主題模式測試-chromium\\trace.zip"
                         }
                       ],
                       "errorLocation": {
                         "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
-                        "column": 38,
-                        "line": 109
+                        "column": 14,
+                        "line": 6
                       }
                     }
                   ],
@@ -574,7 +573,7 @@
               ],
               "id": "3f1f01fc046cb202350c-8cb47f8b00c852d72de7",
               "file": "02-worksheets.spec.ts",
-              "line": 92,
+              "line": 133,
               "column": 3
             },
             {
@@ -592,29 +591,32 @@
                     {
                       "workerIndex": 7,
                       "parallelIndex": 7,
-                      "status": "timedOut",
-                      "duration": 30740,
+                      "status": "failed",
+                      "duration": 7603,
                       "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/CharMon/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/CharMon/login\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/CharMon/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/CharMon/login\", waiting until \"load\"\u001b[22m\n\n    at loginAsTestUser (C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:6:14)\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:28:11",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
+                          "column": 14,
+                          "line": 6
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 4 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m loginAsTestUser(page) {\n \u001b[90m 5 |\u001b[39m   \u001b[90m// 正確的 URL 應該包含 base path\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'http://localhost:5178/CharMon/login'\u001b[39m)\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'domcontentloaded'\u001b[39m)\n \u001b[90m 8 |\u001b[39m\n \u001b[90m 9 |\u001b[39m   \u001b[90m// 等待登入表單出現\u001b[39m\u001b[0m"
                       },
                       "errors": [
                         {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
                           "location": {
                             "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
-                            "column": 21,
-                            "line": 119
+                            "column": 14,
+                            "line": 6
                           },
-                          "message": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#characters')\u001b[22m\n\n\n  117 |   test('下載功能測試', async ({ page }) => {\n  118 |     const textInput = page.locator('#characters')\n> 119 |     await textInput.fill('下載測試')\n      |                     ^\n  120 |\n  121 |     // 生成預覽\n  122 |     const previewBtn = page.locator('button:has-text(\"預覽練習表\")')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:119:21"
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/CharMon/login\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/CharMon/login\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 4 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m loginAsTestUser(page) {\n \u001b[90m 5 |\u001b[39m   \u001b[90m// 正確的 URL 應該包含 base path\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'http://localhost:5178/CharMon/login'\u001b[39m)\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'domcontentloaded'\u001b[39m)\n \u001b[90m 8 |\u001b[39m\n \u001b[90m 9 |\u001b[39m   \u001b[90m// 等待登入表單出現\u001b[39m\u001b[0m\n\u001b[2m    at loginAsTestUser (C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:6:14)\u001b[22m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts:28:11\u001b[22m"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:30.476Z",
+                      "startTime": "2025-09-22T00:04:59.087Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -626,18 +628,13 @@
                           "name": "video",
                           "contentType": "video/webm",
                           "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-下載功能測試-chromium\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-下載功能測試-chromium\\error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\02-worksheets-練習表生成器測試-下載功能測試-chromium\\trace.zip"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\02-worksheets.spec.ts",
+                        "column": 14,
+                        "line": 6
+                      }
                     }
                   ],
                   "status": "unexpected"
@@ -645,7 +642,7 @@
               ],
               "id": "3f1f01fc046cb202350c-aafdc45a83c8500ca4ff",
               "file": "02-worksheets.spec.ts",
-              "line": 117,
+              "line": 163,
               "column": 3
             }
           ]
@@ -667,7 +664,7 @@
           "specs": [
             {
               "title": "字典查詢功能",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -680,24 +677,53 @@
                     {
                       "workerIndex": 8,
                       "parallelIndex": 8,
-                      "status": "passed",
-                      "duration": 708,
-                      "errors": [],
+                      "status": "failed",
+                      "duration": 4774,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/name-learning\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/name-learning\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/name-learning\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/name-learning\", waiting until \"load\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts:5:16",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
+                          "column": 16,
+                          "line": 5
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 3 |\u001b[39m test\u001b[33m.\u001b[39mdescribe(\u001b[32m'字典系統測試'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\n \u001b[90m 4 |\u001b[39m   test(\u001b[32m'字典查詢功能'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 5 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/name-learning'\u001b[39m)\n \u001b[90m   |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 6 |\u001b[39m\n \u001b[90m 7 |\u001b[39m     \u001b[90m// 測試字典查詢\u001b[39m\n \u001b[90m 8 |\u001b[39m     \u001b[36mconst\u001b[39m searchInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'input[type=\"text\"]'\u001b[39m)\u001b[33m.\u001b[39mfirst()\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
+                            "column": 16,
+                            "line": 5
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/name-learning\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/name-learning\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 3 |\u001b[39m test\u001b[33m.\u001b[39mdescribe(\u001b[32m'字典系統測試'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\n \u001b[90m 4 |\u001b[39m   test(\u001b[32m'字典查詢功能'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 5 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/name-learning'\u001b[39m)\n \u001b[90m   |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 6 |\u001b[39m\n \u001b[90m 7 |\u001b[39m     \u001b[90m// 測試字典查詢\u001b[39m\n \u001b[90m 8 |\u001b[39m     \u001b[36mconst\u001b[39m searchInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'input[type=\"text\"]'\u001b[39m)\u001b[33m.\u001b[39mfirst()\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts:5:16\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:30.502Z",
+                      "startTime": "2025-09-22T00:04:59.135Z",
                       "annotations": [],
                       "attachments": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-字典查詢功能-chromium\\trace.zip"
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-字典查詢功能-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-字典查詢功能-chromium\\video.webm"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
+                        "column": 16,
+                        "line": 5
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "4774d8cbc6b5fdc1c041-e823a7765cd9392c078f",
@@ -707,7 +733,7 @@
             },
             {
               "title": "筆順動畫功能",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -720,24 +746,53 @@
                     {
                       "workerIndex": 9,
                       "parallelIndex": 9,
-                      "status": "passed",
-                      "duration": 3782,
-                      "errors": [],
+                      "status": "failed",
+                      "duration": 3406,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/stroke-order\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/stroke-order\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/stroke-order\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/stroke-order\", waiting until \"load\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts:25:16",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
+                          "column": 16,
+                          "line": 25
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 23 |\u001b[39m\n \u001b[90m 24 |\u001b[39m   test(\u001b[32m'筆順動畫功能'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 25 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/stroke-order'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 26 |\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[90m// 查找筆順相關元素\u001b[39m\n \u001b[90m 28 |\u001b[39m     \u001b[36mconst\u001b[39m strokeCanvas \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'canvas, svg, .hanzi-writer'\u001b[39m)\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
+                            "column": 16,
+                            "line": 25
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/stroke-order\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/stroke-order\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 23 |\u001b[39m\n \u001b[90m 24 |\u001b[39m   test(\u001b[32m'筆順動畫功能'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 25 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/stroke-order'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 26 |\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[90m// 查找筆順相關元素\u001b[39m\n \u001b[90m 28 |\u001b[39m     \u001b[36mconst\u001b[39m strokeCanvas \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'canvas, svg, .hanzi-writer'\u001b[39m)\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts:25:16\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:30.599Z",
+                      "startTime": "2025-09-22T00:04:59.158Z",
                       "annotations": [],
                       "attachments": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-筆順動畫功能-chromium\\trace.zip"
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-筆順動畫功能-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-筆順動畫功能-chromium\\video.webm"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
+                        "column": 16,
+                        "line": 25
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "4774d8cbc6b5fdc1c041-78c0b7d4a47b378a4ee8",
@@ -761,31 +816,31 @@
                       "workerIndex": 10,
                       "parallelIndex": 10,
                       "status": "failed",
-                      "duration": 5672,
+                      "duration": 3563,
                       "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"字典管理後台\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"字典管理後台\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts:43:38",
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/dictionary-admin\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/dictionary-admin\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/dictionary-admin\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/dictionary-admin\", waiting until \"load\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts:40:16",
                         "location": {
                           "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
-                          "column": 38,
-                          "line": 43
+                          "column": 16,
+                          "line": 40
                         },
-                        "snippet": "\u001b[0m \u001b[90m 41 |\u001b[39m\n \u001b[90m 42 |\u001b[39m     \u001b[90m// 檢查管理後台頁面\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 43 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'字典管理後台'\u001b[39m)\n \u001b[90m    |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 44 |\u001b[39m\n \u001b[90m 45 |\u001b[39m     \u001b[90m// 檢查統計信息\u001b[39m\n \u001b[90m 46 |\u001b[39m     \u001b[36mconst\u001b[39m statsSection \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.stats-section'\u001b[39m)\u001b[0m"
+                        "snippet": "\u001b[0m \u001b[90m 38 |\u001b[39m\n \u001b[90m 39 |\u001b[39m   test(\u001b[32m'字典管理後台功能'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 40 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/dictionary-admin'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 41 |\u001b[39m\n \u001b[90m 42 |\u001b[39m     \u001b[90m// 檢查管理後台頁面\u001b[39m\n \u001b[90m 43 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'字典管理後台'\u001b[39m)\u001b[0m"
                       },
                       "errors": [
                         {
                           "location": {
                             "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
-                            "column": 38,
-                            "line": 43
+                            "column": 16,
+                            "line": 40
                           },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected string: \u001b[32m\"字典管理後台\"\u001b[39m\nReceived: <element(s) not found>\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n\n  41 |\n  42 |     // 檢查管理後台頁面\n> 43 |     await expect(page.locator('h1')).toContainText('字典管理後台')\n     |                                      ^\n  44 |\n  45 |     // 檢查統計信息\n  46 |     const statsSection = page.locator('.stats-section')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts:43:38"
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/dictionary-admin\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/dictionary-admin\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 38 |\u001b[39m\n \u001b[90m 39 |\u001b[39m   test(\u001b[32m'字典管理後台功能'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 40 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/dictionary-admin'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 41 |\u001b[39m\n \u001b[90m 42 |\u001b[39m     \u001b[90m// 檢查管理後台頁面\u001b[39m\n \u001b[90m 43 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'字典管理後台'\u001b[39m)\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts:40:16\u001b[22m"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:30.609Z",
+                      "startTime": "2025-09-22T00:04:59.291Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -797,22 +852,12 @@
                           "name": "video",
                           "contentType": "video/webm",
                           "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-字典管理後台功能-chromium\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-字典管理後台功能-chromium\\error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-字典管理後台功能-chromium\\trace.zip"
                         }
                       ],
                       "errorLocation": {
                         "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
-                        "column": 38,
-                        "line": 43
+                        "column": 16,
+                        "line": 40
                       }
                     }
                   ],
@@ -826,7 +871,7 @@
             },
             {
               "title": "字典數據同步功能",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -839,24 +884,53 @@
                     {
                       "workerIndex": 11,
                       "parallelIndex": 11,
-                      "status": "passed",
-                      "duration": 2175,
-                      "errors": [],
+                      "status": "failed",
+                      "duration": 3851,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/dictionary-admin-v2\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/dictionary-admin-v2\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/dictionary-admin-v2\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/dictionary-admin-v2\", waiting until \"load\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts:67:16",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
+                          "column": 16,
+                          "line": 67
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 65 |\u001b[39m\n \u001b[90m 66 |\u001b[39m   test(\u001b[32m'字典數據同步功能'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 67 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/dictionary-admin-v2'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 68 |\u001b[39m\n \u001b[90m 69 |\u001b[39m     \u001b[90m// 檢查 V2 管理界面\u001b[39m\n \u001b[90m 70 |\u001b[39m     \u001b[36mif\u001b[39m (\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m)\u001b[33m.\u001b[39misVisible()) {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
+                            "column": 16,
+                            "line": 67
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/dictionary-admin-v2\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/dictionary-admin-v2\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 65 |\u001b[39m\n \u001b[90m 66 |\u001b[39m   test(\u001b[32m'字典數據同步功能'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 67 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/dictionary-admin-v2'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 68 |\u001b[39m\n \u001b[90m 69 |\u001b[39m     \u001b[90m// 檢查 V2 管理界面\u001b[39m\n \u001b[90m 70 |\u001b[39m     \u001b[36mif\u001b[39m (\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m)\u001b[33m.\u001b[39misVisible()) {\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts:67:16\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:30.619Z",
+                      "startTime": "2025-09-22T00:04:59.211Z",
                       "annotations": [],
                       "attachments": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-字典數據同步功能-chromium\\trace.zip"
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-字典數據同步功能-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-字典數據同步功能-chromium\\video.webm"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
+                        "column": 16,
+                        "line": 67
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "4774d8cbc6b5fdc1c041-5aab5e0242ae094ae138",
@@ -866,7 +940,7 @@
             },
             {
               "title": "Supabase 連接測試",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -877,26 +951,55 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 11,
-                      "parallelIndex": 11,
-                      "status": "passed",
-                      "duration": 769,
-                      "errors": [],
+                      "workerIndex": 12,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 3356,
+                      "error": {
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/dictionary-admin-v2\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/dictionary-admin-v2\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/dictionary-admin-v2\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/dictionary-admin-v2\", waiting until \"load\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts:90:16",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
+                          "column": 16,
+                          "line": 90
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 88 |\u001b[39m   test(\u001b[32m'Supabase 連接測試'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 89 |\u001b[39m     \u001b[90m// 在瀏覽器中測試 Supabase 連接\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 90 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/dictionary-admin-v2'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 91 |\u001b[39m\n \u001b[90m 92 |\u001b[39m     \u001b[90m// 檢查網路請求\u001b[39m\n \u001b[90m 93 |\u001b[39m     page\u001b[33m.\u001b[39mon(\u001b[32m'response'\u001b[39m\u001b[33m,\u001b[39m response \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
+                            "column": 16,
+                            "line": 90
+                          },
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/dictionary-admin-v2\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/dictionary-admin-v2\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 88 |\u001b[39m   test(\u001b[32m'Supabase 連接測試'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 89 |\u001b[39m     \u001b[90m// 在瀏覽器中測試 Supabase 連接\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 90 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/dictionary-admin-v2'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 91 |\u001b[39m\n \u001b[90m 92 |\u001b[39m     \u001b[90m// 檢查網路請求\u001b[39m\n \u001b[90m 93 |\u001b[39m     page\u001b[33m.\u001b[39mon(\u001b[32m'response'\u001b[39m\u001b[33m,\u001b[39m response \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts:90:16\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:35.282Z",
+                      "startTime": "2025-09-22T00:05:08.521Z",
                       "annotations": [],
                       "attachments": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-Supabase-連接測試-chromium\\trace.zip"
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-Supabase-連接測試-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\03-dictionary-字典系統測試-Supabase-連接測試-chromium\\video.webm"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\03-dictionary.spec.ts",
+                        "column": 16,
+                        "line": 90
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "4774d8cbc6b5fdc1c041-84e988626d098c7f09f5",
@@ -934,23 +1037,17 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 9,
+                      "workerIndex": 13,
                       "parallelIndex": 9,
                       "status": "passed",
-                      "duration": 121,
+                      "duration": 85,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:35.672Z",
+                      "startTime": "2025-09-22T00:05:08.585Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-API-健康檢查-chromium\\trace.zip"
-                        }
-                      ]
+                      "attachments": []
                     }
                   ],
                   "status": "expected"
@@ -963,7 +1060,7 @@
             },
             {
               "title": "API 服務狀態檢查",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -974,26 +1071,44 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 9,
-                      "parallelIndex": 9,
-                      "status": "passed",
-                      "duration": 75,
-                      "errors": [],
+                      "workerIndex": 14,
+                      "parallelIndex": 11,
+                      "status": "failed",
+                      "duration": 117,
+                      "error": {
+                        "message": "Error: apiRequestContext.get: read ECONNRESET\nCall log:\n\u001b[2m  - → GET http://localhost:3001/api/pokemon/status\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n",
+                        "stack": "Error: apiRequestContext.get: read ECONNRESET\nCall log:\n\u001b[2m  - → GET http://localhost:3001/api/pokemon/status\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:16:36",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts",
+                          "column": 36,
+                          "line": 16
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 14 |\u001b[39m\n \u001b[90m 15 |\u001b[39m   test(\u001b[32m'API 服務狀態檢查'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ request }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m     \u001b[36mconst\u001b[39m response \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m request\u001b[33m.\u001b[39m\u001b[36mget\u001b[39m(\u001b[32m`${API_BASE}/status`\u001b[39m)\n \u001b[90m    |\u001b[39m                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m     expect(response\u001b[33m.\u001b[39mstatus())\u001b[33m.\u001b[39mtoBe(\u001b[35m200\u001b[39m)\n \u001b[90m 18 |\u001b[39m\n \u001b[90m 19 |\u001b[39m     \u001b[36mconst\u001b[39m data \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m response\u001b[33m.\u001b[39mjson()\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts",
+                            "column": 36,
+                            "line": 16
+                          },
+                          "message": "Error: apiRequestContext.get: read ECONNRESET\nCall log:\n\u001b[2m  - → GET http://localhost:3001/api/pokemon/status\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n\n\u001b[0m \u001b[90m 14 |\u001b[39m\n \u001b[90m 15 |\u001b[39m   test(\u001b[32m'API 服務狀態檢查'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ request }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m     \u001b[36mconst\u001b[39m response \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m request\u001b[33m.\u001b[39m\u001b[36mget\u001b[39m(\u001b[32m`${API_BASE}/status`\u001b[39m)\n \u001b[90m    |\u001b[39m                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m     expect(response\u001b[33m.\u001b[39mstatus())\u001b[33m.\u001b[39mtoBe(\u001b[35m200\u001b[39m)\n \u001b[90m 18 |\u001b[39m\n \u001b[90m 19 |\u001b[39m     \u001b[36mconst\u001b[39m data \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m response\u001b[33m.\u001b[39mjson()\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:16:36\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:35.852Z",
+                      "startTime": "2025-09-22T00:05:08.614Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-API-服務狀態檢查-chromium\\trace.zip"
-                        }
-                      ]
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts",
+                        "column": 36,
+                        "line": 16
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "c1b14ecdb587ccc527fe-9615182eae68524c2ccd",
@@ -1003,7 +1118,7 @@
             },
             {
               "title": "寶可夢主題生成 - 模板模式",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -1014,26 +1129,44 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 8,
-                      "parallelIndex": 8,
-                      "status": "passed",
-                      "duration": 111,
-                      "errors": [],
+                      "workerIndex": 15,
+                      "parallelIndex": 4,
+                      "status": "failed",
+                      "duration": 129,
+                      "error": {
+                        "message": "Error: apiRequestContext.post: read ECONNRESET\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/generate\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 79\u001b[22m\n",
+                        "stack": "Error: apiRequestContext.post: read ECONNRESET\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/generate\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 79\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:26:36",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts",
+                          "column": 36,
+                          "line": 26
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 24 |\u001b[39m\n \u001b[90m 25 |\u001b[39m   test(\u001b[32m'寶可夢主題生成 - 模板模式'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ request }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 26 |\u001b[39m     \u001b[36mconst\u001b[39m response \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m request\u001b[33m.\u001b[39mpost(\u001b[32m`${API_BASE}/generate`\u001b[39m\u001b[33m,\u001b[39m {\n \u001b[90m    |\u001b[39m                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 27 |\u001b[39m       data\u001b[33m:\u001b[39m {\n \u001b[90m 28 |\u001b[39m         pokemonName\u001b[33m:\u001b[39m \u001b[32m'Pikachu'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 29 |\u001b[39m         generationType\u001b[33m:\u001b[39m \u001b[32m'template'\u001b[39m\u001b[33m,\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts",
+                            "column": 36,
+                            "line": 26
+                          },
+                          "message": "Error: apiRequestContext.post: read ECONNRESET\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/generate\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 79\u001b[22m\n\n\n\u001b[0m \u001b[90m 24 |\u001b[39m\n \u001b[90m 25 |\u001b[39m   test(\u001b[32m'寶可夢主題生成 - 模板模式'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ request }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 26 |\u001b[39m     \u001b[36mconst\u001b[39m response \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m request\u001b[33m.\u001b[39mpost(\u001b[32m`${API_BASE}/generate`\u001b[39m\u001b[33m,\u001b[39m {\n \u001b[90m    |\u001b[39m                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 27 |\u001b[39m       data\u001b[33m:\u001b[39m {\n \u001b[90m 28 |\u001b[39m         pokemonName\u001b[33m:\u001b[39m \u001b[32m'Pikachu'\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 29 |\u001b[39m         generationType\u001b[33m:\u001b[39m \u001b[32m'template'\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:26:36\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:35.862Z",
+                      "startTime": "2025-09-22T00:05:08.593Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-寶可夢主題生成---模板模式-chromium\\trace.zip"
-                        }
-                      ]
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts",
+                        "column": 36,
+                        "line": 26
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "c1b14ecdb587ccc527fe-b50530967c1abd298da5",
@@ -1043,7 +1176,7 @@
             },
             {
               "title": "寶可夢主題生成 - 混合模式",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -1054,26 +1187,43 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 9,
-                      "parallelIndex": 9,
-                      "status": "passed",
-                      "duration": 72,
-                      "errors": [],
+                      "workerIndex": 17,
+                      "parallelIndex": 3,
+                      "status": "failed",
+                      "duration": 360,
+                      "error": {
+                        "message": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/generate\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 81\u001b[22m\n",
+                        "stack": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/generate\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 81\u001b[22m\n\n    at apiRequestContext.post: connect ECONNREFUSED ::1:3001\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:56:36",
+                        "location": {
+                          "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                          "column": 3001,
+                          "line": 1
+                        }
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                            "column": 3001,
+                            "line": 1
+                          },
+                          "message": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/generate\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 81\u001b[22m\n\n\u001b[2m    at apiRequestContext.post: connect ECONNREFUSED ::1:3001\u001b[22m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:56:36\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:35.979Z",
+                      "startTime": "2025-09-22T00:05:08.710Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-寶可夢主題生成---混合模式-chromium\\trace.zip"
-                        }
-                      ]
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                        "column": 3001,
+                        "line": 1
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "c1b14ecdb587ccc527fe-f4f70bd94386d4692de0",
@@ -1083,7 +1233,7 @@
             },
             {
               "title": "無效寶可夢名稱處理",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -1094,26 +1244,43 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 8,
-                      "parallelIndex": 8,
-                      "status": "passed",
-                      "duration": 80,
-                      "errors": [],
+                      "workerIndex": 16,
+                      "parallelIndex": 1,
+                      "status": "failed",
+                      "duration": 356,
+                      "error": {
+                        "message": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/generate\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 46\u001b[22m\n",
+                        "stack": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/generate\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 46\u001b[22m\n\n    at apiRequestContext.post: connect ECONNREFUSED ::1:3001\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:78:36",
+                        "location": {
+                          "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                          "column": 3001,
+                          "line": 1
+                        }
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                            "column": 3001,
+                            "line": 1
+                          },
+                          "message": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/generate\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 46\u001b[22m\n\n\u001b[2m    at apiRequestContext.post: connect ECONNREFUSED ::1:3001\u001b[22m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:78:36\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:36.090Z",
+                      "startTime": "2025-09-22T00:05:08.682Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-無效寶可夢名稱處理-chromium\\trace.zip"
-                        }
-                      ]
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                        "column": 3001,
+                        "line": 1
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "c1b14ecdb587ccc527fe-30424204d3b8c6c45d69",
@@ -1123,7 +1290,7 @@
             },
             {
               "title": "寶可夢名稱驗證",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -1134,26 +1301,43 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 11,
-                      "parallelIndex": 11,
-                      "status": "passed",
-                      "duration": 494,
-                      "errors": [],
+                      "workerIndex": 18,
+                      "parallelIndex": 10,
+                      "status": "failed",
+                      "duration": 359,
+                      "error": {
+                        "message": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/validate-name\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 25\u001b[22m\n",
+                        "stack": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/validate-name\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 25\u001b[22m\n\n    at apiRequestContext.post: connect ECONNREFUSED ::1:3001\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:94:34",
+                        "location": {
+                          "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                          "column": 3001,
+                          "line": 1
+                        }
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                            "column": 3001,
+                            "line": 1
+                          },
+                          "message": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/validate-name\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 25\u001b[22m\n\n\u001b[2m    at apiRequestContext.post: connect ECONNREFUSED ::1:3001\u001b[22m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:94:34\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:36.126Z",
+                      "startTime": "2025-09-22T00:05:08.777Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-寶可夢名稱驗證-chromium\\trace.zip"
-                        }
-                      ]
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                        "column": 3001,
+                        "line": 1
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "c1b14ecdb587ccc527fe-e2f8bb2485b58785ee5d",
@@ -1163,7 +1347,7 @@
             },
             {
               "title": "主題列表獲取",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -1174,26 +1358,43 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 9,
-                      "parallelIndex": 9,
-                      "status": "passed",
-                      "duration": 80,
-                      "errors": [],
+                      "workerIndex": 19,
+                      "parallelIndex": 6,
+                      "status": "failed",
+                      "duration": 357,
+                      "error": {
+                        "message": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/generate\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 83\u001b[22m\n",
+                        "stack": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/generate\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 83\u001b[22m\n\n    at apiRequestContext.post: connect ECONNREFUSED ::1:3001\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:120:19",
+                        "location": {
+                          "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                          "column": 3001,
+                          "line": 1
+                        }
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                            "column": 3001,
+                            "line": 1
+                          },
+                          "message": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/generate\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 83\u001b[22m\n\n\u001b[2m    at apiRequestContext.post: connect ECONNREFUSED ::1:3001\u001b[22m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:120:19\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:36.113Z",
+                      "startTime": "2025-09-22T00:05:09.432Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-主題列表獲取-chromium\\trace.zip"
-                        }
-                      ]
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                        "column": 3001,
+                        "line": 1
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "c1b14ecdb587ccc527fe-e87cd188d2a0ae8c2a6f",
@@ -1203,7 +1404,7 @@
             },
             {
               "title": "主題搜索功能",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -1214,26 +1415,43 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 137,
-                      "errors": [],
+                      "workerIndex": 20,
+                      "parallelIndex": 8,
+                      "status": "failed",
+                      "duration": 352,
+                      "error": {
+                        "message": "Error: apiRequestContext.get: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → GET http://localhost:3001/api/pokemon/search?q=Pikachu\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n",
+                        "stack": "Error: apiRequestContext.get: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → GET http://localhost:3001/api/pokemon/search?q=Pikachu\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n    at apiRequestContext.get: connect ECONNREFUSED ::1:3001\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:139:36",
+                        "location": {
+                          "file": "apiRequestContext.get: connect ECONNREFUSED :",
+                          "column": 3001,
+                          "line": 1
+                        }
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "apiRequestContext.get: connect ECONNREFUSED :",
+                            "column": 3001,
+                            "line": 1
+                          },
+                          "message": "Error: apiRequestContext.get: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → GET http://localhost:3001/api/pokemon/search?q=Pikachu\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n\u001b[2m    at apiRequestContext.get: connect ECONNREFUSED ::1:3001\u001b[22m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:139:36\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:36.150Z",
+                      "startTime": "2025-09-22T00:05:10.418Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-主題搜索功能-chromium\\trace.zip"
-                        }
-                      ]
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "apiRequestContext.get: connect ECONNREFUSED :",
+                        "column": 3001,
+                        "line": 1
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "c1b14ecdb587ccc527fe-6f4969f86483958ad822",
@@ -1243,7 +1461,7 @@
             },
             {
               "title": "API 統計信息",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -1254,26 +1472,43 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 73,
-                      "errors": [],
+                      "workerIndex": 21,
+                      "parallelIndex": 5,
+                      "status": "failed",
+                      "duration": 352,
+                      "error": {
+                        "message": "Error: apiRequestContext.get: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → GET http://localhost:3001/api/pokemon/stats\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n",
+                        "stack": "Error: apiRequestContext.get: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → GET http://localhost:3001/api/pokemon/stats\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n    at apiRequestContext.get: connect ECONNREFUSED ::1:3001\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:149:36",
+                        "location": {
+                          "file": "apiRequestContext.get: connect ECONNREFUSED :",
+                          "column": 3001,
+                          "line": 1
+                        }
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "apiRequestContext.get: connect ECONNREFUSED :",
+                            "column": 3001,
+                            "line": 1
+                          },
+                          "message": "Error: apiRequestContext.get: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → GET http://localhost:3001/api/pokemon/stats\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n\u001b[2m    at apiRequestContext.get: connect ECONNREFUSED ::1:3001\u001b[22m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:149:36\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:36.245Z",
+                      "startTime": "2025-09-22T00:05:11.391Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-API-統計信息-chromium\\trace.zip"
-                        }
-                      ]
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "apiRequestContext.get: connect ECONNREFUSED :",
+                        "column": 3001,
+                        "line": 1
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "c1b14ecdb587ccc527fe-8f629e51416fe063eed7",
@@ -1283,7 +1518,7 @@
             },
             {
               "title": "錯誤處理測試",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -1294,26 +1529,43 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 9,
-                      "parallelIndex": 9,
-                      "status": "passed",
-                      "duration": 44,
-                      "errors": [],
+                      "workerIndex": 22,
+                      "parallelIndex": 7,
+                      "status": "failed",
+                      "duration": 340,
+                      "error": {
+                        "message": "Error: apiRequestContext.get: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → GET http://localhost:3001/api/pokemon/invalid-endpoint\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n",
+                        "stack": "Error: apiRequestContext.get: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → GET http://localhost:3001/api/pokemon/invalid-endpoint\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n    at apiRequestContext.get: connect ECONNREFUSED ::1:3001\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:161:36",
+                        "location": {
+                          "file": "apiRequestContext.get: connect ECONNREFUSED :",
+                          "column": 3001,
+                          "line": 1
+                        }
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "apiRequestContext.get: connect ECONNREFUSED :",
+                            "column": 3001,
+                            "line": 1
+                          },
+                          "message": "Error: apiRequestContext.get: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → GET http://localhost:3001/api/pokemon/invalid-endpoint\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n\u001b[2m    at apiRequestContext.get: connect ECONNREFUSED ::1:3001\u001b[22m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\04-pokemon-api.spec.ts:161:36\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:36.234Z",
+                      "startTime": "2025-09-22T00:05:11.522Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\04-pokemon-api-寶可夢-API-後端測試-錯誤處理測試-chromium\\trace.zip"
-                        }
-                      ]
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "apiRequestContext.get: connect ECONNREFUSED :",
+                        "column": 3001,
+                        "line": 1
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "c1b14ecdb587ccc527fe-faac8be33fb5bbecbc49",
@@ -1351,38 +1603,34 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 8,
-                      "parallelIndex": 8,
+                      "workerIndex": 23,
+                      "parallelIndex": 2,
                       "status": "failed",
-                      "duration": 6469,
+                      "duration": 5881,
                       "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('header')\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('header')\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:19:42",
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/\", waiting until \"load\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:7:16",
                         "location": {
                           "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
-                          "column": 42,
-                          "line": 19
+                          "column": 16,
+                          "line": 7
                         },
-                        "snippet": "\u001b[0m \u001b[90m 17 |\u001b[39m\n \u001b[90m 18 |\u001b[39m     \u001b[90m// 檢查頁面關鍵元素是否載入\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 19 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m    |\u001b[39m                                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 20 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'main, .main-content'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m 21 |\u001b[39m   })\n \u001b[90m 22 |\u001b[39m\u001b[0m"
+                        "snippet": "\u001b[0m \u001b[90m  5 |\u001b[39m     \u001b[36mconst\u001b[39m startTime \u001b[33m=\u001b[39m \u001b[33mDate\u001b[39m\u001b[33m.\u001b[39mnow()\n \u001b[90m  6 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 |\u001b[39m\n \u001b[90m  9 |\u001b[39m     \u001b[90m// 等待主要內容載入\u001b[39m\n \u001b[90m 10 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[0m"
                       },
                       "errors": [
                         {
                           "location": {
                             "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
-                            "column": 42,
-                            "line": 19
+                            "column": 16,
+                            "line": 7
                           },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('header')\u001b[22m\n\n\n  17 |\n  18 |     // 檢查頁面關鍵元素是否載入\n> 19 |     await expect(page.locator('header')).toBeVisible()\n     |                                          ^\n  20 |     await expect(page.locator('main, .main-content')).toBeVisible()\n  21 |   })\n  22 |\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:19:42"
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m  5 |\u001b[39m     \u001b[36mconst\u001b[39m startTime \u001b[33m=\u001b[39m \u001b[33mDate\u001b[39m\u001b[33m.\u001b[39mnow()\n \u001b[90m  6 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 |\u001b[39m\n \u001b[90m  9 |\u001b[39m     \u001b[90m// 等待主要內容載入\u001b[39m\n \u001b[90m 10 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:7:16\u001b[22m"
                         }
                       ],
-                      "stdout": [
-                        {
-                          "text": "首頁載入時間: 764ms\n"
-                        }
-                      ],
+                      "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:36.285Z",
+                      "startTime": "2025-09-22T00:05:11.842Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -1394,22 +1642,12 @@
                           "name": "video",
                           "contentType": "video/webm",
                           "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-頁面載入性能測試-chromium\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-頁面載入性能測試-chromium\\error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-頁面載入性能測試-chromium\\trace.zip"
                         }
                       ],
                       "errorLocation": {
                         "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
-                        "column": 42,
-                        "line": 19
+                        "column": 16,
+                        "line": 7
                       }
                     }
                   ],
@@ -1434,31 +1672,34 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "timedOut",
-                      "duration": 30828,
+                      "workerIndex": 13,
+                      "parallelIndex": 9,
+                      "status": "failed",
+                      "duration": 3327,
                       "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/worksheets\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/worksheets\", waiting until \"load\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:24:16",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                          "column": 16,
+                          "line": 24
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 22 |\u001b[39m\n \u001b[90m 23 |\u001b[39m   test(\u001b[32m'練習表生成性能測試'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 24 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/worksheets'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 25 |\u001b[39m\n \u001b[90m 26 |\u001b[39m     \u001b[90m// 輸入測試文字\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[36mconst\u001b[39m textInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#characters'\u001b[39m)\u001b[0m"
                       },
                       "errors": [
                         {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
                           "location": {
                             "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
-                            "column": 21,
-                            "line": 28
+                            "column": 16,
+                            "line": 24
                           },
-                          "message": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#characters')\u001b[22m\n\n\n  26 |     // 輸入測試文字\n  27 |     const textInput = page.locator('#characters')\n> 28 |     await textInput.fill('性能測試用的中文字符')\n     |                     ^\n  29 |\n  30 |     // 測量生成時間\n  31 |     const startTime = Date.now()\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:28:21"
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/worksheets\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 22 |\u001b[39m\n \u001b[90m 23 |\u001b[39m   test(\u001b[32m'練習表生成性能測試'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 24 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/worksheets'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 25 |\u001b[39m\n \u001b[90m 26 |\u001b[39m     \u001b[90m// 輸入測試文字\u001b[39m\n \u001b[90m 27 |\u001b[39m     \u001b[36mconst\u001b[39m textInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#characters'\u001b[39m)\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:24:16\u001b[22m"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:36.364Z",
+                      "startTime": "2025-09-22T00:05:08.721Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -1470,18 +1711,13 @@
                           "name": "video",
                           "contentType": "video/webm",
                           "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-練習表生成性能測試-chromium\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-練習表生成性能測試-chromium\\error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-練習表生成性能測試-chromium\\trace.zip"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                        "column": 16,
+                        "line": 24
+                      }
                     }
                   ],
                   "status": "unexpected"
@@ -1494,7 +1730,7 @@
             },
             {
               "title": "API 響應時間測試",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -1505,36 +1741,54 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 379,
-                      "errors": [],
-                      "stdout": [
+                      "workerIndex": 24,
+                      "parallelIndex": 4,
+                      "status": "failed",
+                      "duration": 1248,
+                      "error": {
+                        "message": "Error: apiRequestContext.get: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → GET http://localhost:3001/api/pokemon/health\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n",
+                        "stack": "Error: apiRequestContext.get: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → GET http://localhost:3001/api/pokemon/health\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n    at apiRequestContext.get: connect ECONNREFUSED ::1:3001\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:59:43",
+                        "location": {
+                          "file": "apiRequestContext.get: connect ECONNREFUSED :",
+                          "column": 3001,
+                          "line": 1
+                        }
+                      },
+                      "errors": [
                         {
-                          "text": "健康檢查 API 響應時間: 5ms\n"
-                        },
-                        {
-                          "text": "服務狀態 API 響應時間: 11ms\n"
-                        },
-                        {
-                          "text": "主題列表 API 響應時間: 6ms\n"
+                          "location": {
+                            "file": "apiRequestContext.get: connect ECONNREFUSED :",
+                            "column": 3001,
+                            "line": 1
+                          },
+                          "message": "Error: apiRequestContext.get: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → GET http://localhost:3001/api/pokemon/health\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n\u001b[2m    at apiRequestContext.get: connect ECONNREFUSED ::1:3001\u001b[22m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:59:43\u001b[22m"
                         }
                       ],
+                      "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:36.383Z",
+                      "startTime": "2025-09-22T00:05:12.748Z",
                       "annotations": [],
                       "attachments": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-API-響應時間測試-chromium\\trace.zip"
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-API-響應時間測試-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-API-響應時間測試-chromium\\video.webm"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "apiRequestContext.get: connect ECONNREFUSED :",
+                        "column": 3001,
+                        "line": 1
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "287184de4a6dfcb71595-c803577b949268163970",
@@ -1555,31 +1809,34 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "timedOut",
-                      "duration": 30818,
+                      "workerIndex": 25,
+                      "parallelIndex": 11,
+                      "status": "failed",
+                      "duration": 3986,
                       "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/worksheets\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/worksheets\", waiting until \"load\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:70:16",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                          "column": 16,
+                          "line": 70
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 68 |\u001b[39m\n \u001b[90m 69 |\u001b[39m   test(\u001b[32m'記憶體洩漏測試'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 70 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/worksheets'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 71 |\u001b[39m\n \u001b[90m 72 |\u001b[39m     \u001b[90m// 重複生成練習表多次\u001b[39m\n \u001b[90m 73 |\u001b[39m     \u001b[36mfor\u001b[39m (\u001b[36mlet\u001b[39m i \u001b[33m=\u001b[39m \u001b[35m0\u001b[39m\u001b[33m;\u001b[39m i \u001b[33m<\u001b[39m \u001b[35m5\u001b[39m\u001b[33m;\u001b[39m i\u001b[33m++\u001b[39m) {\u001b[0m"
                       },
                       "errors": [
                         {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
                           "location": {
                             "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
-                            "column": 23,
-                            "line": 75
+                            "column": 16,
+                            "line": 70
                           },
-                          "message": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#characters')\u001b[22m\n\n\n  73 |     for (let i = 0; i < 5; i++) {\n  74 |       const textInput = page.locator('#characters')\n> 75 |       await textInput.fill(`記憶體測試 ${i + 1}`)\n     |                       ^\n  76 |\n  77 |       const previewBtn = page.locator('button:has-text(\"預覽練習表\")')\n  78 |       if (await previewBtn.isVisible()) {\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:75:23"
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/worksheets\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 68 |\u001b[39m\n \u001b[90m 69 |\u001b[39m   test(\u001b[32m'記憶體洩漏測試'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 70 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/worksheets'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 71 |\u001b[39m\n \u001b[90m 72 |\u001b[39m     \u001b[90m// 重複生成練習表多次\u001b[39m\n \u001b[90m 73 |\u001b[39m     \u001b[36mfor\u001b[39m (\u001b[36mlet\u001b[39m i \u001b[33m=\u001b[39m \u001b[35m0\u001b[39m\u001b[33m;\u001b[39m i \u001b[33m<\u001b[39m \u001b[35m5\u001b[39m\u001b[33m;\u001b[39m i\u001b[33m++\u001b[39m) {\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:70:16\u001b[22m"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:36.403Z",
+                      "startTime": "2025-09-22T00:05:12.779Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -1591,18 +1848,13 @@
                           "name": "video",
                           "contentType": "video/webm",
                           "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\\error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-記憶體洩漏測試-chromium\\trace.zip"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                        "column": 16,
+                        "line": 70
+                      }
                     }
                   ],
                   "status": "unexpected"
@@ -1626,31 +1878,34 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 9,
-                      "parallelIndex": 9,
-                      "status": "timedOut",
-                      "duration": 30825,
+                      "workerIndex": 26,
+                      "parallelIndex": 1,
+                      "status": "failed",
+                      "duration": 3095,
                       "error": {
-                        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/worksheets\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/worksheets\", waiting until \"load\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:93:16",
+                        "location": {
+                          "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                          "column": 16,
+                          "line": 93
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 91 |\u001b[39m\n \u001b[90m 92 |\u001b[39m   test(\u001b[32m'大量文字處理測試'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 93 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/worksheets'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 94 |\u001b[39m\n \u001b[90m 95 |\u001b[39m     \u001b[90m// 測試最大字數限制\u001b[39m\n \u001b[90m 96 |\u001b[39m     \u001b[36mconst\u001b[39m maxText \u001b[33m=\u001b[39m \u001b[32m'測'\u001b[39m\u001b[33m.\u001b[39mrepeat(\u001b[35m100\u001b[39m)\u001b[0m"
                       },
                       "errors": [
                         {
-                          "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                        },
-                        {
                           "location": {
                             "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
-                            "column": 21,
-                            "line": 98
+                            "column": 16,
+                            "line": 93
                           },
-                          "message": "Error: locator.fill: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#characters')\u001b[22m\n\n\n   96 |     const maxText = '測'.repeat(100)\n   97 |     const textInput = page.locator('#characters')\n>  98 |     await textInput.fill(maxText)\n      |                     ^\n   99 |\n  100 |     // 檢查字數顯示\n  101 |     const charCount = page.locator('.char-count')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:98:21"
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/worksheets\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 91 |\u001b[39m\n \u001b[90m 92 |\u001b[39m   test(\u001b[32m'大量文字處理測試'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 93 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/worksheets'\u001b[39m)\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 94 |\u001b[39m\n \u001b[90m 95 |\u001b[39m     \u001b[90m// 測試最大字數限制\u001b[39m\n \u001b[90m 96 |\u001b[39m     \u001b[36mconst\u001b[39m maxText \u001b[33m=\u001b[39m \u001b[32m'測'\u001b[39m\u001b[33m.\u001b[39mrepeat(\u001b[35m100\u001b[39m)\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:93:16\u001b[22m"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:36.587Z",
+                      "startTime": "2025-09-22T00:05:13.070Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -1662,18 +1917,13 @@
                           "name": "video",
                           "contentType": "video/webm",
                           "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-大量文字處理測試-chromium\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-大量文字處理測試-chromium\\error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-大量文字處理測試-chromium\\trace.zip"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
+                        "column": 16,
+                        "line": 93
+                      }
                     }
                   ],
                   "status": "unexpected"
@@ -1697,13 +1947,13 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 11,
-                      "parallelIndex": 11,
+                      "workerIndex": 27,
+                      "parallelIndex": 3,
                       "status": "failed",
-                      "duration": 713,
+                      "duration": 965,
                       "error": {
-                        "message": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at http://localhost:5174/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5174/worksheets\", waiting until \"domcontentloaded\"\u001b[22m\n",
-                        "stack": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at http://localhost:5174/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5174/worksheets\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:126:16",
+                        "message": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at http://localhost:5178/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/worksheets\", waiting until \"domcontentloaded\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at http://localhost:5178/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/worksheets\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:126:16",
                         "location": {
                           "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
                           "column": 16,
@@ -1718,13 +1968,13 @@
                             "column": 16,
                             "line": 126
                           },
-                          "message": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at http://localhost:5174/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5174/worksheets\", waiting until \"domcontentloaded\"\u001b[22m\n\n\n  124 |     await context.setOffline(true)\n  125 |\n> 126 |     await page.goto('/worksheets', { waitUntil: 'domcontentloaded' })\n      |                ^\n  127 |\n  128 |     // 檢查離線時的行為\n  129 |     const textInput = page.locator('#characters')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:126:16"
+                          "message": "Error: page.goto: net::ERR_INTERNET_DISCONNECTED at http://localhost:5178/worksheets\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/worksheets\", waiting until \"domcontentloaded\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 124 |\u001b[39m     \u001b[36mawait\u001b[39m context\u001b[33m.\u001b[39msetOffline(\u001b[36mtrue\u001b[39m)\n \u001b[90m 125 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 126 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/worksheets'\u001b[39m\u001b[33m,\u001b[39m { waitUntil\u001b[33m:\u001b[39m \u001b[32m'domcontentloaded'\u001b[39m })\n \u001b[90m     |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 127 |\u001b[39m\n \u001b[90m 128 |\u001b[39m     \u001b[90m// 檢查離線時的行為\u001b[39m\n \u001b[90m 129 |\u001b[39m     \u001b[36mconst\u001b[39m textInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#characters'\u001b[39m)\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:126:16\u001b[22m"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:36.695Z",
+                      "startTime": "2025-09-22T00:05:13.175Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -1736,11 +1986,6 @@
                           "name": "video",
                           "contentType": "video/webm",
                           "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-網路異常處理測試-chromium\\video.webm"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-網路異常處理測試-chromium\\trace.zip"
                         }
                       ],
                       "errorLocation": {
@@ -1760,7 +2005,7 @@
             },
             {
               "title": "並發請求測試",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -1771,42 +2016,54 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 602,
-                      "errors": [],
-                      "stdout": [
+                      "workerIndex": 28,
+                      "parallelIndex": 10,
+                      "status": "failed",
+                      "duration": 587,
+                      "error": {
+                        "message": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/generate\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 87\u001b[22m\n",
+                        "stack": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/generate\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 87\u001b[22m\n\n    at apiRequestContext.post: connect ECONNREFUSED ::1:3001\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:147:36",
+                        "location": {
+                          "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                          "column": 3001,
+                          "line": 1
+                        }
+                      },
+                      "errors": [
                         {
-                          "text": "並發請求 1 狀態: 200\n"
-                        },
-                        {
-                          "text": "並發請求 2 狀態: 200\n"
-                        },
-                        {
-                          "text": "並發請求 3 狀態: 200\n"
-                        },
-                        {
-                          "text": "並發請求 4 狀態: 200\n"
-                        },
-                        {
-                          "text": "並發請求 5 狀態: 200\n"
+                          "location": {
+                            "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                            "column": 3001,
+                            "line": 1
+                          },
+                          "message": "Error: apiRequestContext.post: connect ECONNREFUSED ::1:3001\nCall log:\n\u001b[2m  - → POST http://localhost:3001/api/pokemon/generate\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - content-type: application/json\u001b[22m\n\u001b[2m    - content-length: 87\u001b[22m\n\n\u001b[2m    at apiRequestContext.post: connect ECONNREFUSED ::1:3001\u001b[22m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:147:36\u001b[22m"
                         }
                       ],
+                      "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:36.862Z",
+                      "startTime": "2025-09-22T00:05:13.137Z",
                       "annotations": [],
                       "attachments": [
                         {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-並發請求測試-chromium\\trace.zip"
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-並發請求測試-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-並發請求測試-chromium\\video.webm"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "apiRequestContext.post: connect ECONNREFUSED :",
+                        "column": 3001,
+                        "line": 1
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "287184de4a6dfcb71595-bb1f93c71fd6fa04b3d4",
@@ -1827,28 +2084,28 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
+                      "workerIndex": 29,
+                      "parallelIndex": 6,
                       "status": "failed",
-                      "duration": 5982,
+                      "duration": 3022,
                       "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('header')\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('header')\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:172:42",
+                        "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/\", waiting until \"load\"\u001b[22m\n\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:169:16",
                         "location": {
                           "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
-                          "column": 42,
-                          "line": 172
+                          "column": 16,
+                          "line": 169
                         },
-                        "snippet": "\u001b[0m \u001b[90m 170 |\u001b[39m\n \u001b[90m 171 |\u001b[39m     \u001b[90m// 檢查基本功能在不同瀏覽器中是否正常\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 172 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m     |\u001b[39m                                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 173 |\u001b[39m\n \u001b[90m 174 |\u001b[39m     \u001b[90m// 檢查 CSS 支援\u001b[39m\n \u001b[90m 175 |\u001b[39m     \u001b[36mconst\u001b[39m header \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m)\u001b[0m"
+                        "snippet": "\u001b[0m \u001b[90m 167 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`測試瀏覽器: ${browserName}`\u001b[39m)\n \u001b[90m 168 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 169 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\n \u001b[90m     |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 170 |\u001b[39m\n \u001b[90m 171 |\u001b[39m     \u001b[90m// 檢查基本功能在不同瀏覽器中是否正常\u001b[39m\n \u001b[90m 172 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[0m"
                       },
                       "errors": [
                         {
                           "location": {
                             "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
-                            "column": 42,
-                            "line": 172
+                            "column": 16,
+                            "line": 169
                           },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('header')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('header')\u001b[22m\n\n\n  170 |\n  171 |     // 檢查基本功能在不同瀏覽器中是否正常\n> 172 |     await expect(page.locator('header')).toBeVisible()\n      |                                          ^\n  173 |\n  174 |     // 檢查 CSS 支援\n  175 |     const header = page.locator('header')\n    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:172:42"
+                          "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5178/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5178/\", waiting until \"load\"\u001b[22m\n\n\n\u001b[0m \u001b[90m 167 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`測試瀏覽器: ${browserName}`\u001b[39m)\n \u001b[90m 168 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 169 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/'\u001b[39m)\n \u001b[90m     |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 170 |\u001b[39m\n \u001b[90m 171 |\u001b[39m     \u001b[90m// 檢查基本功能在不同瀏覽器中是否正常\u001b[39m\n \u001b[90m 172 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'header'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[0m\n\u001b[2m    at C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts:169:16\u001b[22m"
                         }
                       ],
                       "stdout": [
@@ -1858,7 +2115,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-21T11:51:37.552Z",
+                      "startTime": "2025-09-22T00:05:13.836Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -1870,22 +2127,12 @@
                           "name": "video",
                           "contentType": "video/webm",
                           "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\\error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "C:\\Personal\\Project\\CharMon\\charmon-app\\test-results\\05-performance-性能和穩定性測試-瀏覽器兼容性測試-chromium\\trace.zip"
                         }
                       ],
                       "errorLocation": {
                         "file": "C:\\Personal\\Project\\CharMon\\charmon-app\\tests\\e2e\\05-performance.spec.ts",
-                        "column": 42,
-                        "line": 172
+                        "column": 16,
+                        "line": 169
                       }
                     }
                   ],
@@ -1904,11 +2151,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-09-21T11:51:25.444Z",
-    "duration": 42237.206999999995,
-    "expected": 19,
+    "startTime": "2025-09-22T00:04:55.107Z",
+    "duration": 23166.142,
+    "expected": 1,
     "skipped": 0,
-    "unexpected": 12,
+    "unexpected": 30,
     "flaky": 0
   }
 }

@@ -1,0 +1,56 @@
+{
+  "pokemonName": "小火龍",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "美麗的橙紅色小火龍",
+      "characterCount": 9,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "活潑可愛的小火龍",
+      "characterCount": 8,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "在小屋裡玩耍",
+      "characterCount": 6,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "開心地戰鬥",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "就像太陽那麼熱情",
+      "characterCount": 8,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 36,
+  "ageGroup": "elementary-low",
+  "generatedAt": "2025-09-21T23:54:20.180Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "美麗的橙紅色小火龍"
+    },
+    {
+      "description": "活潑可愛的小火龍"
+    },
+    {
+      "description": "在小屋裡玩耍"
+    },
+    {
+      "description": "開心地戰鬥"
+    },
+    {
+      "description": "就像太陽那麼熱情"
+    }
+  ]
+}

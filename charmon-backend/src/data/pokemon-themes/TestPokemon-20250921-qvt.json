@@ -1,0 +1,56 @@
+{
+  "pokemonName": "TestPokemon",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "閃亮的粉紅色TestP…",
+      "characterCount": 12,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "充滿活力的TestPokemon",
+      "characterCount": 16,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "在美麗的小屋裡",
+      "characterCount": 7,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "愉快地舞蹈",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "如同彩虹般純潔",
+      "characterCount": 7,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 47,
+  "ageGroup": "kindergarten",
+  "generatedAt": "2025-09-21T14:33:01.842Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "閃亮的粉紅色TestP…"
+    },
+    {
+      "description": "充滿活力的TestPokemon"
+    },
+    {
+      "description": "在美麗的小屋裡"
+    },
+    {
+      "description": "愉快地舞蹈"
+    },
+    {
+      "description": "如同彩虹般純潔"
+    }
+  ]
+}

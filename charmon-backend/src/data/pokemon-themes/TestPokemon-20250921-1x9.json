@@ -1,0 +1,56 @@
+{
+  "pokemonName": "TestPokemon",
+  "elements": [
+    {
+      "type": "顏色",
+      "content": "美麗的黑色TestPo…",
+      "characterCount": 12,
+      "ageAppropriate": true
+    },
+    {
+      "type": "形容",
+      "content": "溫柔善良的小夥伴",
+      "characterCount": 8,
+      "ageAppropriate": true
+    },
+    {
+      "type": "地點",
+      "content": "在海邊裡玩耍",
+      "characterCount": 6,
+      "ageAppropriate": true
+    },
+    {
+      "type": "動態",
+      "content": "開心地玩耍",
+      "characterCount": 5,
+      "ageAppropriate": true
+    },
+    {
+      "type": "修辭",
+      "content": "好比寶石一樣純潔",
+      "characterCount": 8,
+      "ageAppropriate": true
+    }
+  ],
+  "totalCharacterCount": 39,
+  "ageGroup": "kindergarten",
+  "generatedAt": "2025-09-21T23:54:20.243Z",
+  "generationType": "template",
+  "variations": [
+    {
+      "description": "美麗的黑色TestPo…"
+    },
+    {
+      "description": "溫柔善良的小夥伴"
+    },
+    {
+      "description": "在海邊裡玩耍"
+    },
+    {
+      "description": "開心地玩耍"
+    },
+    {
+      "description": "好比寶石一樣純潔"
+    }
+  ]
+}
