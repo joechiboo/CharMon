@@ -62,7 +62,7 @@
                 <el-col :xs="24" :md="12">
                   <div class="qr-code-container">
                     <img
-                      src="/CharMon/linePay.png"
+                      :src="linePayImage"
                       alt="LINE Pay QR Code"
                       class="qr-code"
                     />
@@ -127,6 +127,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { ElCard, ElRow, ElCol, ElAvatar, ElDivider, ElAlert, ElMessage, ElButton } from 'element-plus'
+import linePayImage from '/linePay.png'
 
 interface DonationOption {
   amount: number
