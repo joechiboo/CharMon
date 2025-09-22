@@ -126,7 +126,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ElCard, ElRow, ElCol, ElAvatar, ElDivider, ElAlert, ElTag, ElMessage, ElButton } from 'element-plus'
+import { ElCard, ElRow, ElCol, ElAvatar, ElDivider, ElAlert, ElMessage, ElButton } from 'element-plus'
 
 interface DonationOption {
   amount: number
