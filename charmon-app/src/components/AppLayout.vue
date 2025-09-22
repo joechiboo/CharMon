@@ -52,6 +52,12 @@
             <span>家長專區</span>
           </router-link>
         </li>
+        <li>
+          <router-link to="/about-author" :class="{ active: $route.path === '/about-author' }">
+            <el-icon><InfoFilled /></el-icon>
+            <span>關於作者</span>
+          </router-link>
+        </li>
       </ul>
 
       <div class="sidebar-footer">
@@ -78,7 +84,8 @@ import {
   Present,
   Document,
   User,
-  SwitchButton
+  SwitchButton,
+  InfoFilled
 } from '@element-plus/icons-vue'
 
 const router = useRouter()

@@ -75,6 +75,11 @@ const router = createRouter({
       meta: { requiresAuth: true, requiresParent: true }
     },
     {
+      path: '/about-author',
+      name: 'about-author',
+      component: () => import('@/views/AboutAuthorView.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: () => import('@/views/NotFoundView.vue')
