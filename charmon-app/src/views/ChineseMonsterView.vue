@@ -118,17 +118,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 
-const router = useRouter()
-
-interface Monster {
-  id: number
-  name: string
-  emoji: string
-  ability: string
-}
 
 interface Sentence {
   text: string
@@ -166,12 +157,6 @@ for (let i = 0; i < 15; i++) {
   randomDurations.value.push(5 + Math.random() * 4)
 }
 
-const monsters: Monster[] = [
-  { id: 1, name: '聲調龍', emoji: '🐲', ability: '精通四聲變化' },
-  { id: 2, name: '注音獸', emoji: '🦁', ability: '掌控注音符號' },
-  { id: 3, name: '文字精靈', emoji: '🧚', ability: '字形變換大師' },
-  { id: 4, name: '筆畫怪', emoji: '👾', ability: '筆順達人' }
-]
 
 const tones = [
   { value: 1, label: '一聲 (ˉ)' },
