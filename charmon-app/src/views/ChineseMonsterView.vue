@@ -858,12 +858,17 @@ const restartGame = () => {
   background: transparent;
   border: 2px solid #00ff00;
   color: #00ff00;
-  padding: 20px;
+  padding: 25px 30px;
   border-radius: 10px;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: inherit;
+  min-width: 120px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .tone-btn:hover {
@@ -916,7 +921,15 @@ const restartGame = () => {
   }
 
   .tone-options {
-    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 0 auto 20px;
+  }
+
+  .tone-btn {
+    font-size: 1.6rem;
+    padding: 30px 25px;
+    min-width: 140px;
+    min-height: 90px;
   }
 }
 </style>
