@@ -56,6 +56,11 @@ const router = createRouter({
       component: () => import('@/views/ChineseMonsterView.vue')
     },
     {
+      path: '/games/chinese-comprehension',
+      name: 'games-chinese-comprehension',
+      component: () => import('@/views/ChineseComprehensionView.vue')
+    },
+    {
       path: '/achievements',
       name: 'achievements',
       component: () => import('@/views/AchievementsView.vue'),

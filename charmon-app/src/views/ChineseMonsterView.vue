@@ -159,11 +159,11 @@ for (let i = 0; i < 15; i++) {
 
 
 const tones = [
-  { value: 1, label: '一聲 (ˉ)' },
-  { value: 2, label: '二聲 (ˊ)' },
-  { value: 3, label: '三聲 (ˇ)' },
-  { value: 4, label: '四聲 (ˋ)' },
-  { value: 5, label: '輕聲 (˙)' }
+  { value: 1, label: '一' },
+  { value: 2, label: '二' },
+  { value: 3, label: '三' },
+  { value: 4, label: '四' },
+  { value: 5, label: '輕' }
 ]
 
 // 題庫 - 原本完整的句子
@@ -858,17 +858,18 @@ const restartGame = () => {
   background: transparent;
   border: 2px solid #00ff00;
   color: #00ff00;
-  padding: 25px 30px;
+  padding: 20px 25px;
   border-radius: 10px;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: inherit;
-  min-width: 120px;
-  min-height: 80px;
+  min-width: 80px;
+  min-height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 1;
 }
 
 .tone-btn:hover {
@@ -921,15 +922,16 @@ const restartGame = () => {
   }
 
   .tone-options {
-    gap: 10px;
+    gap: 8px;
     margin: 0 auto 20px;
+    flex-wrap: nowrap;
   }
 
   .tone-btn {
-    font-size: 1.6rem;
-    padding: 30px 25px;
-    min-width: 140px;
-    min-height: 90px;
+    font-size: 1.8rem;
+    padding: 25px 15px;
+    min-width: 60px;
+    min-height: 75px;
   }
 }
 </style>

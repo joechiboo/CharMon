@@ -29,6 +29,22 @@
             <span class="feature-tag matrix-tag">🎨 創意學習</span>
           </div>
         </div>
+
+        <div class="game-mode-card comprehension-style" @click="selectGameMode('chinese-comprehension')">
+          <div class="wave-background">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+          </div>
+          <div class="mode-icon">📚</div>
+          <h2 class="mode-title">中文怪物-中文理解</h2>
+          <p class="mode-description">聆聽對話，測試理解能力</p>
+          <div class="mode-features">
+            <span class="feature-tag comprehension-tag">🎧 語音對話</span>
+            <span class="feature-tag comprehension-tag">🧠 邏輯思考</span>
+            <span class="feature-tag comprehension-tag">📝 選擇題</span>
+          </div>
+        </div>
       </div>
 
       <router-link to="/dashboard" class="back-btn">
@@ -60,6 +76,8 @@ const selectGameMode = (mode: string) => {
     router.push('/games/pokemon')
   } else if (mode === 'chinese-monster') {
     router.push('/games/chinese-monster')
+  } else if (mode === 'chinese-comprehension') {
+    router.push('/games/chinese-comprehension')
   }
 }
 </script>
@@ -223,6 +241,86 @@ const selectGameMode = (mode: string) => {
 .matrix-style:hover .feature-tag.matrix-tag {
   background: rgba(0, 255, 0, 0.2);
   box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+/* Comprehension style card */
+.game-mode-card.comprehension-style {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  border: 3px solid #74b9ff;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-mode-card.comprehension-style:hover {
+  background: linear-gradient(135deg, #74b9ff 20%, #0984e3 120%);
+  box-shadow: 0 0 50px rgba(116, 185, 255, 0.5), inset 0 0 30px rgba(116, 185, 255, 0.1);
+  border-color: #74b9ff;
+}
+
+.wave-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: wave-float linear infinite;
+}
+
+.wave:nth-child(1) {
+  animation-duration: 8s;
+  animation-delay: 0s;
+}
+
+.wave:nth-child(2) {
+  animation-duration: 10s;
+  animation-delay: -2s;
+  opacity: 0.8;
+}
+
+.wave:nth-child(3) {
+  animation-duration: 12s;
+  animation-delay: -4s;
+  opacity: 0.6;
+}
+
+@keyframes wave-float {
+  0% {
+    transform: translateX(-50%) translateY(100%);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-100%);
+  }
+}
+
+.comprehension-style .mode-title,
+.comprehension-style .mode-description {
+  color: white;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.comprehension-style .feature-tag.comprehension-tag {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: white;
+}
+
+.comprehension-style:hover .feature-tag.comprehension-tag {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 @keyframes pulse {
