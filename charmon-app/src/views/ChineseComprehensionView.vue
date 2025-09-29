@@ -44,15 +44,7 @@
             </div>
           </div>
 
-          <div class="dialogue-section">
-            <h3 class="dialogue-title">對話內容</h3>
-            <div class="dialogue-box">
-              <div v-for="(line, index) in currentQuestion.dialogue" :key="index" class="dialogue-line">
-                <span class="speaker" :class="line.speaker">{{ line.speaker === 'male' ? '男' : '女' }}：</span>
-                <span class="text">{{ line.text }}</span>
-              </div>
-            </div>
-
+          <div class="audio-only-section">
             <div class="audio-controls">
               <button @click="playDialogue" class="play-btn" :disabled="isPlaying">
                 {{ isPlaying ? '🔊 播放中...' : '🔊 播放對話' }}
@@ -61,6 +53,7 @@
                 ⏹️ 停止播放
               </button>
             </div>
+            <p class="audio-hint">請仔細聆聽對話內容</p>
           </div>
 
           <div class="question-section" v-if="dialogueCompleted">
@@ -317,13 +310,16 @@ const playDialogue = async () => {
 
     // 設置中文語音
     currentUtterance.lang = 'zh-TW'
-    currentUtterance.rate = 0.9
 
     // 根據說話者設置語音特性
     if (line.speaker === 'male') {
-      currentUtterance.pitch = 0.8
+      currentUtterance.pitch = 0.5   // 很低的音調
+      currentUtterance.rate = 0.8    // 較慢的語速
+      currentUtterance.volume = 0.9  // 音量
     } else {
-      currentUtterance.pitch = 1.2
+      currentUtterance.pitch = 1.6   // 很高的音調
+      currentUtterance.rate = 1.0    // 正常語速
+      currentUtterance.volume = 0.8  // 稍小的音量
     }
 
     currentUtterance.onend = () => {
@@ -527,23 +523,16 @@ const restartGame = () => {
   opacity: 0.9;
 }
 
-.dialogue-section {
+.audio-only-section {
   margin-bottom: 40px;
-}
-
-.dialogue-title {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
   text-align: center;
 }
 
-.dialogue-box {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 25px;
-  margin-bottom: 20px;
-  max-height: 300px;
-  overflow-y: auto;
+.audio-hint {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  color: #00ff00;
+  opacity: 0.8;
 }
 
 .dialogue-line {
@@ -629,14 +618,15 @@ const restartGame = () => {
 
 .options-grid {
   display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 15px;
   margin-bottom: 30px;
 }
 
 .option-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  color: white;
+  background: rgba(0, 255, 0, 0.05);
+  border: 2px solid rgba(0, 255, 0, 0.3);
+  color: #00ff00;
   padding: 20px;
   border-radius: 15px;
   cursor: pointer;
@@ -648,23 +638,25 @@ const restartGame = () => {
 }
 
 .option-btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 255, 0, 0.1);
   transform: translateY(-3px);
 }
 
 .option-btn.selected {
-  border-color: #74b9ff;
-  background: rgba(116, 185, 255, 0.2);
+  border-color: #00ff00;
+  background: rgba(0, 255, 0, 0.2);
 }
 
 .option-btn.correct {
-  border-color: #00b894;
-  background: rgba(0, 184, 148, 0.2);
+  border-color: #00ff00;
+  background: rgba(0, 255, 0, 0.3);
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
 }
 
 .option-btn.incorrect {
-  border-color: #e17055;
-  background: rgba(225, 112, 85, 0.2);
+  border-color: #ff0000;
+  background: rgba(255, 0, 0, 0.2);
+  color: #ff6b6b;
 }
 
 .option-btn:disabled {
