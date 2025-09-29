@@ -280,6 +280,12 @@ const isCorrect = computed(() => selectedAnswer.value === currentQuestion.value.
 const initSpeechSynthesis = () => {
   if ('speechSynthesis' in window) {
     speechSynthesis = window.speechSynthesis
+    // 等待語音列表載入
+    if (speechSynthesis.getVoices().length === 0) {
+      speechSynthesis.addEventListener('voiceschanged', () => {
+        console.log('Available voices:', speechSynthesis.getVoices())
+      })
+    }
   }
 }
 
@@ -311,15 +317,37 @@ const playDialogue = async () => {
     // 設置中文語音
     currentUtterance.lang = 'zh-TW'
 
-    // 根據說話者設置語音特性
-    if (line.speaker === 'male') {
-      currentUtterance.pitch = 0.5   // 很低的音調
-      currentUtterance.rate = 0.8    // 較慢的語速
-      currentUtterance.volume = 0.9  // 音量
+    // 嘗試選擇男女不同的語音
+    const voices = speechSynthesis.getVoices()
+    if (voices.length > 0) {
+      if (line.speaker === 'male') {
+        // 尋找男性語音或較低音調的語音
+        const maleVoice = voices.find(voice =>
+          voice.lang.includes('zh') &&
+          (voice.name.includes('Male') || voice.name.includes('男') || voice.name.includes('Man'))
+        ) || voices.find(voice => voice.lang.includes('zh'))
+        if (maleVoice) currentUtterance.voice = maleVoice
+        currentUtterance.pitch = 0.3   // 非常低的音調
+        currentUtterance.rate = 0.9    // 稍快語速
+      } else {
+        // 尋找女性語音或較高音調的語音
+        const femaleVoice = voices.find(voice =>
+          voice.lang.includes('zh') &&
+          (voice.name.includes('Female') || voice.name.includes('女') || voice.name.includes('Woman'))
+        ) || voices.find(voice => voice.lang.includes('zh'))
+        if (femaleVoice) currentUtterance.voice = femaleVoice
+        currentUtterance.pitch = 1.8   // 非常高的音調
+        currentUtterance.rate = 1.1    // 較快語速
+      }
     } else {
-      currentUtterance.pitch = 1.6   // 很高的音調
-      currentUtterance.rate = 1.0    // 正常語速
-      currentUtterance.volume = 0.8  // 稍小的音量
+      // 如果沒有語音選項，只調整音調和語速
+      if (line.speaker === 'male') {
+        currentUtterance.pitch = 0.3
+        currentUtterance.rate = 0.9
+      } else {
+        currentUtterance.pitch = 1.8
+        currentUtterance.rate = 1.1
+      }
     }
 
     currentUtterance.onend = () => {
