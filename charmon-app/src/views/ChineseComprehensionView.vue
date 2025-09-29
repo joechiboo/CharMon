@@ -76,9 +76,9 @@
               </button>
             </div>
 
-            <div v-if="answered" class="answer-feedback">
-              <div class="feedback-message" :class="{ correct: isCorrect, incorrect: !isCorrect }">
-                {{ isCorrect ? '✅ 答對了！' : '❌ 答錯了！' }}
+            <div v-if="answered" class="answer-feedback" :class="{ correct: isCorrect, incorrect: !isCorrect }">
+              <div class="feedback-message">
+                {{ isCorrect ? '正確' : '錯誤' }}
               </div>
               <div class="explanation" v-if="currentQuestion.explanation">
                 <strong>解析：</strong>{{ currentQuestion.explanation }}
@@ -281,9 +281,11 @@ const initSpeechSynthesis = () => {
   if ('speechSynthesis' in window) {
     speechSynthesis = window.speechSynthesis
     // 等待語音列表載入
-    if (speechSynthesis.getVoices().length === 0) {
+    if (speechSynthesis && speechSynthesis.getVoices().length === 0) {
       speechSynthesis.addEventListener('voiceschanged', () => {
-        console.log('Available voices:', speechSynthesis.getVoices())
+        if (speechSynthesis) {
+          console.log('Available voices:', speechSynthesis.getVoices())
+        }
       })
     }
   }
@@ -318,7 +320,7 @@ const playDialogue = async () => {
     currentUtterance.lang = 'zh-TW'
 
     // 嘗試選擇男女不同的語音
-    const voices = speechSynthesis.getVoices()
+    const voices = speechSynthesis?.getVoices() || []
     console.log('男女語音選擇 - 說話者:', line.speaker, '可用語音:', voices.filter(v => v.lang.includes('zh')))
 
     if (voices.length > 0) {
@@ -395,7 +397,9 @@ const playDialogue = async () => {
       dialogueCompleted.value = true
     }
 
-    speechSynthesis.speak(currentUtterance)
+    if (speechSynthesis) {
+      speechSynthesis.speak(currentUtterance)
+    }
   }
 
   playNextLine()
@@ -737,46 +741,79 @@ const restartGame = () => {
 }
 
 .answer-feedback {
-  text-align: center;
-  padding: 25px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.answer-feedback.correct {
+  background: rgba(0, 255, 0, 0.2);
+  color: #00ff00;
+}
+
+.answer-feedback.incorrect {
+  background: rgba(255, 0, 0, 0.2);
+  color: #ff6b6b;
 }
 
 .feedback-message {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
+  font-size: 16rem;
   font-weight: bold;
+  margin-bottom: 40px;
+  text-shadow: 0 0 20px currentColor;
+  animation: feedbackPulse 0.5s ease-in-out;
 }
 
-.feedback-message.correct {
-  color: #00b894;
-}
-
-.feedback-message.incorrect {
-  color: #e17055;
+@keyframes feedbackPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .explanation {
   margin-bottom: 20px;
   line-height: 1.6;
   opacity: 0.9;
+  font-size: 1.2rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 800px;
 }
 
 .next-btn {
-  background: #74b9ff;
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  border-radius: 20px;
-  font-size: 1.1rem;
+  background: rgba(0, 255, 0, 0.8);
+  color: #000;
+  border: 2px solid #00ff00;
+  padding: 15px 40px;
+  border-radius: 25px;
+  font-size: 1.3rem;
+  font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-shadow: none;
 }
 
 .next-btn:hover {
-  background: #0984e3;
-  transform: translateY(-2px);
+  background: #00ff00;
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
 }
 
 .game-result {
