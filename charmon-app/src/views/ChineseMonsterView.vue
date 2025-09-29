@@ -194,7 +194,7 @@ const sentenceBank = [
     { char: '划', tone: 2 }, { char: '算', tone: 4 }
   ]},
   { text: '卡比寶寶吃水餃', characters: [
-    { char: '卡', tone: 3 }, { char: '比', tone: 3 }, { char: '寶', tone: 3 }, { char: '寶', tone: 3 },
+    { char: '卡', tone: 3 }, { char: '比', tone: 3 }, { char: '寶', tone: 3 }, { char: '寶', tone: 5 },
     { char: '吃', tone: 1 }, { char: '水', tone: 3 }, { char: '餃', tone: 3 }
   ]},
   { text: '你算老幾？你們年輕人真的不懂事', characters: [
