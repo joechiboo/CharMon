@@ -319,34 +319,69 @@ const playDialogue = async () => {
 
     // 嘗試選擇男女不同的語音
     const voices = speechSynthesis.getVoices()
+    console.log('男女語音選擇 - 說話者:', line.speaker, '可用語音:', voices.filter(v => v.lang.includes('zh')))
+
     if (voices.length > 0) {
+      const chineseVoices = voices.filter(voice => voice.lang.includes('zh'))
+
       if (line.speaker === 'male') {
-        // 尋找男性語音或較低音調的語音
-        const maleVoice = voices.find(voice =>
-          voice.lang.includes('zh') &&
-          (voice.name.includes('Male') || voice.name.includes('男') || voice.name.includes('Man'))
-        ) || voices.find(voice => voice.lang.includes('zh'))
-        if (maleVoice) currentUtterance.voice = maleVoice
-        currentUtterance.pitch = 0.3   // 非常低的音調
-        currentUtterance.rate = 0.9    // 稍快語速
+        // 嘗試不同的男性語音選擇策略
+        let maleVoice = chineseVoices.find(voice =>
+          voice.name.toLowerCase().includes('male') ||
+          voice.name.includes('男') ||
+          voice.name.toLowerCase().includes('man') ||
+          voice.name.toLowerCase().includes('david') ||
+          voice.name.toLowerCase().includes('alex') ||
+          voice.name.toLowerCase().includes('bruce')
+        )
+
+        // 如果找不到明確的男聲，選擇第一個中文語音（通常預設是中性或男聲）
+        if (!maleVoice && chineseVoices.length > 0) {
+          maleVoice = chineseVoices[0]
+        }
+
+        if (maleVoice) {
+          currentUtterance.voice = maleVoice
+          console.log('選擇男聲:', maleVoice.name)
+        }
+
+        currentUtterance.pitch = 0.1   // 極極低的音調
+        currentUtterance.rate = 0.85   // 稍慢語速讓低音更明顯
+
       } else {
-        // 尋找女性語音或較高音調的語音
-        const femaleVoice = voices.find(voice =>
-          voice.lang.includes('zh') &&
-          (voice.name.includes('Female') || voice.name.includes('女') || voice.name.includes('Woman'))
-        ) || voices.find(voice => voice.lang.includes('zh'))
-        if (femaleVoice) currentUtterance.voice = femaleVoice
-        currentUtterance.pitch = 1.8   // 非常高的音調
-        currentUtterance.rate = 1.1    // 較快語速
+        // 女聲選擇
+        let femaleVoice = chineseVoices.find(voice =>
+          voice.name.toLowerCase().includes('female') ||
+          voice.name.includes('女') ||
+          voice.name.toLowerCase().includes('woman') ||
+          voice.name.toLowerCase().includes('mei') ||
+          voice.name.toLowerCase().includes('ting') ||
+          voice.name.toLowerCase().includes('ya')
+        )
+
+        // 如果找不到明確的女聲，選擇最後一個中文語音（有些系統女聲排在後面）
+        if (!femaleVoice && chineseVoices.length > 1) {
+          femaleVoice = chineseVoices[chineseVoices.length - 1]
+        } else if (!femaleVoice && chineseVoices.length > 0) {
+          femaleVoice = chineseVoices[0]
+        }
+
+        if (femaleVoice) {
+          currentUtterance.voice = femaleVoice
+          console.log('選擇女聲:', femaleVoice.name)
+        }
+
+        currentUtterance.pitch = 2.0   // 極高音調
+        currentUtterance.rate = 1.15   // 較快語速
       }
     } else {
       // 如果沒有語音選項，只調整音調和語速
       if (line.speaker === 'male') {
-        currentUtterance.pitch = 0.3
-        currentUtterance.rate = 0.9
+        currentUtterance.pitch = 0.1
+        currentUtterance.rate = 0.85
       } else {
-        currentUtterance.pitch = 1.8
-        currentUtterance.rate = 1.1
+        currentUtterance.pitch = 2.0
+        currentUtterance.rate = 1.15
       }
     }
 
