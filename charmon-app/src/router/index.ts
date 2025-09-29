@@ -53,8 +53,7 @@ const router = createRouter({
     {
       path: '/games/chinese-monster',
       name: 'games-chinese-monster',
-      component: () => import('@/views/ChineseMonsterView.vue'),
-      meta: { requiresAuth: true }
+      component: () => import('@/views/ChineseMonsterView.vue')
     },
     {
       path: '/achievements',
