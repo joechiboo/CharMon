@@ -59,11 +59,12 @@ const router = useRouter()
 const userStore = useUserStore()
 
 const userName = ref('')
-const gradeLevel = ref<'kindergarten' | 'elementary-low' | 'elementary-high' | ''>('')
+const gradeLevel = ref<'kindergarten' | 'elementary-low' | 'elementary-high' | 'foreigner' | ''>('')
 const grades = [
   { value: 'kindergarten', label: '幼稚園', disabled: false },
   { value: 'elementary-low', label: '小學\n低年級', disabled: false },
-  { value: 'elementary-high', label: '小學\n高年級', disabled: true }
+  { value: 'elementary-high', label: '小學\n高年級', disabled: true },
+  { value: 'foreigner', label: '外國人', disabled: true }
 ]
 
 const canLogin = computed(() => {
@@ -80,6 +81,7 @@ const handleLogin = () => {
       case 'kindergarten': return 5
       case 'elementary-low': return 8
       case 'elementary-high': return 11
+      case 'foreigner': return 18
       default: return 6
     }
   }
@@ -97,7 +99,7 @@ const handleLogin = () => {
 
   // 根據年級決定登入後的導向
   if (user.gradeLevel === 'elementary-low') {
-    // 低年級：直接進入遊戲時間
+    // 低年級：進入遊戲選擇頁面
     router.push('/games')
   } else {
     // 幼稚園：進入儀表板

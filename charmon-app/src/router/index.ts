@@ -41,7 +41,19 @@ const router = createRouter({
     {
       path: '/games',
       name: 'games',
-      component: () => import('@/views/GamesView.vue'),
+      component: () => import('@/views/GameSelectView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/games/pokemon',
+      name: 'games-pokemon',
+      component: () => import('@/views/PokemonGameView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/games/chinese-monster',
+      name: 'games-chinese-monster',
+      component: () => import('@/views/ChineseMonsterView.vue'),
       meta: { requiresAuth: true }
     },
     {

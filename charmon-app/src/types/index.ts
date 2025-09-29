@@ -2,7 +2,7 @@ export interface User {
   id: string
   name: string
   age: number
-  gradeLevel: 'kindergarten' | 'elementary-low' | 'elementary-high'
+  gradeLevel: 'kindergarten' | 'elementary-low' | 'elementary-high' | 'foreigner'
   avatar?: string
   parentId?: string
   isParent?: boolean
